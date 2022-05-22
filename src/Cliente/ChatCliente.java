@@ -21,7 +21,7 @@ public class ChatCliente {
 
     public void start() throws IOException {
         clientSocket = new Socket(SERVER_ADRESS, PORT_SERVIDOR);
-        this.out = new BufferedWriter(new OutputStreamWriter(clientSocket.getOutputStream()));
+
         mensage_loop();
     }
     private void mensage_loop() throws IOException{

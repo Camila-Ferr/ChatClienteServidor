@@ -20,10 +20,8 @@ public class Servidor {
 
     private void clienteConnectionLoop() throws IOException{
         while (true){
-            Socket cliente = serverSocket.accept();
-            System.out.println("Cliente " +cliente.getRemoteSocketAddress());
-            BufferedReader in = new BufferedReader(new InputStreamReader(cliente.getInputStream()));
-            String message = in.readLine();
+            ServidorSocket cliente = new ServidorSocket (serverSocket.accept());
+            new Thread(cliente::getMessage).start();
 
             //TIRA ISSO
             System.out.println("Mensagem recebida do cliente " +cliente.getRemoteSocketAddress()  +":" +message);
