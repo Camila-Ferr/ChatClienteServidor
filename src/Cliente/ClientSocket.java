@@ -1,8 +1,8 @@
 package Cliente;
 
-import java.io.BufferedWriter;
+import Exceptions.ClienteErroException;
+
 import java.io.IOException;
-import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.Socket;
 
@@ -16,6 +16,15 @@ public class ClientSocket {
     }
     public boolean msgSend(String msg){
         return !out.checkError();
+    }
+    public void closeC() throws ClienteErroException {
+        try {
+            out.close();
+            socket.close();
+        }
+        catch (IOException e){
+            throw new ClienteErroException(1);
+        }
     }
 }
 

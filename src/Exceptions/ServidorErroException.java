@@ -6,8 +6,8 @@ public class ServidorErroException extends IOException {
     public ServidorErroException(){
         super("Erro ao criar o servidor.");
     }
-    public ServidorErroException(int port){
-        super("Erro ao criar o servidor " +port);
+    public ServidorErroException(int close){
+        super("Erro ao fechar o servidor ");
     }
     @Override
     public String getMessage() {

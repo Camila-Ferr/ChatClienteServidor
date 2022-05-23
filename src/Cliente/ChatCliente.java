@@ -1,10 +1,7 @@
 package Cliente;
-
 import Exceptions.ClienteErroException;
-
-import java.io.BufferedWriter;
 import java.io.IOException;
-import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.Scanner;
 
@@ -13,7 +10,7 @@ public class ChatCliente {
     private static final int PORT_SERVIDOR = 3334;
     private Socket clientSocket;
     private Scanner scanner;
-    private BufferedWriter out;
+    private PrintWriter out;
 
     public ChatCliente(){
         scanner = new Scanner(System.in);
@@ -27,9 +24,9 @@ public class ChatCliente {
     private void mensage_loop() throws IOException{
         String message;
         do{
+            this.out = new PrintWriter(clientSocket.getOutputStream(),true);
             message = scanner.nextLine();
             out.write(message);
-            out.newLine();
             //Confirma o envio
             out.flush();
         } while (!message.equals(" "));

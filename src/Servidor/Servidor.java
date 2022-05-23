@@ -1,12 +1,11 @@
 package Servidor;
 
+
 import Exceptions.ServidorErroException;
 
 import java.io.*;
 import java.net.ServerSocket;
-import java.net.Socket;
-import java.util.Scanner;
-import java.util.logging.Logger;
+
 
 public class Servidor {
     private static final int PORT_SERVIDOR = 3334;
@@ -21,11 +20,30 @@ public class Servidor {
     private void clienteConnectionLoop() throws IOException{
         while (true){
             ServidorSocket cliente = new ServidorSocket (serverSocket.accept());
-            new Thread(cliente::getMessage).start();
-
-            //TIRA ISSO
-            System.out.println("Mensagem recebida do cliente " +cliente.getRemoteSocketAddress()  +":" +message);
+            new Thread(() -> {
+                try {
+                    clientMessageLoop(cliente);
+                } catch (ServidorErroException e) {
+                    throw new RuntimeException(e);
+                }
+            }).start();
         }
+    }
+    public void clientMessageLoop(ServidorSocket socket) throws ServidorErroException {
+        String message;
+        try {
+            while ((message = socket.getMessage()) != null) {
+                if (" ".equalsIgnoreCase(message)) {
+                    return;
+                }
+                System.out.printf("Cliente: %s\n", socket.getRemoteSocketAdress());
+                System.out.printf("Mensagem: %s\n", message);
+            }
+        } finally {
+            socket.closeS();
+        }
+
+
     }
 
     public static void main (String[] args) throws ServidorErroException {
