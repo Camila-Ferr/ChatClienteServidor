@@ -15,6 +15,7 @@ public class ClientSocket {
             this.out = new PrintWriter(socket.getOutputStream(),true);
     }
     public boolean msgSend(String msg){
+        out.println(msg);
         return !out.checkError();
     }
     public void closeC() throws ClienteErroException {

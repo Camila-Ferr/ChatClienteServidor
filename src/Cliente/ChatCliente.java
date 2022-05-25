@@ -8,27 +8,24 @@ import java.util.Scanner;
 public class ChatCliente {
     private final String SERVER_ADRESS = "127.0.0.1";
     private static final int PORT_SERVIDOR = 3334;
-    private Socket clientSocket;
+    private ClientSocket clientSocket;
     private Scanner scanner;
-    private PrintWriter out;
+    
 
     public ChatCliente(){
         scanner = new Scanner(System.in);
     }
 
     public void start() throws IOException {
-        clientSocket = new Socket(SERVER_ADRESS, PORT_SERVIDOR);
+        clientSocket = new ClientSocket(new Socket(SERVER_ADRESS, PORT_SERVIDOR));
 
         mensage_loop();
     }
     private void mensage_loop() throws IOException{
         String message;
         do{
-            this.out = new PrintWriter(clientSocket.getOutputStream(),true);
             message = scanner.nextLine();
-            out.write(message);
-            //Confirma o envio
-            out.flush();
+            clientSocket.msgSend(message);
         } while (!message.equals(" "));
     }
 
