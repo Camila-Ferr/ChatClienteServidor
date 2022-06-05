@@ -20,6 +20,7 @@ public class Servidor {
     private void clienteConnectionLoop() throws IOException{
         while (true){
             ServidorSocket cliente = new ServidorSocket (serverSocket.accept());
+            cliente.confirma_chaves(cliente.getMessage());
             new Thread(() -> {
                 try {
                     clientMessageLoop(cliente);
@@ -33,7 +34,7 @@ public class Servidor {
         String message;
         try {
             while ((message = socket.getMessage()) != null) {
-                if (" ".equalsIgnoreCase(message)) {
+                if (!"exit".equalsIgnoreCase(message)) {
                     return;
                 }
                 System.out.printf("Cliente: %s\n", socket.getRemoteSocketAdress());
