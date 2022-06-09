@@ -11,11 +11,11 @@ import java.util.ArrayList;
 
 public class ServidorSocket {
     private final Socket socket;
-    private final BufferedReader in;
+    private BufferedReader in;
 
     private final PrintWriter out;
 
-    private final ServerCrypto keys;
+    final ServerCrypto keys;
 
     public ServidorSocket(Socket socket) throws IOException {
         this.socket = socket;
@@ -24,23 +24,42 @@ public class ServidorSocket {
         this.in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
         keys = new ServerCrypto(BigInteger.valueOf(5), BigInteger.valueOf(23));
     }
-    public boolean confirma_chaves(String msg){
-        ArrayList<Integer> msgs = keys.confirma_(msg);
-        for (int i: msgs){
+    public boolean confirma_chaves() throws IOException {
+
+        Long msg = Long.parseLong(in.readLine());
+        System.out.println(msg);
+        ArrayList<Integer> msgs = keys.confirma_(BigInteger.valueOf(msg));
+        sendMessage(msgs,'*');
+        out.println(keys.getPublic_key());
+        String verifica = keys.Desencode(getMessage());
+        String original = keys.Desencode(msgs);
+        return original.equals(verifica);
+    }
+    public boolean sendMessage(ArrayList<Integer> msg, char ultimo_caracter) {
+
+        for (int i : msg) {
             out.println(i);
             System.out.println(i);
         }
-        out.println("-");
-        out.println(this.keys.getPublic_key());
+        out.println(ultimo_caracter);
         return !out.checkError();
     }
+    public ArrayList<Integer> getMessage() throws IOException {
 
-    public String getMessage() {
-        try {
-            return in.readLine();
-        } catch (IOException e) {
-            return null;
+        ArrayList<Integer> msg = new ArrayList<>();
+        while (true) {
+            String s = in.readLine();
+            System.out.println(msg);
+            if (s.equals("-")){
+                in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+                break;
+            }
+            else {
+                msg.add(Integer.valueOf(s));
+            }
         }
+        System.out.println(msg);
+        return msg;
     }
 
     public SocketAddress getRemoteSocketAdress() {

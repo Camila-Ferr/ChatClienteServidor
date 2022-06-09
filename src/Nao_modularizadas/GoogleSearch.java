@@ -13,7 +13,7 @@ import org.sikuli.api.visual.DesktopCanvas;
 
 import static org.sikuli.api.API.*;
 
-public class GoogleSearch {
+public class  GoogleSearch {
     private void searchOnGoogle(String find) {
         Desktop desktop = Desktop.isDesktopSupported() ? Desktop.getDesktop() : null;
         if (desktop != null && desktop.isSupported(Desktop.Action.BROWSE)) {

@@ -9,6 +9,7 @@ import java.io.PrintWriter;
 import java.math.BigInteger;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class ClientSocket {
     private final Socket socket;
@@ -21,6 +22,8 @@ public class ClientSocket {
     private BigInteger inicio_alfabeto;
 
     private final BigInteger _base = BigInteger.valueOf(5);
+
+    Scanner scanner = new Scanner(System.in);
 
     public ClientSocket(Socket socket) throws IOException {
         this.socket = socket;
@@ -37,7 +40,6 @@ public class ClientSocket {
         BigInteger privateKey;
 
         privateKey = BigInteger.valueOf(System.currentTimeMillis());
-        System.out.println(privateKey + "\n");
         return new BigInteger[]{privateKey, generatePublicKey(privateKey, modulus)};
     }
 
@@ -52,7 +54,7 @@ public class ClientSocket {
 
         for (int i=0; i<msg.length(); i++) {
             codigo = (int)msg.charAt(i);
-            codigo = codigo + Integer.parseInt(String.valueOf(inicio_alfabeto));
+            codigo = codigo + Integer.parseInt(String.valueOf(this.inicio_alfabeto));
             msgs.add(codigo);
         }
         return msgs;
@@ -70,17 +72,25 @@ public class ClientSocket {
         return msg;
     }
 
-    public boolean msgSend(ArrayList<Integer> msg) {
-        for (int i : msg) {
-            out.println(msg);
-        }
-        return !out.checkError();
-    }
+//    public boolean msgSend(ArrayList<Integer> msg) {
+//            for (int i : msg) {
+//                out.println(i);
+//                System.out.println(i);
+//            }
+//            return !out.checkError();
+//        }
+
 
     public boolean msgSend(String msg) {
         ArrayList<Integer> criptografada;
         criptografada = Encode(msg);
-        msgSend(msg);
+        System.out.println(msg);
+
+        for (int i : criptografada) {
+            System.out.println(i);
+            out.println(i);
+       }
+        out.println("-");
         return !out.checkError();
     }
 
@@ -97,28 +107,36 @@ public class ClientSocket {
         return public_key;
     }
 
-    public void getMessage(int cod) throws IOException {
-        this.server_key = BigInteger.valueOf(Long.parseLong(in.readLine()));
-        System.out.println(server_key);
-        this.inicio_alfabeto = this.server_key.modPow(this.private_key, BigInteger.valueOf(23));
-        System.out.println(inicio_alfabeto);
-    }
-
     public ArrayList<Integer> getMessage() throws IOException {
 
         ArrayList<Integer> msg = new ArrayList<>();
+        ArrayList<Integer> chave = new ArrayList<Integer>();
         while (true) {
             String s = in.readLine();
-            System.out.println(msg);
-            if (s.equals("-")){
-                getMessage(1);
+            System.out.println(s);
+            if (s.equals("*")){
+                Long k = Long.parseLong(in.readLine());
+                server_key = BigInteger.valueOf(k);
+                System.out.println(server_key);
+                break;
+            }
+            else if (s.equals("-")){
                 break;
             }
             else {
                 msg.add(Integer.valueOf(s));
             }
         }
-        System.out.println("Digite o número:" + Desencode(msg));
+        System.out.println(msg);
+        System.out.println(server_key);
         return msg;
+    }
+    public void confirma() throws IOException {
+        out.println(getPublic_key());
+        System.out.println("Public key :"+getPublic_key());
+        ArrayList<Integer> msg = getMessage();
+        inicio_alfabeto =  this.server_key.modPow(this.private_key, BigInteger.valueOf(23));
+        System.out.println("Digite o número:" + Desencode(msg));
+        msgSend(scanner.nextLine());
     }
 }

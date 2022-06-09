@@ -5,6 +5,7 @@ import Exceptions.ServidorErroException;
 
 import java.io.*;
 import java.net.ServerSocket;
+import java.util.ArrayList;
 
 
 public class Servidor {
@@ -20,26 +21,36 @@ public class Servidor {
     private void clienteConnectionLoop() throws IOException{
         while (true){
             ServidorSocket cliente = new ServidorSocket (serverSocket.accept());
-            cliente.confirma_chaves(cliente.getMessage());
-            new Thread(() -> {
-                try {
-                    clientMessageLoop(cliente);
-                } catch (ServidorErroException e) {
-                    throw new RuntimeException(e);
-                }
-            }).start();
+            if (cliente.confirma_chaves()) {
+                new Thread(() -> {
+                    try {
+                        clientMessageLoop(cliente);
+                    } catch (ServidorErroException e) {
+                        throw new RuntimeException(e);
+                    }
+                }).start();
+            }
+            else {
+                break;
+            }
         }
     }
     public void clientMessageLoop(ServidorSocket socket) throws ServidorErroException {
-        String message;
+        String message = null;
         try {
-            while ((message = socket.getMessage()) != null) {
-                if (!"exit".equalsIgnoreCase(message)) {
+            while (true) {
+                message = null;
+                System.out.println("aq");
+                message = socket.keys.Desencode(socket.getMessage());
+                System.out.println(message);
+                if ("exit".equals(message)) {
                     return;
                 }
                 System.out.printf("Cliente: %s\n", socket.getRemoteSocketAdress());
                 System.out.printf("Mensagem: %s\n", message);
             }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         } finally {
             socket.closeS();
         }

@@ -1,4 +1,6 @@
 package Servidor;
+import Exceptions.ComandoNotFindException;
+
 import java.io.PrintWriter;
 import java.math.BigInteger;
 import java.util.ArrayList;
@@ -12,6 +14,8 @@ public class ServerCrypto {
     private final BigInteger private_key;
     private final BigInteger public_key;
 
+    private BigInteger inicio_alfabeto;
+
 
     public ServerCrypto(BigInteger base, BigInteger modulus) {
         _base = base;
@@ -19,14 +23,12 @@ public class ServerCrypto {
         BigInteger[] chaves = generateRandomKeys(modulus);
         this.private_key = chaves[0];
         this.public_key = chaves[1];
-        System.out.println(this.public_key + "\n");
 
 
     }
 
     private BigInteger[] generateRandomKeys(BigInteger modulus) {
         BigInteger privateKey = BigInteger.valueOf(System.currentTimeMillis() + __server);
-        System.out.println(privateKey + "\n");
         return new BigInteger[]{privateKey, generatePublicKey(privateKey, modulus)};
     }
 
@@ -34,10 +36,10 @@ public class ServerCrypto {
         return _base.modPow(privateKey, modulus);
     }
 
-    private ArrayList<Integer> Encode(String msg, BigInteger inicio_alfabeto){
+    private ArrayList<Integer> Encode(String msg){
         int codigo;
-        int inicio = Integer.parseInt(String.valueOf(inicio_alfabeto));
-        System.out.println(msg);
+        int inicio = Integer.parseInt(String.valueOf(this.inicio_alfabeto));
+      //  System.out.println(msg);
         ArrayList<Integer> msgs = new ArrayList<Integer>();
 
         for (int i=0; i<msg.length(); i++) {
@@ -48,9 +50,9 @@ public class ServerCrypto {
         return msgs;
     }
 
-    private ArrayList<Integer> Desencode(ArrayList<Integer> msgs, BigInteger inicio_alfabeto){
+    public String Desencode(ArrayList<Integer> msgs){
         int codigo;
-        int inicio = Integer.parseInt(String.valueOf(inicio_alfabeto));
+        int inicio = Integer.parseInt(String.valueOf(this.inicio_alfabeto));
         String msg = "";
         char letra;
 
@@ -59,18 +61,27 @@ public class ServerCrypto {
             letra = (char)codigo;
             msg = msg.concat(String.valueOf(letra));
         }
-        return msgs;
+        return msg;
     }
 
     public BigInteger getPublic_key() {
         return public_key;
     }
 
-    public ArrayList<Integer> confirma_(String msg){
-        int numero = random.nextInt();
-        BigInteger public_key = new BigInteger(msg);
-        return (Encode(String.valueOf(numero),public_key.modPow(this.private_key,BigInteger.valueOf(23))));
+    public ArrayList<Integer> confirma_(BigInteger public_client){
+        int numero = random.nextInt(999);
+        System.out.println("Numero enviado: " +numero);
+        this.inicio_alfabeto = public_client.modPow(this.private_key,BigInteger.valueOf(23));
+        System.out.println("inicio: " +inicio_alfabeto);
+        return (Encode(String.valueOf(numero)));
 
+    }
+    public ArrayList<Integer> reconhece_comandos(String comando_servidor) {
+        if (comando_servidor.equals("find")){
+
+        }
+
+        return null;
     }
 
 }

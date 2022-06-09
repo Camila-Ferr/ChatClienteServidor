@@ -23,18 +23,20 @@ public class ChatCliente {
     }
 
     private void mensage_loop() throws IOException{
-        confirma_chave();
+        clientSocket.confirma();
         String message;
         do{
             message = scanner.nextLine();
-        } while (!message.equals("exit"));
+            if (message.equals("--*")){
+                message = scanner.nextLine();
+                clientSocket.msgSend("*".concat(message));
+            }
+            else {
+                clientSocket.msgSend(message);
+            }
+        } while (!message.equalsIgnoreCase("exit"));
     }
 
-    public void confirma_chave() throws IOException {
-        clientSocket.msgSend(String.valueOf(clientSocket.getPublic_key()));
-        ArrayList<Integer> msg = clientSocket.getMessage();
-        clientSocket.msgSend(scanner.nextLine());
-    }
     public static void main (String[]args) throws ClienteErroException {
         try {
             ChatCliente cliente = new ChatCliente();
