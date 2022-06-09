@@ -17,6 +17,8 @@ public class ServidorSocket {
 
     final ServerCrypto keys;
 
+    String client_id = null;
+
     public ServidorSocket(Socket socket) throws IOException {
         this.socket = socket;
         System.out.println("Cliente " + socket.getRemoteSocketAddress());
@@ -27,7 +29,6 @@ public class ServidorSocket {
     public boolean confirma_chaves() throws IOException {
 
         Long msg = Long.parseLong(in.readLine());
-        System.out.println(msg);
         ArrayList<Integer> msgs = keys.confirma_(BigInteger.valueOf(msg));
         sendMessage(msgs,'*');
         out.println(keys.getPublic_key());
@@ -35,21 +36,31 @@ public class ServidorSocket {
         String original = keys.Desencode(msgs);
         return original.equals(verifica);
     }
+
+
     public boolean sendMessage(ArrayList<Integer> msg, char ultimo_caracter) {
 
         for (int i : msg) {
             out.println(i);
-            System.out.println(i);
         }
         out.println(ultimo_caracter);
         return !out.checkError();
     }
+
+    public boolean sendMessage(String msg, char ultimo_caracter) {
+        ArrayList<Integer> cripto = keys.Encode(msg);
+        for (int i : cripto) {
+            out.println(i);
+        }
+        out.println(ultimo_caracter);
+        return !out.checkError();
+    }
+
     public ArrayList<Integer> getMessage() throws IOException {
 
         ArrayList<Integer> msg = new ArrayList<>();
         while (true) {
             String s = in.readLine();
-            System.out.println(msg);
             if (s.equals("-")){
                 in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
                 break;
@@ -58,12 +69,15 @@ public class ServidorSocket {
                 msg.add(Integer.valueOf(s));
             }
         }
-        System.out.println(msg);
         return msg;
     }
 
     public SocketAddress getRemoteSocketAdress() {
         return socket.getRemoteSocketAddress();
+    }
+
+    public void setClient_id(String client_id) {
+        this.client_id = client_id;
     }
 
     public void closeS() throws ServidorErroException {

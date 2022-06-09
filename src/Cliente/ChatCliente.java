@@ -1,9 +1,9 @@
 package Cliente;
 import Exceptions.ClienteErroException;
+import Exceptions.ConexaoClientException;
+
 import java.io.IOException;
-import java.math.BigInteger;
 import java.net.Socket;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class ChatCliente {
@@ -22,8 +22,15 @@ public class ChatCliente {
         mensage_loop();
     }
 
-    private void mensage_loop() throws IOException{
+    private void mensage_loop() throws NullPointerException, IOException{
         clientSocket.confirma();
+        String confirmação = clientSocket.getMessage(1);
+        System.out.println(confirmação);
+
+        if (confirmação.isEmpty()){
+            throw new ConexaoClientException();
+        }
+        clientSocket.msgSend(scanner.nextLine());
         String message;
         do{
             message = scanner.nextLine();

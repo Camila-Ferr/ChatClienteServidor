@@ -1,11 +1,9 @@
 package Servidor;
 
-
 import Exceptions.ServidorErroException;
 
 import java.io.*;
 import java.net.ServerSocket;
-import java.util.ArrayList;
 
 
 public class Servidor {
@@ -22,6 +20,8 @@ public class Servidor {
         while (true){
             ServidorSocket cliente = new ServidorSocket (serverSocket.accept());
             if (cliente.confirma_chaves()) {
+                cliente.sendMessage("Digite seu apelido: ",'-');
+                cliente.setClient_id(cliente.keys.Desencode(cliente.getMessage()));
                 new Thread(() -> {
                     try {
                         clientMessageLoop(cliente);
@@ -31,7 +31,7 @@ public class Servidor {
                 }).start();
             }
             else {
-                break;
+                cliente.sendMessage("",'-');
             }
         }
     }
@@ -40,9 +40,7 @@ public class Servidor {
         try {
             while (true) {
                 message = null;
-                System.out.println("aq");
                 message = socket.keys.Desencode(socket.getMessage());
-                System.out.println(message);
                 if ("exit".equals(message)) {
                     return;
                 }
@@ -51,11 +49,7 @@ public class Servidor {
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
-        } finally {
-            socket.closeS();
         }
-
-
     }
 
     public static void main (String[] args) throws ServidorErroException {

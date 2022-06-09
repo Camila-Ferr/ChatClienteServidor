@@ -1,7 +1,5 @@
 package Servidor;
-import Exceptions.ComandoNotFindException;
 
-import java.io.PrintWriter;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Random;
@@ -36,7 +34,7 @@ public class ServerCrypto {
         return _base.modPow(privateKey, modulus);
     }
 
-    private ArrayList<Integer> Encode(String msg){
+    public ArrayList<Integer> Encode(String msg){
         int codigo;
         int inicio = Integer.parseInt(String.valueOf(this.inicio_alfabeto));
       //  System.out.println(msg);
@@ -55,11 +53,18 @@ public class ServerCrypto {
         int inicio = Integer.parseInt(String.valueOf(this.inicio_alfabeto));
         String msg = "";
         char letra;
+        boolean comando = false;
 
         for (Integer i : msgs) {
             codigo = i - inicio;
             letra = (char)codigo;
+            if (msg.equals("") && codigo == ((int) '*')){
+                comando = true;
+            }
             msg = msg.concat(String.valueOf(letra));
+        }
+        if (comando){
+            reconhece_comandos(msg);
         }
         return msg;
     }
@@ -77,8 +82,10 @@ public class ServerCrypto {
 
     }
     public ArrayList<Integer> reconhece_comandos(String comando_servidor) {
-        if (comando_servidor.equals("find")){
-
+        String comando = comando_servidor.split("_")[0];
+        String objeto = comando_servidor.split("_")[1];
+        if (comando.equals("*find")){
+            new GoogleSearch().searchOnGoogle(objeto);
         }
 
         return null;

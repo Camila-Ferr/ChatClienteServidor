@@ -49,7 +49,6 @@ public class ClientSocket {
 
     private ArrayList<Integer> Encode(String msg){
         int codigo;
-        System.out.println(msg);
         ArrayList<Integer> msgs = new ArrayList<Integer>();
 
         for (int i=0; i<msg.length(); i++) {
@@ -63,7 +62,6 @@ public class ClientSocket {
         int codigo;
         String msg = "";
         char letra;
-        System.out.println(inicio_alfabeto);
         for (Integer i : descripta) {
             codigo = i-Integer.parseInt(String.valueOf(inicio_alfabeto));
             letra = (char) codigo;
@@ -72,22 +70,14 @@ public class ClientSocket {
         return msg;
     }
 
-//    public boolean msgSend(ArrayList<Integer> msg) {
-//            for (int i : msg) {
-//                out.println(i);
-//                System.out.println(i);
-//            }
-//            return !out.checkError();
-//        }
+
 
 
     public boolean msgSend(String msg) {
         ArrayList<Integer> criptografada;
         criptografada = Encode(msg);
-        System.out.println(msg);
 
         for (int i : criptografada) {
-            System.out.println(i);
             out.println(i);
        }
         out.println("-");
@@ -113,11 +103,9 @@ public class ClientSocket {
         ArrayList<Integer> chave = new ArrayList<Integer>();
         while (true) {
             String s = in.readLine();
-            System.out.println(s);
             if (s.equals("*")){
                 Long k = Long.parseLong(in.readLine());
                 server_key = BigInteger.valueOf(k);
-                System.out.println(server_key);
                 break;
             }
             else if (s.equals("-")){
@@ -127,9 +115,10 @@ public class ClientSocket {
                 msg.add(Integer.valueOf(s));
             }
         }
-        System.out.println(msg);
-        System.out.println(server_key);
         return msg;
+    }
+    public String getMessage(int cod) throws IOException {
+        return Desencode(getMessage());
     }
     public void confirma() throws IOException {
         out.println(getPublic_key());
