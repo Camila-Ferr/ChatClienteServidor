@@ -85,7 +85,7 @@ public class ServerCrypto {
         String comando = comando_servidor.split("_")[0];
         String objeto = comando_servidor.split("_")[1];
         if (comando.equals("*find")){
-            new GoogleSearch().searchOnGoogle(objeto);
+            //new GoogleSearch().searchOnGoogle(objeto);
         }
 
         return null;

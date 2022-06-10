@@ -3,16 +3,6 @@ package Servidor;
 import java.awt.*;
 import java.io.File;
 import java.net.URI;
-import java.net.MalformedURLException;
-import java.net.URL;
-
-import org.sikuli.api.*;
-import org.sikuli.api.robot.Mouse;
-import org.sikuli.api.robot.desktop.DesktopMouse;
-import org.sikuli.api.visual.Canvas;
-import org.sikuli.api.visual.DesktopCanvas;
-
-import static org.sikuli.api.API.*;
 
 public class  GoogleSearch {
     public void searchOnGoogle(String find) {

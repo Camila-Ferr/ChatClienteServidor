@@ -17,7 +17,9 @@ public class ServidorSocket {
 
     final ServerCrypto keys;
 
-    String client_id = null;
+    private Integer sala;
+
+    private String client_id = null;
 
     public ServidorSocket(Socket socket) throws IOException {
         this.socket = socket;
@@ -75,9 +77,18 @@ public class ServidorSocket {
     public SocketAddress getRemoteSocketAdress() {
         return socket.getRemoteSocketAddress();
     }
-
+    public Integer getSala(){
+        return sala;
+    }
+    public String getClient_id(){
+        return client_id;
+    }
     public void setClient_id(String client_id) {
         this.client_id = client_id;
+    }
+
+    public void setSala(Integer sala) {
+        this.sala = sala;
     }
 
     public void closeS() throws ServidorErroException {

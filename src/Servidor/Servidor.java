@@ -1,14 +1,20 @@
 package Servidor;
 
+
 import Exceptions.ServidorErroException;
 
 import java.io.*;
 import java.net.ServerSocket;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 
 
 public class Servidor {
     private static final int PORT_SERVIDOR = 3334;
     private  ServerSocket serverSocket;
+    private final List<ServidorSocket> clients = new LinkedList<>();
+    private ArrayList<Integer> salas = new ArrayList<>();
 
     public void start() throws IOException {
         System.out.println("Servidor iniciado na porta " +PORT_SERVIDOR );
@@ -16,36 +22,67 @@ public class Servidor {
         clienteConnectionLoop();
     }
 
-    private void clienteConnectionLoop() throws IOException{
-        while (true){
-            ServidorSocket cliente = new ServidorSocket (serverSocket.accept());
+    private void clienteConnectionLoop() throws IOException {
+        while (true) {
+
+            ServidorSocket cliente = new ServidorSocket(serverSocket.accept());
             if (cliente.confirma_chaves()) {
-                cliente.sendMessage("Digite seu apelido: ",'-');
+                cliente.sendMessage("Digite seu apelido: ", '-');
                 cliente.setClient_id(cliente.keys.Desencode(cliente.getMessage()));
-                new Thread(() -> {
-                    try {
-                        clientMessageLoop(cliente);
-                    } catch (ServidorErroException e) {
-                        throw new RuntimeException(e);
-                    }
-                }).start();
+                clients.add(cliente);
+                defineRoom(cliente);
             }
             else {
                 cliente.sendMessage("",'-');
             }
         }
     }
-    public void clientMessageLoop(ServidorSocket socket) throws ServidorErroException {
+    private void sendMessageToAll(ServidorSocket sender, String msg){
+        for (ServidorSocket receptor: clients){
+            if ((receptor.getSala() == sender.getSala()) && (!(receptor.getRemoteSocketAdress().equals(sender.getRemoteSocketAdress())))){
+                receptor.sendMessage("from :".concat(sender.getClient_id()),'-');
+                receptor.sendMessage(msg,'-');
+            }
+        }
+
+    }
+    private void defineRoom(ServidorSocket cliente){
+        int contador = 0;
+        int sala = -1;
+        try {
+            for (int i: salas){
+                if (i < 3){
+                    salas.set(contador, salas.get(contador) + 1);
+                    cliente.setSala(contador);
+                    break;
+                }
+                else if (i>3){
+                    contador = contador +1;
+                }
+            }
+        }catch (Exception e){
+            salas.add(1);
+            cliente.setSala(salas.get(contador));
+        }
+        new Thread(() -> {
+            try {
+                clientMessageLoop(cliente);
+            } catch (ServidorErroException e) {
+                throw new RuntimeException(e);
+            }
+        }).start();
+    }
+    private void clientMessageLoop(ServidorSocket socket) throws ServidorErroException {
         String message = null;
         try {
             while (true) {
-                message = null;
                 message = socket.keys.Desencode(socket.getMessage());
                 if ("exit".equals(message)) {
                     return;
                 }
                 System.out.printf("Cliente: %s\n", socket.getRemoteSocketAdress());
                 System.out.printf("Mensagem: %s\n", message);
+                sendMessageToAll(socket,message);
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
