@@ -3,6 +3,7 @@ package app;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 
 public class BasicController {
 
@@ -13,8 +14,6 @@ public class BasicController {
         // TODO
     }
 
-    @FXML
-    private void handleButtonAction(ActionEvent event) {
-        label.setText("Hello World!");
-    }
+   @FXML
+    private TextField chatUsuario;
 }
