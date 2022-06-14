@@ -1,34 +1,71 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
-<AnchorPane id="ap_main"
-            prefHeight="396" prefWidth="478"
-            xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="app.BasicController">
 
-   <children>
-      <Button fx:id="button_send" layoutX="404" layoutY="338" text="Enviar"/>
-      <TextField fx:id="chatServidor" layoutX="30" layoutY="338"
-                 prefHeight="26" prefWidth="361"/>
-
-      <ScrollPane fx:id="sp_main" layoutX="30" layoutY="70"
-                  prefHeight="256" prefWidth="418" fitToWidth="true">
-         <content>
-            <VBox fx:id="vbox_messages"
-                  prefHeight="248" prefWidth="412"/>
-         </content>
-      </ScrollPane>
-      <Label layoutX="114" layoutY="26"
-             text="Chat do Servidor">
-         <font>
-            <Font name="Arial Rounded MT Bold" size="23">
-
-            </Font>
-         </font>
-
-      </Label>
-   </children>
-</AnchorPane>
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="702.0" prefWidth="1005.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
+   <left>
+      <HBox prefHeight="702.0" prefWidth="296.0" styleClass="gray-background" stylesheets="@../values/style.css" BorderPane.alignment="CENTER">
+         <BorderPane.margin>
+            <Insets />
+         </BorderPane.margin>
+         <children>
+            <VBox prefHeight="702.0" prefWidth="111.0" styleClass="dark-gray-background" stylesheets="@../values/style.css" />
+            <VBox prefHeight="702.0" prefWidth="272.0" />
+         </children>
+      </HBox>
+   </left>
+   <center>
+      <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+         <children>
+            <HBox alignment="CENTER_LEFT" prefHeight="99.0" prefWidth="709.0" styleClass="white-ice-background" stylesheets="@../values/style.css">
+               <children>
+                  <Label prefHeight="33.0" prefWidth="97.0" text="Cliente" textFill="#9da7a7">
+                     <HBox.margin>
+                        <Insets left="20.0" />
+                     </HBox.margin>
+                     <font>
+                        <Font name="Roboto Slab Regular" size="24.0" />
+                     </font>
+                  </Label>
+                  <Circle fill="#50c984" radius="4.0" stroke="BLACK" strokeType="INSIDE" />
+                  <Label prefHeight="20.0" prefWidth="63.0" text="Online" textFill="#9da7a7">
+                     <font>
+                        <Font name="Roboto Slab Regular" size="16.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="5.0" />
+                     </HBox.margin>
+                  </Label>
+               </children>
+            </HBox>
+            <ScrollPane prefHeight="578.0" prefWidth="709.0" styleClass="transparent-background" stylesheets="@../values/style.css" />
+            <HBox prefHeight="100.0" prefWidth="200.0" styleClass="gray-background" stylesheets="@../values/style.css">
+               <children>
+                  <TextField opacity="0.81" prefHeight="48.0" prefWidth="514.0">
+                     <HBox.margin>
+                        <Insets left="20.0" top="15.0" />
+                     </HBox.margin>
+                  </TextField>
+                  <Button mnemonicParsing="false" prefHeight="38.0" prefWidth="91.0" text="Enviar">
+                     <font>
+                        <Font name="Roboto Slab Regular" size="16.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="25.0" top="20.0" />
+                     </HBox.margin>
+                  </Button>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </center>
+</BorderPane>

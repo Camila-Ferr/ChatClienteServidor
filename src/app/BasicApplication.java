@@ -18,7 +18,7 @@ public class BasicApplication extends Application {
         Parent root = FXMLLoader.load(resource);
         Scene scene = new Scene(root);
         stage.setScene(scene);
-        stage.setTitle("Servidor");
+        stage.setTitle("Cliente");
         stage.setHeight(420); stage.setWidth(490);
         stage.show();
     }

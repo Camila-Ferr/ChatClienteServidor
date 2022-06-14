@@ -1,0 +1,15 @@
+.dark-gray-background{
+    -fx-background-color: #46474A;
+}
+
+.gray-background{
+    -fx-background-color: #636566;
+}
+
+.white-ice-background{
+    -fx-background-color: #E5E5E0;
+}
+
+.transparent-background{
+    -fx-background-color: rgba(211, 211, 211, 0.8);
+}
