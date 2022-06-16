@@ -22,6 +22,7 @@ public class ChatCliente implements Runnable{
         confirma(clientSocket);
         new Thread(this).start();
         mensage_loop();
+        clientSocket.closeC();
     }
     @Override
     public void run(){
@@ -44,25 +45,27 @@ public class ChatCliente implements Runnable{
         }
         clientSocket.msgSend(scanner.nextLine());
     }
-    private void mensage_loop() throws NullPointerException{
+    private void mensage_loop()  {
         String message;
+        Boolean verifica = true;
         do{
             message = scanner.nextLine();
             if (message.equals("--*")){
                 message = scanner.nextLine();
-                clientSocket.msgSend("*".concat(message));
+                verifica = clientSocket.msgSend("*".concat(message));
             }
             else {
-                clientSocket.msgSend(message);
+                verifica = clientSocket.msgSend(message);
             }
-        } while (!message.equalsIgnoreCase("exit"));
+        } while (!message.equalsIgnoreCase("*exit") || (!verifica));
     }
 
     public static void main (String[]args) throws ClienteErroException {
+        ChatCliente cliente = new ChatCliente();
         try {
-            ChatCliente cliente = new ChatCliente();
             cliente.start();
         } catch (IOException ex){
+            cliente.clientSocket.closeC();
             throw new ClienteErroException();
 
         }

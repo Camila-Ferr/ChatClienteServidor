@@ -63,9 +63,6 @@ public class ServerCrypto {
             }
             msg = msg.concat(String.valueOf(letra));
         }
-        if (comando){
-            reconhece_comandos(msg);
-        }
         return msg;
     }
 
@@ -80,15 +77,6 @@ public class ServerCrypto {
         System.out.println("inicio: " +inicio_alfabeto);
         return (Encode(String.valueOf(numero)));
 
-    }
-    public ArrayList<Integer> reconhece_comandos(String comando_servidor) {
-        String comando = comando_servidor.split("_")[0];
-        String objeto = comando_servidor.split("_")[1];
-        if (comando.equals("*find")){
-            //new GoogleSearch().searchOnGoogle(objeto);
-        }
-
-        return null;
     }
 
 }
