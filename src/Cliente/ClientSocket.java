@@ -35,8 +35,6 @@ public class ClientSocket {
     }
 
     private BigInteger[] generateRandomKeys(BigInteger modulus) {
-        //Cliente tem um par
-        //Servidor tem um par
         BigInteger privateKey;
 
         privateKey = BigInteger.valueOf(System.currentTimeMillis());
@@ -69,9 +67,6 @@ public class ClientSocket {
         }
         return msg;
     }
-
-
-
 
     public boolean msgSend(String msg) {
         ArrayList<Integer> criptografada;

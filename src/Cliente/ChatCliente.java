@@ -31,8 +31,8 @@ public class ChatCliente implements Runnable{
                 String msg =clientSocket.getMessage(1);
                 System.out.println(msg);
             }
-        }catch (IOException e) {
-            throw new RuntimeException(e);
+        }catch (Exception e) {
+            System.out.println("Conexão fechada.");
         }
     }
     private void confirma(ClientSocket clientSocket) throws IOException {
@@ -45,7 +45,7 @@ public class ChatCliente implements Runnable{
         }
         clientSocket.msgSend(scanner.nextLine());
     }
-    private void mensage_loop()  {
+    private void mensage_loop() throws NullPointerException{
         String message;
         Boolean verifica = true;
         do{
@@ -57,7 +57,7 @@ public class ChatCliente implements Runnable{
             else {
                 verifica = clientSocket.msgSend(message);
             }
-        } while (!message.equalsIgnoreCase("*exit") || (!verifica));
+        } while ((verifica) || (!message.equals("*exit")));
     }
 
     public static void main (String[]args) throws ClienteErroException {
