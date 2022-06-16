@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+import static Servidor.Comandos.*;
+
 
 public class Servidor {
     private static final int PORT_SERVIDOR = 3334;
@@ -47,6 +49,7 @@ public class Servidor {
                             clients.add(cliente);
                             salas.get(0).setClientes();
                             cliente.setSala(salas.get(0));
+                            sendMessageToAll(cliente,cliente.getClient_id().concat(" entrou na sala."),clients);
                         }
                         else {
                             cliente.sendMessage("",'-');
@@ -73,34 +76,6 @@ public class Servidor {
                 }).start();
             }
         }
-    private void sendMessageToAll(ServidorSocket sender, String msg){
-        for (ServidorSocket receptor: clients){
-            if ((receptor.getSala() == sender.getSala()) && (!(receptor.getRemoteSocketAdress().equals(sender.getRemoteSocketAdress())))){
-                receptor.sendMessage("from :".concat(sender.getClient_id()),'-');
-                receptor.sendMessage(msg,'-');
-            }
-        }
-
-    }
-    private void mostraOnline(ServidorSocket requisitor){
-        int id = 1;
-        for (ServidorSocket percorre: clients){
-            requisitor.sendMessage(percorre.getClient_id().concat(" , ").concat(String.valueOf((id))), '-');
-            id +=1;
-        }
-    }
-    private void sendToOne(ServidorSocket sender, int receptor, String motivo, String msg){
-        clients.get(receptor-1).sendMessage(motivo.concat(sender.getClient_id()),'-');
-        clients.get(receptor-1).sendMessage(msg, '-');
-    }
-    private void activeRooms(ServidorSocket socket){
-        for (Sala percorre : salas){
-            socket.sendMessage(String.valueOf(salas.get(percorre.getId())),'-');
-        }
-    }
-    private void help(ServidorSocket socket){
-        //TODO
-    }
 
     private void clientMessageLoop(ServidorSocket socket) throws ServidorErroException {
         String message = null;
@@ -116,10 +91,10 @@ public class Servidor {
                     return;
                 }
                 else if ("*private".equals(message)){
-                    mostraOnline(socket);
+                    mostraOnline(socket,clients);
                     try {
                         id = socket.keys.Desencode(socket.getMessage());
-                        sendToOne(socket, Integer.parseInt(id),"*Private message from ",socket.keys.Desencode(socket.getMessage()));
+                        sendToOne(socket, Integer.parseInt(id),"*Private message from ",socket.keys.Desencode(socket.getMessage()),clients);
                     }
                     catch (Exception e){
                         socket.sendMessage("Cliente não encontrado",'-');
@@ -130,13 +105,15 @@ public class Servidor {
                     Sala sala = new Sala(salas.size());
                     salas.add(sala);
                     socket.setSala(salas.get(salas.size()-1));
+                    sendMessageToAll(socket,socket.getClient_id().concat(" entrou na sala."),clients);
 
-                    mostraOnline(socket);
+
+                    mostraOnline(socket,clients);
                     message ="*";
                     while ("*".equals(message)) {
                         try {
                             id = socket.keys.Desencode(socket.getMessage());
-                            sendToOne(socket, Integer.parseInt(id), "*Change your room from : ", " Número da sala : ".concat (String.valueOf(socket.getSala().getId())));
+                            sendToOne(socket, Integer.parseInt(id), "*Change your room from : ", " Número da sala : ".concat (String.valueOf(socket.getSala().getId())),clients);
                             message = socket.keys.Desencode(socket.getMessage());
                         }
                         catch (Exception e){
@@ -144,26 +121,27 @@ public class Servidor {
                         }
 
                     };
-                    sendMessageToAll(socket,message);
+                    sendMessageToAll(socket,message,clients);
                 }
                 else if ("*changeR".equals(message)){
                     System.out.printf("Cliente: %s\n", socket.getRemoteSocketAdress());
                     System.out.println("Comando para mudar a sala.");
                     try {
                         socket.setSala(salas.get(Integer.parseInt(socket.keys.Desencode(socket.getMessage()))));
+                        sendMessageToAll(socket,socket.getClient_id().concat(" entrou na sala."),clients);
                     }
                     catch (Exception e){
                         socket.sendMessage("Sala não encontrada",'-');
                     }
                 }
                 else if ("*activeR".equals(message)){
-                    activeRooms(socket);
+                    activeRooms(socket,salas);
                 }
                 else if ("*help".equals(message)){
                     //TODO
                 }
                 else {
-                    sendMessageToAll(socket,message);
+                    sendMessageToAll(socket,message,clients);
                     }
                 System.out.printf("Cliente: %s\n", socket.getRemoteSocketAdress());
                 System.out.printf("Mensagem: %s\n", message);
