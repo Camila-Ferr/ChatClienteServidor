@@ -45,7 +45,7 @@ public class ChatCliente implements Runnable{
         }
         clientSocket.msgSend(scanner.nextLine());
     }
-    private void mensage_loop()  {
+    private void mensage_loop() throws NullPointerException{
         String message;
         Boolean verifica = true;
         do{
@@ -56,8 +56,9 @@ public class ChatCliente implements Runnable{
             }
             else {
                 verifica = clientSocket.msgSend(message);
+                System.out.println(verifica);
             }
-        } while (!message.equalsIgnoreCase("*exit") || (!verifica));
+        } while ((verifica) || (!message.equals("*exit")));
     }
 
     public static void main (String[]args) throws ClienteErroException {

@@ -27,6 +27,8 @@ public class ServidorSocket {
         this.out = new PrintWriter(socket.getOutputStream(),true);
         this.in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
         keys = new ServerCrypto(BigInteger.valueOf(5), BigInteger.valueOf(23));
+
+
     }
     public boolean confirma_chaves() throws IOException {
 
