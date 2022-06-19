@@ -1,6 +1,5 @@
 package app;
 
-import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -8,11 +7,11 @@ import javafx.stage.Stage;
 
 import java.net.URL;
 
-public class BasicApplication extends Application {
+public class BasicApplication extends javafx.application.Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        URL resource = getClass().getResource("SceneLogin.fxml");
+        URL resource = getClass().getResource("/views/SceneLogin.fxml");
         if (resource == null) return;
 
         Parent root = FXMLLoader.load(resource);
@@ -20,7 +19,7 @@ public class BasicApplication extends Application {
         stage.setScene(scene);
         stage.setTitle("Cliente");
         stage.setWidth(1026);
-        stage.setHeight(770);
+        stage.setHeight(810);
         stage.show();
     }
 
