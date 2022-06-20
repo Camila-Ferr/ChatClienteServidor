@@ -1,5 +1,6 @@
 package controllers;
 
+import Cliente.ChatCliente;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -16,9 +17,13 @@ public class ChatController {
 
     @FXML
     private Label label;
-
+    @FXML
+    private Label CliNickname;
+    public ChatCliente chatCliente;
     public void initialize() {
-        // TODO
+        this.chatCliente = LoginController.chatCliente;
+        CliNickname.setText(chatCliente.getNickname());
+
     }
 
     // Metódo que muda a cena
@@ -35,6 +40,8 @@ public class ChatController {
         window.setScene(chatScene);
         window.show();
     }
+
+
 
 
    @FXML
