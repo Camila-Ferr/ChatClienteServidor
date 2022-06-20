@@ -37,7 +37,7 @@
                               <Insets right="-48.0" />
                            </HBox.margin>
                         </Button>
-                        <ImageView fitHeight="61.0" fitWidth="76.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="61.0" fitWidth="76.0" onMouseClicked="#number" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../images/icon-login.png" />
                            </image>
@@ -48,12 +48,12 @@
                      <children>
                         <VBox alignment="CENTER" prefHeight="184.0" prefWidth="260.0">
                            <children>
-                              <Label prefHeight="88.0" prefWidth="195.0" text="Numero do Servidor" textFill="#fcfcfc">
+                              <Label fx:id="NumberLabel" prefHeight="88.0" prefWidth="195.0" text="Numero do Servidor" textFill="#fcfcfc">
                                  <font>
                                     <Font name="Roboto Slab Regular" size="19.0" />
                                  </font>
                               </Label>
-                              <TextField id="TextFieldServerNumber" prefHeight="24.0" prefWidth="214.0">
+                              <TextField fx:id="ServerNumber" prefHeight="24.0" prefWidth="214.0">
                                  <VBox.margin>
                                     <Insets bottom="10.0" left="10.0" right="10.0" top="-6.0" />
                                  </VBox.margin>
@@ -75,7 +75,7 @@
                                     <Insets bottom="5.0" />
                                  </VBox.margin>
                               </Label>
-                              <TextField id="TextFieldNickname" prefHeight="24.0" prefWidth="214.0">
+                              <TextField id="TextFieldNickname" fx:id="Nickname" prefHeight="24.0" prefWidth="214.0">
                                  <VBox.margin>
                                     <Insets bottom="10.0" left="10.0" right="10.0" top="18.0" />
                                  </VBox.margin>
@@ -88,7 +88,7 @@
                                     <Insets bottom="-46.0" />
                                  </VBox.margin>
                               </ImageView>
-                              <Button id="ButtonLoginInfos" mnemonicParsing="false" opacity="0.0" prefHeight="66.0" prefWidth="40.0" text="Enviar">
+                              <Button id="ButtonLoginInfos" fx:id="Button" mnemonicParsing="false" onAction="#submit" opacity="0.0" prefHeight="66.0" prefWidth="40.0" text="Enviar">
                                  <cursor>
                                     <Cursor fx:constant="OPEN_HAND" />
                                  </cursor></Button>
@@ -126,12 +126,12 @@
             </ScrollPane>
             <HBox alignment="CENTER" styleClass="white-ice-background" stylesheets="@../values/style.css" VBox.vgrow="ALWAYS">
                <children>
-                  <Label alignment="CENTER" text="Conectar: ">
+                  <Label fx:id="Response" alignment="CENTER" text="Aguardando...">
                      <font>
                         <Font name="Roboto Slab Regular" size="22.0" />
                      </font>
                   </Label>
-                  <ImageView fitHeight="150.0" fitWidth="92.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="ImageConnect" fitHeight="150.0" fitWidth="92.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../images/icon-login.png" />
                      </image>
@@ -139,7 +139,7 @@
                         <Insets right="-80.0" />
                      </HBox.margin>
                   </ImageView>
-                  <Button id="ButtonConnectServer" mnemonicParsing="false" onAction="#changeSceneButtonPushed" opacity="0.0" prefHeight="58.0" prefWidth="67.0" text="Entrar">
+                  <Button id="ButtonConnectServer" fx:id="Connect" mnemonicParsing="false" onAction="#changeSceneButtonPushed" opacity="0.0" prefHeight="58.0" prefWidth="67.0" text="Entrar">
                      <cursor>
                         <Cursor fx:constant="OPEN_HAND" />
                      </cursor>

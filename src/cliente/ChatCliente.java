@@ -1,6 +1,5 @@
 package Cliente;
 import Exceptions.ClienteErroException;
-import Exceptions.ConexaoClientException;
 
 import java.io.IOException;
 import java.net.Socket;
@@ -11,18 +10,21 @@ public class ChatCliente implements Runnable{
     private static final int PORT_SERVIDOR = 3334;
     private ClientSocket clientSocket;
     private Scanner scanner;
+    private String nickname;
 
 
     public ChatCliente(){
         scanner = new Scanner(System.in);
     }
 
+    public String getNickname() {
+        return nickname;
+    }
+
     public void start() throws IOException {
-        clientSocket = new ClientSocket(new Socket(SERVER_ADRESS, PORT_SERVIDOR));
-        confirma(clientSocket);
-        new Thread(this).start();
-        mensage_loop();
-        clientSocket.closeC();
+//        new Thread(this).start();
+//        mensage_loop();
+//        clientSocket.closeC();
     }
     @Override
     public void run(){
@@ -35,16 +37,24 @@ public class ChatCliente implements Runnable{
             System.out.println("Conexão fechada.");
         }
     }
-    private void confirma(ClientSocket clientSocket) throws IOException {
-        clientSocket.confirma();
+    public String geraNumero() throws IOException {
+        clientSocket = new ClientSocket(new Socket(SERVER_ADRESS, PORT_SERVIDOR));
+        return(clientSocket.confirma());
+    }
+
+    public boolean confirma(String numero, String apelido) throws IOException {
+        clientSocket.msgSend(numero);
         String confirmação = clientSocket.getMessage(1);
-        System.out.println(confirmação);
 
         if (confirmação.isEmpty()){
-            throw new ConexaoClientException();
+            return false;
         }
-        clientSocket.msgSend(scanner.nextLine());
-    }
+        else {
+            clientSocket.msgSend(apelido);
+            this.nickname = apelido;
+        }
+        return true;
+   }
     private void mensage_loop() throws NullPointerException{
         String message;
         Boolean verifica = true;
