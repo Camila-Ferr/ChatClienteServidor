@@ -10,14 +10,18 @@ public class ChatCliente implements Runnable{
     private static final int PORT_SERVIDOR = 3334;
     private ClientSocket clientSocket;
     private Scanner scanner;
+    private String nickname;
 
 
     public ChatCliente(){
         scanner = new Scanner(System.in);
     }
 
+    public String getNickname() {
+        return nickname;
+    }
+
     public void start() throws IOException {
-//        geraNumero();
 //        new Thread(this).start();
 //        mensage_loop();
 //        clientSocket.closeC();
@@ -47,6 +51,7 @@ public class ChatCliente implements Runnable{
         }
         else {
             clientSocket.msgSend(apelido);
+            this.nickname = apelido;
         }
         return true;
    }

@@ -2,12 +2,14 @@ package controllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Label;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
 import Cliente.ChatCliente;
@@ -18,7 +20,10 @@ import java.net.URL;
 public class LoginController {
     @FXML
     private TextField Nickname;
-
+    @FXML
+    private Button Connect;
+    @FXML
+    private ImageView ImageConnect;
     @FXML
     private TextField ServerNumber;
 
@@ -29,7 +34,13 @@ public class LoginController {
     private Label Response;
     private boolean ChangeScene;
 
-    private ChatCliente chatCliente = new ChatCliente();
+    protected static ChatCliente chatCliente = new ChatCliente();
+
+    public void initialize() {
+        Connect.setVisible(false);
+        ImageConnect.setVisible(false);
+        this.ChangeScene = false;
+    }
 
     // Metódo que muda a cena
     public void changeSceneButtonPushed(ActionEvent event) throws Exception {
@@ -46,9 +57,6 @@ public class LoginController {
             window.setScene(chatScene);
             window.show();
         }
-        else {
-            Response.setText("Não foi possível se conectar.");
-        }
     }
     //Confirma um número
     public void submit() throws Exception {
@@ -59,6 +67,8 @@ public class LoginController {
            ActionEvent event = new ActionEvent();
            Response.setText("Conectado");
            this.ChangeScene = true;
+           this.ImageConnect.setVisible(true);
+           this.Connect.setVisible(true);
        }
        else {
            Response.setText("Erro ao se conectar, conexão fechada.");
