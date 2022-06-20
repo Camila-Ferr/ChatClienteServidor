@@ -1,4 +1,4 @@
-package Servidor;
+package servidor;
 
 import java.math.BigInteger;
 import java.util.ArrayList;

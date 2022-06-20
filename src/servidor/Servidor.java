@@ -1,4 +1,4 @@
-package Servidor;
+package servidor;
 
 
 import Exceptions.ServidorErroException;
@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-import static Servidor.Comandos.*;
+import static servidor.Comandos.*;
 
 
 public class Servidor {
