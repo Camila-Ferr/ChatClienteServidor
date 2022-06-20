@@ -115,12 +115,11 @@ public class ClientSocket {
     public String getMessage(int cod) throws IOException {
         return Desencode(getMessage());
     }
-    public void confirma() throws IOException {
+    public String confirma() throws IOException {
         out.println(getPublic_key());
-        System.out.println("Public key :"+getPublic_key());
+        //System.out.println("Public key :"+getPublic_key());
         ArrayList<Integer> msg = getMessage();
         inicio_alfabeto =  this.server_key.modPow(this.private_key, BigInteger.valueOf(23));
-        System.out.println("Digite o número:" + Desencode(msg));
-        msgSend(scanner.nextLine());
+        return Desencode(msg);
     }
 }
