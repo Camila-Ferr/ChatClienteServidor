@@ -100,10 +100,13 @@
                   </Label>
                </children>
             </HBox>
-            <ScrollPane prefHeight="578.0" prefWidth="709.0" styleClass="transparent-background" stylesheets="@../values/style.css" />
+            <ScrollPane fx:id="scrollPane_chat" id="ScrollPane_chat" prefHeight="578.0" prefWidth="709.0" styleClass="transparent-background" stylesheets="@../values/style.css">
+               <content>
+                  <VBox fx:id="vbox_messages" prefHeight="570.0" prefWidth="760.0" />
+               </content></ScrollPane>
             <HBox prefHeight="100.0" prefWidth="200.0" styleClass="gray-background" stylesheets="@../values/style.css">
                <children>
-                  <TextField opacity="0.81" prefHeight="48.0" prefWidth="514.0">
+                  <TextField fx:id="textField_client" id="TextField_client" opacity="0.81" prefHeight="48.0" prefWidth="514.0">
                      <HBox.margin>
                         <Insets left="20.0" top="15.0" />
                      </HBox.margin>
@@ -111,7 +114,7 @@
                         <Font name="Roboto Slab Regular" size="16.0" />
                      </font>
                   </TextField>
-                  <Button mnemonicParsing="false" prefHeight="38.0" prefWidth="91.0" text="Enviar">
+                  <Button fx:id="button_send" id="Button_send" mnemonicParsing="false" prefHeight="38.0" prefWidth="91.0" text="Enviar">
                      <font>
                         <Font name="Roboto Slab Regular" size="16.0" />
                      </font>
