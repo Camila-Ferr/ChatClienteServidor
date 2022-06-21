@@ -1,7 +1,8 @@
 package controllers;
 
-import Cliente.ChatCliente;
+import cliente.ChatCliente;
 
+import cliente.ClientSocket;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -59,34 +60,46 @@ public class ChatController {
             @Override
             public void handle(ActionEvent event) {
                 String messageToSend = textField_client.getText();
+                boolean check = sendMsg(messageToSend);
+                if (check){
+                    if (!messageToSend.isEmpty()) {
+                        HBox hBox = new HBox();
+                        hBox.setAlignment(Pos.CENTER_RIGHT);
+                        hBox.setPadding(new Insets(5, 5, 5, 10));
 
-                if (!messageToSend.isEmpty()) {
-                    HBox hBox = new HBox();
-                    hBox.setAlignment(Pos.CENTER_RIGHT);
-                    hBox.setPadding(new Insets(5, 5, 5, 10));
+                        Text text = new Text(messageToSend);
+                        TextFlow textFlow = new TextFlow(text);
 
-                    Text text = new Text(messageToSend);
-                    TextFlow textFlow = new TextFlow(text);
+                        textFlow.setStyle("-fx-color: rgba(239, 242, 255);" +
+                                "-fx-background-color: #12B886;" +
+                                "-fx-background-radius: 20px");
 
-                    textFlow.setStyle("-fx-color: rgba(239, 242, 255);" +
-                                      "-fx-background-color: #12B886;"  +
-                                      "-fx-background-radius: 20px");
+                        textFlow.setPadding(new Insets(5, 10, 5, 10));
+                        text.setFill(Color.color(0.934, 0.945, 0.996));
 
-                    textFlow.setPadding(new Insets(5, 10, 5, 10));
-                    text.setFill(Color.color(0.934, 0.945, 0.996));
+                        hBox.getChildren().add(textFlow);
+                        vbox_messages.getChildren().add(hBox);
+                    }
 
-                    hBox.getChildren().add(textFlow);
-                    vbox_messages.getChildren().add(hBox);
-
-                    // Youtube: 20:20
-                    // A mesma coisa que em cima, porém passando dessa vez não
-                    // o local da mensagem mas sim a mensagem em si
-                    // servidor.recebemensagem(messageToSend)
 
                     textField_client.clear();
                 }
             }
         });
+    }
+    public boolean sendMsg(String messageToSend){
+        boolean check;
+        if (messageToSend.equals("--*")){
+            messageToSend = textField_client.getText();
+            check = chatCliente.clientSocket.msgSend("*".concat(messageToSend));
+        }
+        else {
+            check = chatCliente.clientSocket.msgSend(messageToSend);
+        }
+        if (messageToSend.equals("*exit")){
+            return false;
+        }
+        return check;
     }
 
     // Metódo que muda a cena
@@ -118,6 +131,12 @@ public class ChatController {
         hBox.getChildren().add(textFlow);
 
         // Youtube: 24:50
-        // Cria um Runnable aqui
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+
+            }
+        });
     }
+
 }

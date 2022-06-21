@@ -1,4 +1,4 @@
-package Cliente;
+package cliente;
 import Exceptions.ClienteErroException;
 
 import java.io.IOException;
@@ -8,7 +8,7 @@ import java.util.Scanner;
 public class ChatCliente implements Runnable{
     private final String SERVER_ADRESS = "127.0.0.1";
     private static final int PORT_SERVIDOR = 3334;
-    private ClientSocket clientSocket;
+    public ClientSocket clientSocket;
     private Scanner scanner;
     private String nickname;
 
@@ -22,7 +22,7 @@ public class ChatCliente implements Runnable{
     }
 
     public void start() throws IOException {
-//        new Thread(this).start();
+
 //        mensage_loop();
 //        clientSocket.closeC();
     }
@@ -55,20 +55,20 @@ public class ChatCliente implements Runnable{
         }
         return true;
    }
-    private void mensage_loop() throws NullPointerException{
-        String message;
-        Boolean verifica = true;
-        do{
-            message = scanner.nextLine();
-            if (message.equals("--*")){
-                message = scanner.nextLine();
-                verifica = clientSocket.msgSend("*".concat(message));
-            }
-            else {
-                verifica = clientSocket.msgSend(message);
-            }
-        } while ((verifica) || (!message.equals("*exit")));
-    }
+//    private void mensage_loop() throws NullPointerException{
+//        String message;
+//        Boolean verifica = true;
+//        do{
+//            message = scanner.nextLine();
+//            if (message.equals("--*")){
+//                message = scanner.nextLine();
+//                verifica = clientSocket.msgSend("*".concat(message));
+//            }
+//            else {
+//                verifica = clientSocket.msgSend(message);
+//            }
+//        } while ((verifica) || (!message.equals("*exit")));
+//    }
 
     public static void main (String[]args) throws ClienteErroException {
         ChatCliente cliente = new ChatCliente();

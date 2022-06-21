@@ -5,6 +5,7 @@ import Exceptions.ServidorErroException;
 
 import java.io.*;
 import java.net.ServerSocket;
+import java.net.Socket;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -36,6 +37,15 @@ public class Servidor {
             salas.remove(sala);
         }
     }
+    private void changeR(int nova, int antiga, ServidorSocket cliente){
+        salas.get(nova).addClientes(cliente);
+        cliente.setSala(salas.get(nova));
+        salas.get(nova).sendMessageToAll(cliente,cliente.getClient_id().concat(" entrou na sala."));
+
+        salas.get(antiga).setClientes();//Diminui 1
+        verificaR(salas.get(antiga));
+
+    }
     private void clienteConnectionLoop() throws IOException {
         while (true) {
 
@@ -47,9 +57,11 @@ public class Servidor {
                             cliente.sendMessage("Digite seu apelido: ", '-');
                             cliente.setClient_id(cliente.keys.Desencode(cliente.getMessage()));
                             clients.add(cliente);
-                            salas.get(0).setClientes();
+
+                            salas.get(0).addClientes(cliente);
                             cliente.setSala(salas.get(0));
-                            sendMessageToAll(cliente,cliente.getClient_id().concat(" entrou na sala."),clients);
+                            salas.get(0).sendMessageToAll(cliente,cliente.getClient_id().concat(" entrou na sala."));
+
                         }
                         else {
                             cliente.sendMessage("",'-');
@@ -102,11 +114,10 @@ public class Servidor {
 
                 }
                 else if ("*room".equals(message)){
+                    int antiga = socket.getSala().getId();
                     Sala sala = new Sala(salas.size());
                     salas.add(sala);
-                    socket.setSala(salas.get(salas.size()-1));
-                    sendMessageToAll(socket,socket.getClient_id().concat(" entrou na sala."),clients);
-
+                    changeR(sala.getId(),antiga,socket);
 
                     mostraOnline(socket,clients);
                     message ="*";
@@ -127,8 +138,8 @@ public class Servidor {
                     System.out.printf("Cliente: %s\n", socket.getRemoteSocketAdress());
                     System.out.println("Comando para mudar a sala.");
                     try {
-                        socket.setSala(salas.get(Integer.parseInt(socket.keys.Desencode(socket.getMessage()))));
-                        sendMessageToAll(socket,socket.getClient_id().concat(" entrou na sala."),clients);
+                        int antiga = socket.getSala().getId();
+                        changeR(salas.get(Integer.parseInt(socket.keys.Desencode(socket.getMessage()))).getId(),antiga,socket);
                     }
                     catch (Exception e){
                         socket.sendMessage("Sala não encontrada",'-');

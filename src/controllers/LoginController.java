@@ -12,7 +12,7 @@ import javafx.scene.Scene;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
-import Cliente.ChatCliente;
+import cliente.ChatCliente;
 
 import java.io.IOException;
 import java.net.URL;
