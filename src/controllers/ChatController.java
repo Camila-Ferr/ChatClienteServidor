@@ -2,7 +2,6 @@ package controllers;
 
 import cliente.ChatCliente;
 
-import cliente.ClientSocket;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -22,14 +21,18 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Text;
-import javafx.scene.text.TextFlow;
+import javafx.scene.text.*;
 import javafx.stage.Stage;
 
 import java.net.URL;
 
 public class ChatController {
-
+    @FXML
+    private Label cryptoChat;
+    @FXML
+    private Label chavePublica;
+    @FXML
+    private Label normalChat;
     @FXML
     private Button button_send;
     @FXML
@@ -41,6 +44,8 @@ public class ChatController {
     @FXML
     private Label CliNickname;
     public ChatCliente chatCliente;
+    private boolean ChangeScene;
+
 
     public void initialize() {
         this.chatCliente = LoginController.chatCliente;
@@ -52,9 +57,6 @@ public class ChatController {
                 scrollPane_chat.setVvalue((Double) newValue);
             }
         });
-        // Youtube 15:05
-        // Método do servidor em que recebe a mensagem do usuário
-        // e ele recebe vbox_messages como entrada (servidor.recebemensagem(vbox_messages))
 
         button_send.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -76,7 +78,6 @@ public class ChatController {
 
                         textFlow.setPadding(new Insets(5, 10, 5, 10));
                         text.setFill(Color.color(0.934, 0.945, 0.996));
-
                         hBox.getChildren().add(textFlow);
                         vbox_messages.getChildren().add(hBox);
                     }
@@ -87,6 +88,7 @@ public class ChatController {
             }
         });
     }
+
     public boolean sendMsg(String messageToSend){
         boolean check;
         if (messageToSend.equals("--*")){
@@ -100,21 +102,6 @@ public class ChatController {
             return false;
         }
         return check;
-    }
-
-    // Metódo que muda a cena
-    public void changeSceneButtonPushed(ActionEvent event) throws Exception {
-        URL login = getClass().getResource("/views/SceneLogin.fxml");
-        if (login == null) return;
-
-        Parent chatParent = FXMLLoader.load(login);
-        Scene chatScene = new Scene(chatParent);
-
-        // Pega a informção da cena
-        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-
-        window.setScene(chatScene);
-        window.show();
     }
 
     public static void addLabel(String messageFromClient, VBox vbox) {
@@ -139,4 +126,20 @@ public class ChatController {
         });
     }
 
+    // Metódos que mudam a cena
+    public void changeSceneToCrypto(ActionEvent event) throws Exception {
+        if (this.ChangeScene) {
+            URL crypto = getClass().getResource("/views/SceneCrypto.fxml");
+            if (crypto == null) return;
+
+            Parent chatParent = FXMLLoader.load(crypto);
+            Scene chatScene = new Scene(chatParent);
+
+            // Pega a informção da cena
+            Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+            window.setScene(chatScene);
+            window.show();
+        }
+    }
 }

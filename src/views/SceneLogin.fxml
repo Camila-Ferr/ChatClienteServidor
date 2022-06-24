@@ -48,7 +48,7 @@
                      <children>
                         <VBox alignment="CENTER" prefHeight="184.0" prefWidth="260.0">
                            <children>
-                              <Label fx:id="NumberLabel" prefHeight="88.0" prefWidth="195.0" text="Numero do Servidor" textFill="#fcfcfc">
+                              <Label prefHeight="88.0" prefWidth="195.0" text="Numero do Servidor" textFill="#fcfcfc">
                                  <font>
                                     <Font name="Roboto Slab Regular" size="19.0" />
                                  </font>
@@ -108,7 +108,7 @@
                <children>
                   <ImageView fitHeight="106.0" fitWidth="106.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../images/icon-servidor.png" />
+                        <Image url="@../images/icon-server.png" />
                      </image></ImageView>
                   <Pane prefHeight="150.0" prefWidth="58.0" />
                   <Label text="Servidor :">
@@ -121,7 +121,14 @@
             </HBox>
             <ScrollPane prefHeight="522.0" prefWidth="681.0">
               <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="519.0" prefWidth="704.0">
+                     <children>
+                        <Label fx:id="NumberLabel" layoutX="20.0" layoutY="42.0" prefHeight="47.0" prefWidth="105.0">
+                           <font>
+                              <Font name="Roboto Slab Regular" size="20.0" />
+                           </font>
+                        </Label>
+                     </children></AnchorPane>
               </content>
             </ScrollPane>
             <HBox alignment="CENTER" styleClass="white-ice-background" stylesheets="@../values/style.css" VBox.vgrow="ALWAYS">
@@ -139,7 +146,7 @@
                         <Insets right="-80.0" />
                      </HBox.margin>
                   </ImageView>
-                  <Button id="ButtonConnectServer" fx:id="Connect" mnemonicParsing="false" onAction="#changeSceneButtonPushed" opacity="0.0" prefHeight="58.0" prefWidth="67.0" text="Entrar">
+                  <Button id="ButtonConnectServer" fx:id="Connect" mnemonicParsing="false" onAction="#changeSceneToChat" opacity="0.0" prefHeight="58.0" prefWidth="67.0" text="Entrar">
                      <cursor>
                         <Cursor fx:constant="OPEN_HAND" />
                      </cursor>

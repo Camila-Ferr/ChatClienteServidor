@@ -14,6 +14,14 @@
     -fx-background-color: rgba(211, 211, 211, 0.8);
 }
 
-.chat-letters-color{
+.chat-letters{
     -fx-color: rgba(239, 242, 255);
+}
+
+.chat-background{
+    -fx-background-color: #12B886;
+}
+
+.chat-radius{
+    -fx-background-radius: 20px;
 }

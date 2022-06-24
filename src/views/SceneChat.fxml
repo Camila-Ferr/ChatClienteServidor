@@ -23,7 +23,7 @@
          <children>
             <VBox alignment="CENTER" prefHeight="702.0" prefWidth="111.0" styleClass="dark-gray-background" stylesheets="@../values/style.css">
                <children>
-                  <Button id="ButtonCrypto" mnemonicParsing="false" opacity="0.0" pickOnBounds="false" prefHeight="39.0" prefWidth="40.0" text="Crypto">
+                  <Button id="ButtonCrypto" fx:id="cryptoButton" mnemonicParsing="false" onAction="#changeSceneToCrypto" opacity="0.0" pickOnBounds="false" prefHeight="39.0" prefWidth="40.0" text="Crypto">
                      <cursor>
                         <Cursor fx:constant="OPEN_HAND" />
                      </cursor>
@@ -39,7 +39,7 @@
                         <Insets left="15.0" />
                      </VBox.margin>
                   </ImageView>
-                  <Button id="ButtonRooms" mnemonicParsing="false" opacity="0.0" prefHeight="28.0" prefWidth="40.0" text="Rooms">
+                  <Button id="ButtonRooms" fx:id="roomButton" mnemonicParsing="false" opacity="0.0" prefHeight="28.0" prefWidth="40.0" text="Rooms">
                      <VBox.margin>
                         <Insets bottom="-70.0" top="50.0" />
                      </VBox.margin>
@@ -55,7 +55,7 @@
                         <Insets top="40.0" />
                      </VBox.margin>
                   </ImageView>
-                  <Button id="ButtonHelp" mnemonicParsing="false" opacity="0.0" prefHeight="30.0" prefWidth="40.0" text="Help">
+                  <Button id="ButtonHelp" fx:id="helpButton" mnemonicParsing="false" opacity="0.0" prefHeight="30.0" prefWidth="40.0" text="Help">
                      <VBox.margin>
                         <Insets bottom="-75.0" top="57.0" />
                      </VBox.margin>
@@ -100,13 +100,13 @@
                   </Label>
                </children>
             </HBox>
-            <ScrollPane fx:id="scrollPane_chat" id="ScrollPane_chat" prefHeight="578.0" prefWidth="709.0" styleClass="transparent-background" stylesheets="@../values/style.css">
+            <ScrollPane id="ScrollPane_chat" fx:id="scrollPane_chat" prefHeight="578.0" prefWidth="709.0" styleClass="transparent-background" stylesheets="@../values/style.css">
                <content>
                   <VBox fx:id="vbox_messages" prefHeight="570.0" prefWidth="760.0" />
                </content></ScrollPane>
             <HBox prefHeight="100.0" prefWidth="200.0" styleClass="gray-background" stylesheets="@../values/style.css">
                <children>
-                  <TextField fx:id="textField_client" id="TextField_client" opacity="0.81" prefHeight="48.0" prefWidth="514.0">
+                  <TextField id="TextField_client" fx:id="textField_client" opacity="0.81" prefHeight="48.0" prefWidth="514.0">
                      <HBox.margin>
                         <Insets left="20.0" top="15.0" />
                      </HBox.margin>
@@ -114,7 +114,7 @@
                         <Font name="Roboto Slab Regular" size="16.0" />
                      </font>
                   </TextField>
-                  <Button fx:id="button_send" id="Button_send" mnemonicParsing="false" prefHeight="38.0" prefWidth="91.0" text="Enviar">
+                  <Button id="Button_send" fx:id="button_send" mnemonicParsing="false" prefHeight="38.0" prefWidth="91.0" text="Enviar">
                      <font>
                         <Font name="Roboto Slab Regular" size="16.0" />
                      </font>

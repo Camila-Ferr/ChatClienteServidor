@@ -11,7 +11,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
-
 import cliente.ChatCliente;
 
 import java.io.IOException;
@@ -42,22 +41,6 @@ public class LoginController {
         this.ChangeScene = false;
     }
 
-    // Metódo que muda a cena
-    public void changeSceneButtonPushed(ActionEvent event) throws Exception {
-        if (this.ChangeScene) {
-            URL chat = getClass().getResource("/views/SceneBuilder.fxml");
-            if (chat == null) return;
-
-            Parent chatParent = FXMLLoader.load(chat);
-            Scene chatScene = new Scene(chatParent);
-
-            // Pega a informção da cena
-            Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-
-            window.setScene(chatScene);
-            window.show();
-        }
-    }
     //Confirma um número
     public void submit() throws Exception {
        String numero = ServerNumber.getText();
@@ -80,6 +63,22 @@ public class LoginController {
         chatCliente.start();
         NumberLabel.setText(chatCliente.geraNumero());
 
+    }
 
+    // Metódo que muda a cena
+    public void changeSceneToChat(ActionEvent event) throws Exception {
+        if (this.ChangeScene) {
+            URL chat = getClass().getResource("/views/SceneChat.fxml");
+            if (chat == null) return;
+
+            Parent chatParent = FXMLLoader.load(chat);
+            Scene chatScene = new Scene(chatParent);
+
+            // Pega a informção da cena
+            Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+            window.setScene(chatScene);
+            window.show();
+        }
     }
 }
