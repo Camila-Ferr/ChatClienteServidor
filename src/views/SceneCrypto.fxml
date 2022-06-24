@@ -15,7 +15,7 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ChatController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.CryptoController">
     <left>
         <HBox prefHeight="702.0" prefWidth="262.0" styleClass="gray-background" stylesheets="@../values/style.css" BorderPane.alignment="CENTER">
             <BorderPane.margin>
@@ -24,7 +24,7 @@
             <children>
                 <VBox alignment="CENTER" prefHeight="768.0" prefWidth="64.0" styleClass="dark-gray-background" stylesheets="@../values/style.css">
                     <children>
-                        <Button id="ButtonCrypto" fx:id="chatButton" mnemonicParsing="false" opacity="0.0" pickOnBounds="false" prefHeight="39.0" prefWidth="40.0" text="Chat">
+                        <Button id="ButtonCrypto" fx:id="chatButton" mnemonicParsing="false" onAction="#changeSceneToChat" opacity="0.0" pickOnBounds="false" prefHeight="39.0" prefWidth="40.0" text="Chat">
                             <cursor>
                                 <Cursor fx:constant="OPEN_HAND" />
                             </cursor>
@@ -40,7 +40,7 @@
                                 <Insets />
                             </VBox.margin>
                         </ImageView>
-                        <Button id="ButtonRooms" fx:id="roomButton" mnemonicParsing="false" opacity="0.0" prefHeight="28.0" prefWidth="40.0" text="Rooms">
+                        <Button id="ButtonRooms" fx:id="roomButton" mnemonicParsing="false" onAction="#changeSceneToRooms" opacity="0.0" prefHeight="28.0" prefWidth="40.0" text="Rooms">
                             <VBox.margin>
                                 <Insets bottom="-70.0" top="50.0" />
                             </VBox.margin>
@@ -131,6 +131,9 @@
                                  <font>
                                     <Font name="Roboto Slab Regular" size="20.0" />
                                  </font>
+                                 <HBox.margin>
+                                    <Insets left="10.0" />
+                                 </HBox.margin>
                               </Label>
                            </children>
                         </HBox>
@@ -160,6 +163,9 @@
                                  <font>
                                     <Font name="Roboto Slab Regular" size="20.0" />
                                  </font>
+                                 <HBox.margin>
+                                    <Insets left="10.0" />
+                                 </HBox.margin>
                               </Label>
                            </children>
                         </HBox>

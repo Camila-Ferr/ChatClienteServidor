@@ -28,12 +28,6 @@ import java.net.URL;
 
 public class ChatController {
     @FXML
-    private Label cryptoChat;
-    @FXML
-    private Label chavePublica;
-    @FXML
-    private Label normalChat;
-    @FXML
     private Button button_send;
     @FXML
     private TextField textField_client;
@@ -133,6 +127,22 @@ public class ChatController {
             if (crypto == null) return;
 
             Parent chatParent = FXMLLoader.load(crypto);
+            Scene chatScene = new Scene(chatParent);
+
+            // Pega a informção da cena
+            Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+            window.setScene(chatScene);
+            window.show();
+        }
+    }
+
+    public void changeSceneToRooms(ActionEvent event) throws Exception {
+        if (this.ChangeScene) {
+            URL rooms = getClass().getResource("/views/SceneRooms.fxml");
+            if (rooms == null) return;
+
+            Parent chatParent = FXMLLoader.load(rooms);
             Scene chatScene = new Scene(chatParent);
 
             // Pega a informção da cena
