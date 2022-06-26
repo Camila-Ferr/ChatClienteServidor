@@ -1,6 +1,6 @@
 package cliente;
 
-import Exceptions.ClienteErroException;
+import exceptions.ClienteErroException;
 
 import java.io.BufferedReader;
 import java.io.IOException;

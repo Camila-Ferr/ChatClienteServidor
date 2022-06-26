@@ -1,5 +1,5 @@
 package cliente;
-import Exceptions.ClienteErroException;
+import exceptions.ClienteErroException;
 
 import java.io.IOException;
 import java.net.Socket;

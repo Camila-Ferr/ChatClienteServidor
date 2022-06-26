@@ -1,7 +1,7 @@
 package servidor;
 
 
-import Exceptions.ServidorErroException;
+import exceptions.ServidorErroException;
 
 import java.io.*;
 import java.math.BigInteger;

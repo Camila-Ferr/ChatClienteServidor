@@ -1,11 +1,10 @@
 package servidor;
 
 
-import Exceptions.ServidorErroException;
+import exceptions.ServidorErroException;
 
 import java.io.*;
 import java.net.ServerSocket;
-import java.net.Socket;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;

@@ -1,4 +1,4 @@
-package Exceptions;
+package exceptions;
 
 public class ConexaoClientException extends NullPointerException {
     public ConexaoClientException(){
