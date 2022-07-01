@@ -26,7 +26,7 @@
                     <children>
                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                             <children>
-                                <Label prefHeight="40.0" prefWidth="160.0" text="Escolher o Servidor" textFill="#fcfcfc">
+                                <Label prefHeight="40.0" prefWidth="160.0" text="Escolha as Salas" textFill="#fcfcfc">
                                     <font>
                                         <Font name="Roboto Slab Regular" size="17.0" />
                                     </font>
@@ -53,7 +53,7 @@
                             <children>
                                 <VBox alignment="CENTER" prefHeight="184.0" prefWidth="260.0">
                                     <children>
-                                        <Label prefHeight="88.0" prefWidth="195.0" text="Numero do Servidor" textFill="#fcfcfc">
+                                        <Label prefHeight="88.0" prefWidth="195.0" text="Numero das Salas" textFill="#fcfcfc">
                                             <font>
                                                 <Font name="Roboto Slab Regular" size="19.0" />
                                             </font>
@@ -66,8 +66,10 @@
                                     </children>
                                 </VBox>
                             </children>
+                     <padding>
+                        <Insets bottom="20.0" />
+                     </padding>
                         </HBox>
-                        <HBox prefHeight="36.0" prefWidth="258.0" />
                         <HBox prefHeight="126.0" prefWidth="261.0">
                             <children>
                                 <VBox alignment="CENTER" prefHeight="100.0" prefWidth="262.0">
@@ -100,6 +102,9 @@
                                     </children>
                                 </VBox>
                             </children>
+                     <padding>
+                        <Insets top="25.0" />
+                     </padding>
                         </HBox>
                     </children>
                 </VBox>
@@ -116,7 +121,7 @@
                                 <Image url="@../images/icon-server.png" />
                             </image></ImageView>
                         <Pane prefHeight="150.0" prefWidth="58.0" />
-                        <Label text="Lista de Servidores :">
+                        <Label text="Lista de Salas:  ">
                             <font>
                                 <Font name="Roboto Slab Regular" size="27.0" />
                             </font>
@@ -128,7 +133,7 @@
                     <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="519.0" prefWidth="704.0">
                             <children>
-                        <ListView fx:id="serverList" layoutX="-3.0" layoutY="-6.0" prefHeight="528.0" prefWidth="711.0" stylesheets="@../values/style.css">
+                        <ListView fx:id="ServerNumberList" layoutX="-3.0" layoutY="-4.0" prefHeight="528.0" prefWidth="707.0" stylesheets="@../values/style.css">
                            <styleClass>
                               <String fx:value="chat-radius" />
                               <String fx:value="transparent-background" />
