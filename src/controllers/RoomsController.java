@@ -37,7 +37,7 @@ public class RoomsController {
     // Usar essa lista por os numeros dos servidores
     Integer[] listaNumerosServidor;
 
-    protected static ChatCliente chatCliente = new ChatCliente();
+
 
     public void initialize() {
         Connect.setVisible(false);
@@ -52,28 +52,6 @@ public class RoomsController {
     // e add na lista chamada listaNumerosServidor
 
     //Confirma um número
-    public void submit() throws Exception {
-        String numero = ServerNumber.getText();
-        String apelido = Nickname.getText();
-        boolean continua = chatCliente.confirma(numero,apelido);
-        if (continua){
-            ActionEvent event = new ActionEvent();
-            Response.setText("Conectado");
-            this.ChangeScene = true;
-            this.ImageConnect.setVisible(true);
-            this.Connect.setVisible(true);
-        }
-        else {
-            Response.setText("Erro ao se conectar, conexão fechada.");
-        }
-    }
-    //Gera um número
-    public void number() throws IOException {
-        this.ChangeScene = false;
-        chatCliente.start();
-        NumberLabel.setText(chatCliente.geraNumero());
-
-    }
 
     // Metódo que muda a cena
     public void changeSceneToChat(ActionEvent event) throws Exception {

@@ -27,24 +27,35 @@ public class LoginController {
     private TextField ServerNumber;
 
     @FXML
+    private TextField IPNumber;
+
+    @FXML
     private Label NumberLabel;
 
     @FXML
     private Label Response;
     private boolean ChangeScene;
 
-    protected static ChatCliente chatCliente = new ChatCliente();
+
+    protected static ChatCliente chatCliente;
 
     public void initialize() {
         Connect.setVisible(false);
         ImageConnect.setVisible(false);
         this.ChangeScene = false;
+
+    }
+    public void connect() throws IOException {
+        String ip = IPNumber.getText();
+        chatCliente = new ChatCliente(ip);
+        number();
     }
 
     //Confirma um número
     public void submit() throws Exception {
        String numero = ServerNumber.getText();
        String apelido = Nickname.getText();
+
        boolean continua = chatCliente.confirma(numero,apelido);
        if (continua){
            ActionEvent event = new ActionEvent();

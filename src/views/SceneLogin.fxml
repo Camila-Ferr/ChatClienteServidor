@@ -47,19 +47,22 @@
                               <Font name="Roboto Slab Regular" size="23.0" />
                            </font>
                         </Label>
-                        <Button id="ButtonLoginInicializer" mnemonicParsing="false" opacity="0.0" prefHeight="35.0" prefWidth="40.0" text="Enviar">
+                        <ImageView fitHeight="61.0" fitWidth="76.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/icon-login.png" />
+                           </image>
+                           <cursor>
+                              <Cursor fx:constant="OPEN_HAND" />
+                           </cursor>
+                        </ImageView>
+                        <Button id="ButtonLoginInicializer" mnemonicParsing="false" onAction="#connect" opacity="0.0" prefHeight="35.0" prefWidth="40.0" text="Enviar">
                            <cursor>
                               <Cursor fx:constant="OPEN_HAND" />
                            </cursor>
                            <HBox.margin>
-                              <Insets right="-48.0" />
+                              <Insets left="-48.0" right="-48.0" />
                            </HBox.margin>
                         </Button>
-                        <ImageView fitHeight="61.0" fitWidth="76.0" onMouseClicked="#number" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../images/icon-login.png" />
-                           </image>
-                        </ImageView>
                      </children>
                      <padding>
                         <Insets top="30.0" />
