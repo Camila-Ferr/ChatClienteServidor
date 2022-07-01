@@ -59,7 +59,7 @@ public class ChatCliente implements Runnable{
 //        String message;
 //        Boolean verifica = true;
 //        do{
-//            message = scanner.nextLine();
+//            message = scanner.nextLine();S
 //            if (message.equals("--*")){
 //                message = scanner.nextLine();
 //                verifica = clientSocket.msgSend("*".concat(message));
