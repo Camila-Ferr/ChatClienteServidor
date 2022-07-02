@@ -45,12 +45,6 @@ public class LoginController {
         this.ChangeScene = false;
 
     }
-    public void connect() throws IOException {
-        String ip = IPNumber.getText();
-        chatCliente = new ChatCliente(ip);
-        number();
-    }
-
     //Confirma um número
     public void submit() throws Exception {
        String numero = ServerNumber.getText();
@@ -69,9 +63,9 @@ public class LoginController {
        }
     }
     //Gera um número
-    public void number() throws IOException {
+    public void connect() throws IOException {
         this.ChangeScene = false;
-        chatCliente.start();
+        chatCliente = new ChatCliente();
         NumberLabel.setText(chatCliente.geraNumero());
 
     }

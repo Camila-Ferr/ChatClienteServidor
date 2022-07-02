@@ -14,10 +14,8 @@ public class ChatCliente implements Runnable {
     private Scanner scanner;
     private String nickname;
 
-    private VBox vbox ;
-
-    public ChatCliente(String serverAdress) {
-        this.SERVER_ADRESS = serverAdress;
+    public ChatCliente() {
+        this.SERVER_ADRESS = "127.0.0.1";
         scanner = new Scanner(System.in);
     }
 
