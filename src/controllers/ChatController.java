@@ -61,7 +61,7 @@ public class ChatController {
             public void handle(ActionEvent event) {
                 String messageToSend = textField_client.getText();
                 boolean check = sendMsg(messageToSend);
-                if (check){
+                if (check) {
                     if (!messageToSend.isEmpty()) {
                         HBox hBox = new HBox();
                         hBox.setAlignment(Pos.CENTER_RIGHT);
@@ -69,7 +69,7 @@ public class ChatController {
 
                         Text text = new Text(messageToSend);
                         TextFlow textFlow = new TextFlow(text);
-                        text.setFont(Font.font ("Roboto Slab", 20));
+                        text.setFont(Font.font("Roboto Slab", 20));
 
                         textFlow.setStyle("-fx-color: rgba(239, 242, 255);" +
                                 "-fx-background-color: #12B886;" +
@@ -88,16 +88,15 @@ public class ChatController {
         });
     }
 
-    public boolean sendMsg(String messageToSend){
+    public boolean sendMsg(String messageToSend) {
         boolean check;
-        if (messageToSend.equals("--*")){
+        if (messageToSend.equals("--*")) {
             messageToSend = textField_client.getText();
             check = chatCliente.clientSocket.msgSend("*".concat(messageToSend));
-        }
-        else {
+        } else {
             check = chatCliente.clientSocket.msgSend(messageToSend);
         }
-        if (messageToSend.equals("*exit")){
+        if (messageToSend.equals("*exit")) {
             return false;
         }
         return check;
@@ -113,7 +112,7 @@ public class ChatController {
         textFlow.setStyle("-fx-background-color: rgba(233, 233, 235);" +
                 "-fx-background-radius: 20px");
 
-        textFlow.setPadding(new Insets(5,10, 5, 10));
+        textFlow.setPadding(new Insets(5, 10, 5, 10));
         hBox.getChildren().add(textFlow);
 
         Platform.runLater(new Runnable() {
@@ -127,32 +126,32 @@ public class ChatController {
     // Metódos que mudam a cena
     public void changeSceneToCrypto(ActionEvent event) throws Exception {
 
-            URL crypto = getClass().getResource("/views/SceneCrypto.fxml");
-            if (crypto == null) return;
+        URL crypto = getClass().getResource("/views/SceneCrypto.fxml");
+        if (crypto == null) return;
 
-            Parent chatParent = FXMLLoader.load(crypto);
-            Scene chatScene = new Scene(chatParent);
+        Parent chatParent = FXMLLoader.load(crypto);
+        Scene chatScene = new Scene(chatParent);
 
-            // Pega a informção da cena
-            Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        // Pega a informção da cena
+        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
-            window.setScene(chatScene);
-            window.show();
-        }
+        window.setScene(chatScene);
+        window.show();
+    }
 
     public void changeSceneToRooms(ActionEvent event) throws Exception {
-            URL rooms = getClass().getResource("/views/SceneRooms.fxml");
-            if (rooms == null) return;
+        URL rooms = getClass().getResource("/views/SceneRooms.fxml");
+        if (rooms == null) return;
 
-            Parent chatParent = FXMLLoader.load(rooms);
-            Scene chatScene = new Scene(chatParent);
+        Parent chatParent = FXMLLoader.load(rooms);
+        Scene chatScene = new Scene(chatParent);
 
-            // Pega a informção da cena
-            Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        // Pega a informção da cena
+        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
-            window.setScene(chatScene);
-            window.show();
-        }
+        window.setScene(chatScene);
+        window.show();
+    }
 
 
 }

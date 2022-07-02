@@ -45,23 +45,24 @@ public class LoginController {
         this.ChangeScene = false;
 
     }
+
     //Confirma um número
     public void submit() throws Exception {
-       String numero = ServerNumber.getText();
-       String apelido = Nickname.getText();
+        String numero = ServerNumber.getText();
+        String apelido = Nickname.getText();
 
-       boolean continua = chatCliente.confirma(numero,apelido);
-       if (continua){
-           ActionEvent event = new ActionEvent();
-           Response.setText("Conectado");
-           this.ChangeScene = true;
-           this.ImageConnect.setVisible(true);
-           this.Connect.setVisible(true);
-       }
-       else {
-           Response.setText("Erro ao se conectar, conexão fechada.");
-       }
+        boolean continua = chatCliente.confirma(numero, apelido);
+        if (continua) {
+            ActionEvent event = new ActionEvent();
+            Response.setText("Conectado");
+            this.ChangeScene = true;
+            this.ImageConnect.setVisible(true);
+            this.Connect.setVisible(true);
+        } else {
+            Response.setText("Erro ao se conectar, conexão fechada.");
+        }
     }
+
     //Gera um número
     public void connect() throws IOException {
         this.ChangeScene = false;

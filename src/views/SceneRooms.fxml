@@ -63,6 +63,19 @@
                                                 <Insets bottom="10.0" left="10.0" right="10.0" top="-6.0" />
                                             </VBox.margin>
                                         </TextField>
+                              <Button id="ButtonLoginInicializer" fx:id="chooseRoom" mnemonicParsing="false" opacity="0.0" prefHeight="35.0" prefWidth="40.0" text="Connect">
+                                 <cursor>
+                                    <Cursor fx:constant="OPEN_HAND" />
+                                 </cursor>
+                                 <VBox.margin>
+                                    <Insets bottom="-48.0" />
+                                 </VBox.margin>
+                              </Button>
+                              <ImageView fitHeight="61.0" fitWidth="76.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../images/icon-login.png" />
+                                 </image>
+                              </ImageView>
                                     </children>
                                 </VBox>
                             </children>
@@ -102,10 +115,14 @@
                     <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="519.0" prefWidth="704.0">
                             <children>
-                        <ListView fx:id="ServerNumberList" layoutX="-3.0" layoutY="-4.0" prefHeight="528.0" prefWidth="707.0" stylesheets="@../values/style.css">
+                        <ListView fx:id="serverNumberList" layoutX="-3.0" layoutY="-4.0" prefHeight="528.0" prefWidth="707.0" stylesheets="@../values/style.css">
                            <styleClass>
                               <String fx:value="chat-radius" />
+                              <String fx:value="list-cell" />
+                              <String fx:value="list-background" />
+                              <String fx:value="list-chat" />
                               <String fx:value="transparent-background" />
+                              <String fx:value="chat-letters" />
                            </styleClass>
                         </ListView>
                             </children></AnchorPane>

@@ -11,7 +11,7 @@ public class BasicApplication extends javafx.application.Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        URL resource = getClass().getResource("/views/SceneLogin.fxml");
+        URL resource = getClass().getResource("/views/SceneRooms.fxml");
         if (resource == null) return;
 
         Parent root = FXMLLoader.load(resource);

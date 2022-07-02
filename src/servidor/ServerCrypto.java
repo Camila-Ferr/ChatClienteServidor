@@ -34,26 +34,26 @@ public class ServerCrypto {
         return _base.modPow(privateKey, modulus);
     }
 
-    public String Encode(String msg){
+    public String Encode(String msg) {
 
         String msgCifrada = new BigInteger(msg.getBytes()).multiply(this.inicio_alfabeto).toString(16);
         return msgCifrada;
 
     }
 
-    public String Desencode(String msgCifrada){
-        return new String(new BigInteger(msgCifrada,16).divide(this.inicio_alfabeto).toByteArray());
+    public String Desencode(String msgCifrada) {
+        return new String(new BigInteger(msgCifrada, 16).divide(this.inicio_alfabeto).toByteArray());
     }
 
     public BigInteger getPublic_key() {
         return public_key;
     }
 
-    public String confirma_(BigInteger public_client){
+    public String confirma_(BigInteger public_client) {
         int numero = random.nextInt(999);
-        System.out.println("Numero enviado: " +numero);
-        this.inicio_alfabeto = public_client.modPow(this.private_key,BigInteger.valueOf(23));
-        System.out.println("inicio: " +inicio_alfabeto);
+        System.out.println("Numero enviado: " + numero);
+        this.inicio_alfabeto = public_client.modPow(this.private_key, BigInteger.valueOf(23));
+        System.out.println("inicio: " + inicio_alfabeto);
         return (Encode(String.valueOf(numero)));
 
     }

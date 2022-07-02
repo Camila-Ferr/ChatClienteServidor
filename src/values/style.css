@@ -14,6 +14,10 @@
     -fx-background-color: rgba(211, 211, 211, 0.8);
 }
 
+.list-background {
+    -fx-background-color: #E7E4E1;
+}
+
 .chat-letters{
     -fx-color: rgba(239, 242, 255);
 }
@@ -24,4 +28,23 @@
 
 .chat-radius{
     -fx-background-radius: 20px;
+}
+
+.list-chat{
+    -fx-font-size:20px;
+    -fx-font-family: "Roboto Slab";
+    -fx-text-fill: #46474A;
+}
+
+.list-cell:even {
+    -fx-background-color: #E7E4E1;
+}
+
+.list-cell:odd {
+    -fx-background-color: #E7E4E1;
+}
+
+.list-cell:filled:selected:focused, .list-cell:filled:selected {
+    -fx-background-color: linear-gradient(#E5E5E0 0%, #DFDFDF 25%, #CDF0E5 75%, #85DAC1 100%);
+    -fx-text-fill: #46474A;
 }
