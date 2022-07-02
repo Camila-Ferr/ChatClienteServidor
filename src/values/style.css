@@ -30,6 +30,12 @@
     -fx-background-radius: 20px;
 }
 
+.label-shadow{
+    -fx-border-width: 2;
+    -fx-border-color: black;
+    -fx-border-radius: 20px;
+}
+
 .list-chat{
     -fx-font-size:20px;
     -fx-font-family: "Roboto Slab";

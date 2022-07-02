@@ -102,20 +102,6 @@ public class ChatController implements Runnable {
         return check;
     }
 
-    public static void addLabel(String messageFromServer) {
-        HBox hBox = new HBox();
-        hBox.setAlignment(Pos.CENTER_LEFT);
-        hBox.setPadding(new Insets(5, 5, 5, 10));
-
-        Text text = new Text(messageFromServer);
-        TextFlow textFlow = new TextFlow(text);
-        textFlow.setStyle("-fx-background-color: rgba(233, 233, 235);" +
-                "-fx-background-radius: 20px");
-
-        textFlow.setPadding(new Insets(5, 10, 5, 10));
-        hBox.getChildren().add(textFlow);
-    }
-
     @Override
     public void run() {
         while (true) {
@@ -131,9 +117,6 @@ public class ChatController implements Runnable {
                         Text text = new Text(msg);
                         TextFlow textFlow = new TextFlow(text);
                         text.setFont(Font.font("Roboto Slab", 16));
-
-                        textFlow.setStyle("-fx-background-color: #E5E5E0;" +
-                                "-fx-background-radius: 20px");
 
                         textFlow.setPadding(new Insets(5, 10, 5, 10));
                         vbox_messages.getChildren().add(textFlow);
@@ -176,6 +159,4 @@ public class ChatController implements Runnable {
         window.setScene(chatScene);
         window.show();
     }
-
-
 }

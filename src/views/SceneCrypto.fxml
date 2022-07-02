@@ -56,14 +56,6 @@
                                 <Insets top="40.0" />
                             </VBox.margin>
                         </ImageView>
-                        <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="24.0" layoutY="381.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
-                            <image>
-                                <Image url="@../images/icon-help.png" />
-                            </image>
-                            <VBox.margin>
-                                <Insets top="40.0" />
-                            </VBox.margin>
-                        </ImageView>
                     </children></VBox>
                 <VBox prefHeight="768.0" prefWidth="207.0" />
             </children>

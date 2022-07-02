@@ -19,7 +19,16 @@ import java.io.IOException;
 import java.net.URL;
 
 public class RoomsController {
-    public ListView<Integer> serverNumberList;
+    @FXML
+    public Label serverNumber1;
+    @FXML
+    public Label serverNumber2;
+    @FXML
+    public Label serverNumber3;
+    @FXML
+    public Label serverNumber4;
+    @FXML
+    public Label serverNumber5;
     @FXML
     private Button Connect;
     @FXML
@@ -27,6 +36,8 @@ public class RoomsController {
     private ChatCliente chatCliente;
     @FXML
     private TextField ServerNumber;
+    @FXML
+    public Button buttonRoom;
     @FXML
     private Label Response;
     private boolean con = false;
@@ -37,30 +48,26 @@ public class RoomsController {
         ImageConnect.setVisible(false);
         chatCliente = LoginController.chatCliente;
 
-
-        for (int i = 0; i<5; i++){
-            serverNumberList.getItems().add(i+1);
-        }
     }
-    public void canConnect(){
+
+    public void canConnect() {
         con = true;
         Connect.setVisible(true);
         ImageConnect.setVisible(true);
     }
-    public void chooseRoom(){
+
+    public void chooseRoom() {
         try {
-            Integer new_sala = Integer.parseInt(ServerNumber.getText()) -1;
-            if ((new_sala<0) || (new_sala >4)){
+            Integer new_sala = Integer.parseInt(ServerNumber.getText()) - 1;
+            if ((new_sala < 0) || (new_sala > 4)) {
                 Response.setText("Erro, digite uma sala válida.");
-            }
-            else {
+            } else {
                 chatCliente.clientSocket.msgSend("*changeR");
                 chatCliente.clientSocket.msgSend(new_sala.toString());
                 canConnect();
                 Response.setText("Conectado");
             }
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             Response.setText("Erro, digite uma sala válida.");
         }
 
