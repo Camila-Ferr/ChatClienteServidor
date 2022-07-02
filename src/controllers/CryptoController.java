@@ -7,10 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -26,8 +23,15 @@ public class CryptoController {
     public ScrollPane scrollPane_chat;
     public Label normalChat;
     public Label chavePublica;
+    public Label chavePublicaServidor;
     @FXML
     public Label cryptoChat;
+    @FXML
+    public Label cryptoChat1;
+    @FXML
+    public Label cryptoChat2;
+    @FXML
+    public Label cryptoChat3;
     @FXML
     public Label titleCripto;
     public TextField textField_client;
@@ -35,39 +39,54 @@ public class CryptoController {
     private ChatCliente chatCliente;
     private int cripto = 0;
     private ArrayList<String> mensagens = new ArrayList<>();
+
     public void initialize() {
         chatCliente = LoginController.chatCliente;
         setText();
-        cripto();
-
+        criptoFunction();
     }
+
     public void send(){
         normalChat.setText(chatCliente.clientSocket.Encode(textField_client.getText()));
         textField_client.clear();
     }
     public void setText (){
-        mensagens.add("Aqui, estamos usando a criptografia Diffie Helman. Nessa criptografia, você e o servidor tem 2 chaves : a privada que é gerada aleatoriamente, " +
-                "e a pública, que é gerada a partir da privada e um número constante para os dois lados." +
-                "Por  motivos de segurança, a chave privada não foi disponibilizada.");
-        mensagens.add("A partir dessas 2 chaves, no início da conexão, ocorre uma troca de chaves públicas. Como a chave pública foi gerada com o auxílio da privada, " +
-                "apenas com a chave pública do servidor e a sua chave privada, você consegue calcular uma chave decifradora. Da mesma forma, o servidor calcula a mesma chave " +
-                "do outro lado.");
-        mensagens.add("Agora que chegamos a um denominador comum, é possível cifrar e descifrar as mensagens como quiser.");
-        mensagens.add("Para esse projeto, foi escolhido transformar as mensagens para um array de bytes e multiplicá-las pela chave codificadora. É a sua hora de testar," +
-                "escreva uma mensagem abaixo e veja como ela foi criptografada :");
+        mensagens.add("Aqui, estamos usando a criptografia Diffie Helman.");
+        mensagens.add(" Nessa criptografia, você e o servidor tem 2 chaves :");
+        mensagens.add("a privada que é gerada aleatoriamente, e a pública, que é gerada");
+        mensagens.add("a partir da privada e um número constante para os dois lados.");
+        mensagens.add("Por motivos de segurança, a chave privada não foi disponibilizada.");                // 1 cena
+        mensagens.add("A partir dessas 2 chaves, no início da conexão,");
+        mensagens.add("ocorre uma troca de chaves públicas.");
+        mensagens.add("");
+        mensagens.add("Como a chave pública foi gerada com o auxílio da privada,");                        // 2 cena
+        mensagens.add("apenas com a chave pública do servidor e a sua chave privada,");
+        mensagens.add("você consegue calcular uma chave decifradora.");
+        mensagens.add(" Da mesma forma, o servidor calcula a mesma chave do outro lado.");
+        mensagens.add("Agora que chegamos a um denominador comum, é possível cifrar");                    // 3 cena
+        mensagens.add("e descifrar as mensagens como quiser.");
+        mensagens.add("Para esse projeto, foi escolhido transformar as mensagens para um array");
+        mensagens.add("de bytes e multiplicá-las pela chave codificadora.");
+        mensagens.add("É a sua hora de testar, escreva uma mensagem abaixo");                             // 4 cena
+        mensagens.add("e veja como ela foi criptografada :");
+        mensagens.add("");
+        mensagens.add("");
     }
-    public void cripto(){
-        chavePublica.setText("Sua chave pública: " +String.valueOf(chatCliente.clientSocket.getPublic_key()).concat("/n")
-                .concat("Chave pública do servidor : " + String.valueOf(chatCliente.clientSocket.getPublic_key())));
-        titleCripto.setText("Como meus textos estão sendo criptografados ?");
+    public void criptoFunction(){
+        chavePublica.setText(String.valueOf(chatCliente.clientSocket.getPublic_key()));
+        chavePublicaServidor.setText((String.valueOf(chatCliente.clientSocket.getPublic_key())));
         cryptoChat.setText(mensagens.get(cripto));
+        cryptoChat1.setText(mensagens.get(cripto +1));
+        cryptoChat2.setText(mensagens.get(cripto +2));
+        cryptoChat3.setText(mensagens.get(cripto +3));
     }
+
     public void prox(){
-        cripto +=1;
+        cripto +=4;
         if (cripto == mensagens.size()){
             cripto = 0;
         }
-        cripto();
+        criptoFunction();
     }
 
 
