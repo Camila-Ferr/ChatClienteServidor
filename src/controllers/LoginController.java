@@ -70,7 +70,7 @@ public class LoginController {
 
     }
 
-    // Metódo que muda a cena
+    // Metódo que muda a cena, quando clica em conectar
     public void changeSceneToChat(ActionEvent event) throws Exception {
         if (this.ChangeScene) {
             URL chat = getClass().getResource("/views/SceneChat.fxml");

@@ -18,10 +18,10 @@ public class Servidor {
     private final List<ServidorSocket> clients = new LinkedList<>();
     private ArrayList<Sala> salas = new ArrayList<>();
 
+
     public void start() throws IOException {
         System.out.println("Servidor iniciado na porta " +PORT_SERVIDOR );
         Sala sala = new Sala(0);
-        salas.add(sala);
         serverSocket = new ServerSocket(PORT_SERVIDOR);
         new Thread(() -> {
                 try {

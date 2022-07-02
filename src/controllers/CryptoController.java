@@ -29,14 +29,11 @@ public class CryptoController {
     public Button button_send;
     @FXML
     private Button chatButton;
-    @FXML
-    private boolean ChangeScene;
 
 
 
     // Metódos que mudam a cena
     public void changeSceneToChat(ActionEvent event) throws Exception {
-        if (this.ChangeScene) {
             URL chat = getClass().getResource("/views/SceneChat.fxml");
             if (chat == null) return;
 
@@ -48,11 +45,9 @@ public class CryptoController {
 
             window.setScene(chatScene);
             window.show();
-        }
     }
 
     public void changeSceneToRooms(ActionEvent event) throws Exception {
-        if (this.ChangeScene) {
             URL rooms = getClass().getResource("/views/SceneRooms.fxml");
             if (rooms == null) return;
 
@@ -65,5 +60,4 @@ public class CryptoController {
             window.setScene(chatScene);
             window.show();
         }
-    }
 }

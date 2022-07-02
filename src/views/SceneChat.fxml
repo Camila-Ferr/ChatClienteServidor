@@ -39,7 +39,7 @@
                         <Insets left="15.0" />
                      </VBox.margin>
                   </ImageView>
-                  <Button id="ButtonRooms" fx:id="roomButton" mnemonicParsing="false" opacity="0.0" prefHeight="28.0" prefWidth="40.0" text="Rooms">
+                  <Button id="ButtonRooms" fx:id="roomButton" mnemonicParsing="false" onAction="#changeSceneToRooms" opacity="0.0" prefHeight="28.0" prefWidth="40.0" text="Rooms">
                      <VBox.margin>
                         <Insets bottom="-70.0" top="50.0" />
                      </VBox.margin>

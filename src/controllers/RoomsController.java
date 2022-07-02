@@ -16,22 +16,14 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 
 public class RoomsController {
-    @FXML
-    private TextField Nickname;
     @FXML
     private Button Connect;
     @FXML
     private ImageView ImageConnect;
-    @FXML
-    private TextField ServerNumber;
-    @FXML
-    private Label NumberLabel;
-    @FXML
-    private Label Response;
-    private boolean ChangeScene;
-    @FXML
+  //  @FXML
     private ListView<Integer> serverList;
 
     // Usar essa lista por os numeros dos servidores
@@ -42,8 +34,7 @@ public class RoomsController {
     public void initialize() {
         Connect.setVisible(false);
         ImageConnect.setVisible(false);
-        this.ChangeScene = false;
-        serverList.getItems().addAll(listaNumerosServidor);
+        
     }
 
     // Ao invés de passar o numero do servidor
@@ -55,7 +46,6 @@ public class RoomsController {
 
     // Metódo que muda a cena
     public void changeSceneToChat(ActionEvent event) throws Exception {
-        if (this.ChangeScene) {
             URL chat = getClass().getResource("/views/SceneChat.fxml");
             if (chat == null) return;
 
@@ -68,5 +58,4 @@ public class RoomsController {
             window.setScene(chatScene);
             window.show();
         }
-    }
 }

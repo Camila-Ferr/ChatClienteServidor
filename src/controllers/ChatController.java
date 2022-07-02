@@ -126,7 +126,7 @@ public class ChatController {
 
     // Metódos que mudam a cena
     public void changeSceneToCrypto(ActionEvent event) throws Exception {
-        if (this.ChangeScene) {
+
             URL crypto = getClass().getResource("/views/SceneCrypto.fxml");
             if (crypto == null) return;
 
@@ -139,10 +139,8 @@ public class ChatController {
             window.setScene(chatScene);
             window.show();
         }
-    }
 
     public void changeSceneToRooms(ActionEvent event) throws Exception {
-        if (this.ChangeScene) {
             URL rooms = getClass().getResource("/views/SceneRooms.fxml");
             if (rooms == null) return;
 
@@ -155,5 +153,6 @@ public class ChatController {
             window.setScene(chatScene);
             window.show();
         }
-    }
+
+
 }
