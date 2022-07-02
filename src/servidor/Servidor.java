@@ -21,8 +21,11 @@ public class Servidor {
 
     public void start() throws IOException {
         System.out.println("Servidor iniciado na porta " +PORT_SERVIDOR );
-        Sala sala = new Sala(0);
-        salas.add(sala);
+
+        for (int i =0; i<5; i++) {
+            Sala sala = new Sala(i);
+            salas.add(sala);
+        }
         serverSocket = new ServerSocket(PORT_SERVIDOR);
         new Thread(() -> {
                 try {
@@ -32,18 +35,13 @@ public class Servidor {
                 }
         }).start();
     }
-    private void verificaR(Sala sala){
-        if ((sala.getClientes() == 0) && (sala.getId()!= 0)){
-            salas.remove(sala);
-        }
-    }
+
     private void changeR(int nova, int antiga, ServidorSocket cliente){
         salas.get(nova).addClientes(cliente);
         cliente.setSala(salas.get(nova));
         salas.get(nova).sendMessageToAll(cliente,cliente.getClient_id().concat(" entrou na sala."));
 
-        salas.get(antiga).setClientes();//Diminui 1
-        verificaR(salas.get(antiga));
+        salas.get(antiga).setClientes(cliente);//Diminui 1
 
     }
     private void clienteConnectionLoop() throws IOException {
@@ -74,8 +72,8 @@ public class Servidor {
                     try {
                         clientMessageLoop(cliente);
                     } catch (ServidorErroException e) {
-                        cliente.getSala().setClientes();
-                        verificaR(cliente.getSala());
+                        cliente.getSala().setClientes(cliente);
+
                         try {
                             cliente.closeS();
                         }
@@ -96,9 +94,8 @@ public class Servidor {
             while (true) {
                 message = socket.keys.Desencode(socket.getMessage());
                 if ("*exit".equals(message)) {
-                    socket.getSala().setClientes();
+                    socket.getSala().setClientes(socket);
                     socket.closeS();
-                    verificaR(socket.getSala());
                     clients.remove(socket);
                     return;
                 }
@@ -112,27 +109,6 @@ public class Servidor {
                         socket.sendMessage("Cliente não encontrado",'-');
                     }
 
-                }
-                else if ("*room".equals(message)){
-                    int antiga = socket.getSala().getId();
-                    Sala sala = new Sala(salas.size());
-                    salas.add(sala);
-                    changeR(sala.getId(),antiga,socket);
-
-                    mostraOnline(socket,clients);
-                    message ="*";
-                    while ("*".equals(message)) {
-                        try {
-                            id = socket.keys.Desencode(socket.getMessage());
-                            sendToOne(socket, Integer.parseInt(id), "*Change your room from : ", " Número da sala : ".concat (String.valueOf(socket.getSala().getId())),clients);
-                            message = socket.keys.Desencode(socket.getMessage());
-                        }
-                        catch (Exception e){
-                            socket.sendMessage("Erro ao convidar",'-');
-                        }
-
-                    };
-                    sendMessageToAll(socket,message,clients);
                 }
                 else if ("*changeR".equals(message)){
                     System.out.printf("Cliente: %s\n", socket.getRemoteSocketAdress());

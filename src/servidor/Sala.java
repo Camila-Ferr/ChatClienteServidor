@@ -13,11 +13,13 @@ public class Sala {
         this.clientes = 1;
     }
 
-    public void setClientes() {
+    public void setClientes(ServidorSocket cliente) {
         this.clientes = this.clientes -1;
+        this.clients.remove(cliente);
     }
     public void addClientes(ServidorSocket cliente){
         clients.add(cliente);
+        this.clientes = this.clientes +1;
     }
 
     public Integer getClientes() {

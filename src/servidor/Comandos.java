@@ -26,10 +26,11 @@ public class Comandos {
         clients.get(receptor-1).sendMessage(msg, '-');
     }
     public static void activeRooms(ServidorSocket socket, ArrayList<Sala> salas){
-        socket.sendOneMessage(String.valueOf(salas.size()));
-        for (Sala percorre : salas){
-            socket.sendOneMessage(String.valueOf(salas.get(percorre.getId()).getId()));
-        }
+        int size =salas.size();
+        socket.sendOneMessage(String.valueOf(size));
+        //for (Sala percorre : salas){
+            //socket.sendOneMessage(String.valueOf(salas.get(percorre.getId()).getId()));
+        //}
     }
     public static void help(ServidorSocket socket){
         //TODO

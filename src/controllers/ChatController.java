@@ -49,7 +49,6 @@ public class ChatController implements Runnable {
         this.chatCliente = LoginController.chatCliente;
         CliNickname.setText(chatCliente.getNickname());
         new Thread(this).start();
-
         vbox_messages.heightProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
@@ -164,6 +163,7 @@ public class ChatController implements Runnable {
     }
 
     public void changeSceneToRooms(ActionEvent event) throws Exception {
+        Thread.currentThread().interrupt();
         URL rooms = getClass().getResource("/views/SceneRooms.fxml");
         if (rooms == null) return;
 

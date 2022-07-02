@@ -1,6 +1,7 @@
 package controllers;
 
 import cliente.ChatCliente;
+import cliente.ClientSocket;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -8,7 +9,9 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
@@ -22,18 +25,45 @@ public class RoomsController {
     @FXML
     private ImageView ImageConnect;
     private ChatCliente chatCliente;
+    @FXML
+    private TextField ServerNumber;
+    @FXML
+    private Label Response;
+    private boolean con = false;
 
 
     public void initialize() throws IOException {
         Connect.setVisible(false);
         ImageConnect.setVisible(false);
         chatCliente = LoginController.chatCliente;
-        chatCliente.clientSocket.msgSend("*activeR");
-       int active_rooms = Integer.parseInt(chatCliente.clientSocket.getOneMessage());
-        chatCliente.clientSocket.getMessage(1);
-//        for (int i = 0; i<active_rooms; i++){
-//            serverNumberList.getItems().add(Integer.parseInt(chatCliente.clientSocket.getMessage(1)));
-//        }
+
+
+        for (int i = 0; i<5; i++){
+            serverNumberList.getItems().add(i+1);
+        }
+    }
+    public void canConnect(){
+        con = true;
+        Connect.setVisible(true);
+        ImageConnect.setVisible(true);
+    }
+    public void chooseRoom(){
+        try {
+            Integer new_sala = Integer.parseInt(ServerNumber.getText()) -1;
+            if ((new_sala<0) || (new_sala >4)){
+                Response.setText("Erro, digite uma sala válida.");
+            }
+            else {
+                chatCliente.clientSocket.msgSend("*changeR");
+                chatCliente.clientSocket.msgSend(new_sala.toString());
+                canConnect();
+                Response.setText("Conectado");
+            }
+        }
+        catch (Exception e){
+            Response.setText("Erro, digite uma sala válida.");
+        }
+
     }
 
     // Ao invés de passar o numero do servidor
