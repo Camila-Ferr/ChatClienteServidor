@@ -1,5 +1,7 @@
 package cliente;
+import controllers.ChatController;
 import exceptions.ClienteErroException;
+import javafx.scene.layout.VBox;
 
 import java.io.IOException;
 import java.net.Socket;
@@ -12,6 +14,7 @@ public class ChatCliente implements Runnable {
     private Scanner scanner;
     private String nickname;
 
+    private VBox vbox ;
 
     public ChatCliente(String serverAdress) {
         this.SERVER_ADRESS = serverAdress;
@@ -23,9 +26,8 @@ public class ChatCliente implements Runnable {
     }
 
     public void start() throws IOException {
-
-//        mensage_loop();
-//        clientSocket.closeC();
+        mensage_loop();
+        clientSocket.closeC();
     }
 
     @Override
@@ -33,6 +35,7 @@ public class ChatCliente implements Runnable {
         try {
             while (true) {
                 String msg = clientSocket.getMessage(1);
+                ChatController.addLabel(msg,vbox);
                 System.out.println(msg);
             }
         } catch (Exception e) {
@@ -58,20 +61,20 @@ public class ChatCliente implements Runnable {
         return true;
     }
 
-//    private void mensage_loop() throws NullPointerException{
-//        String message;
-//        Boolean verifica = true;
-//        do{
-//            message = scanner.nextLine();S
-//            if (message.equals("--*")){
-//                message = scanner.nextLine();
-//                verifica = clientSocket.msgSend("*".concat(message));
-//            }
-//            else {
-//                verifica = clientSocket.msgSend(message);
-//            }
-//        } while ((verifica) || (!message.equals("*exit")));
-//    }
+    private void mensage_loop() throws NullPointerException{
+        String message;
+        Boolean verifica = true;
+        do{
+            message = scanner.nextLine();
+            if (message.equals("--*")){
+                message = scanner.nextLine();
+                verifica = clientSocket.msgSend("*".concat(message));
+            }
+            else {
+                verifica = clientSocket.msgSend(message);
+            }
+        } while ((verifica) || (!message.equals("*exit")));
+    }
 }
 //    public static void main (String[]args) throws ClienteErroException {
 //        ChatCliente cliente = new ChatCliente();

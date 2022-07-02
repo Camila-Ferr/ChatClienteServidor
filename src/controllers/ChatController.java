@@ -24,6 +24,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.*;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.URL;
 
 public class ChatController {
@@ -41,7 +42,7 @@ public class ChatController {
     private boolean ChangeScene;
 
 
-    public void initialize() {
+    public void initialize() throws IOException {
         this.chatCliente = LoginController.chatCliente;
         CliNickname.setText(chatCliente.getNickname());
 
@@ -98,7 +99,7 @@ public class ChatController {
         return check;
     }
 
-    public static void addLabel(String messageFromClient, VBox vbox) {
+    public static void addLabel(String messageFromClient, VBox vBox) {
         HBox hBox = new HBox();
         hBox.setAlignment(Pos.CENTER_LEFT);
         hBox.setPadding(new Insets(5, 5, 5, 10));
@@ -115,7 +116,7 @@ public class ChatController {
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
-
+                vBox.getChildren().add(hBox);
             }
         });
     }
