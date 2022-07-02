@@ -69,6 +69,7 @@ public class ChatController {
 
                         Text text = new Text(messageToSend);
                         TextFlow textFlow = new TextFlow(text);
+                        text.setFont(Font.font ("Roboto Slab", 20));
 
                         textFlow.setStyle("-fx-color: rgba(239, 242, 255);" +
                                 "-fx-background-color: #12B886;" +

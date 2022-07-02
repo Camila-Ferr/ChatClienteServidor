@@ -22,24 +22,7 @@
             <VBox prefHeight="770.0" prefWidth="76.0" styleClass="dark-gray-background" stylesheets="@../values/style.css" />
             <VBox prefHeight="770.0" prefWidth="272.0">
                <children>
-                  <HBox alignment="TOP_CENTER" layoutX="10.0" layoutY="110.0" prefHeight="150.0" prefWidth="261.0">
-                     <children>
-                        <VBox alignment="CENTER" prefHeight="184.0" prefWidth="260.0">
-                           <children>
-                              <Label prefHeight="88.0" prefWidth="195.0" text="Numero de IP" textFill="#fcfcfc">
-                                 <font>
-                                    <Font name="Roboto Slab Regular" size="19.0" />
-                                 </font>
-                              </Label>
-                              <TextField fx:id="IPNumber" prefHeight="24.0" prefWidth="214.0">
-                                 <VBox.margin>
-                                    <Insets bottom="10.0" left="10.0" right="10.0" top="-6.0" />
-                                 </VBox.margin>
-                              </TextField>
-                           </children>
-                        </VBox>
-                     </children>
-                  </HBox>
+                  <HBox alignment="TOP_CENTER" layoutX="10.0" layoutY="110.0" prefHeight="34.0" prefWidth="258.0" />
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                      <children>
                         <Label prefHeight="40.0" prefWidth="160.0" text="Iniciar Login :" textFill="#fcfcfc">
@@ -64,9 +47,6 @@
                            </HBox.margin>
                         </Button>
                      </children>
-                     <padding>
-                        <Insets top="30.0" />
-                     </padding>
                   </HBox>
                   <HBox alignment="TOP_CENTER" prefHeight="184.0" prefWidth="261.0">
                      <children>

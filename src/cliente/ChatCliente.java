@@ -26,8 +26,7 @@ public class ChatCliente implements Runnable {
     }
 
     public void start() throws IOException {
-        mensage_loop();
-        clientSocket.closeC();
+
     }
 
     @Override
