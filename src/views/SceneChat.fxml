@@ -102,7 +102,12 @@
             </HBox>
             <ScrollPane id="ScrollPane_chat" fx:id="scrollPane_chat" prefHeight="578.0" prefWidth="709.0" styleClass="transparent-background" stylesheets="@../values/style.css">
                <content>
-                  <VBox fx:id="vbox_messages" prefHeight="570.0" prefWidth="760.0" />
+                  <HBox prefHeight="575.0" prefWidth="761.0">
+                     <children>
+                        <VBox fx:id="vbox_messages_server" prefHeight="575.0" prefWidth="373.0" />
+                        <VBox fx:id="vbox_messages" prefHeight="575.0" prefWidth="372.0" />
+                     </children>
+                  </HBox>
                </content></ScrollPane>
             <HBox prefHeight="100.0" prefWidth="200.0" styleClass="gray-background" stylesheets="@../values/style.css">
                <children>
