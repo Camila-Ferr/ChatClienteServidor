@@ -34,15 +34,18 @@ public class ChatCliente  {
 
     public boolean confirma(String numero, String apelido) throws IOException {
         clientSocket.msgSend(numero);
-        String confirmação = clientSocket.getMessage(1);
-
-        if (confirmação.isEmpty()) {
-            return false;
-        } else {
-            clientSocket.msgSend(apelido);
-            this.nickname = apelido;
-            return true;
+        try {
+            String confirmação = clientSocket.getMessage(1);
+            if (confirmação.equals("true")) {
+                clientSocket.msgSend(apelido);
+                this.nickname = apelido;
+                return true;
+            }
         }
+        catch (Exception e){
+            return false;
+        }
+        return false;
     }
 
     private void mensage_loop() throws NullPointerException{
