@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.net.Socket;
 import java.util.Scanner;
 
-public class ChatCliente implements Runnable {
+public class ChatCliente  {
     private final String SERVER_ADRESS;
     private static final int PORT_SERVIDOR = 3334;
     public ClientSocket clientSocket;
@@ -27,19 +27,6 @@ public class ChatCliente implements Runnable {
 
     }
 
-    @Override
-    public void run() {
-        try {
-            while (true) {
-                String msg = clientSocket.getMessage(1);
-                ChatController.addLabel(msg);
-                System.out.println(msg);
-            }
-        } catch (Exception e) {
-            System.out.println("Conexão fechada.");
-        }
-    }
-
     public String geraNumero() throws IOException {
         clientSocket = new ClientSocket(new Socket(SERVER_ADRESS, PORT_SERVIDOR));
         return (clientSocket.confirma());
@@ -54,8 +41,8 @@ public class ChatCliente implements Runnable {
         } else {
             clientSocket.msgSend(apelido);
             this.nickname = apelido;
+            return true;
         }
-        return true;
     }
 
     private void mensage_loop() throws NullPointerException{

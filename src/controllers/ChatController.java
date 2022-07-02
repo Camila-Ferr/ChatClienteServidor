@@ -27,7 +27,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
 
-public class ChatController {
+public class ChatController implements Runnable {
     @FXML
     private Button button_send;
     @FXML
@@ -48,6 +48,7 @@ public class ChatController {
     public void initialize() throws IOException {
         this.chatCliente = LoginController.chatCliente;
         CliNickname.setText(chatCliente.getNickname());
+        new Thread(this).start();
 
         vbox_messages.heightProperty().addListener(new ChangeListener<Number>() {
             @Override
@@ -114,13 +115,25 @@ public class ChatController {
 
         textFlow.setPadding(new Insets(5, 10, 5, 10));
         hBox.getChildren().add(textFlow);
-
-        Platform.runLater(new Runnable() {
-            @Override
-            public void run() {
-                vbox_messages_server.getChildren().add(hBox);
+    }
+    @Override
+    public void run() {
+        while (true) {
+            try {
+                String msg = chatCliente.clientSocket.getMessage(1);
+                Platform.runLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        //Thiago, faça um método aqui pra printar a mensagem bonitinho
+                        Text text = new Text(msg);
+                        vbox_messages.getChildren().add(text);
+                    }
+                });
+            } catch (Exception e) {
+                System.out.println("Conexão fechada.");
+                break;
             }
-        });
+        }
     }
 
     // Metódos que mudam a cena

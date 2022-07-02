@@ -156,6 +156,7 @@ public class Servidor {
                     }
                 System.out.printf("Cliente: %s\n", socket.getRemoteSocketAdress());
                 System.out.printf("Mensagem: %s\n", message);
+                socket.sendMessage("recebu",'-');
             }
         } catch (IOException e) {
             socket.sendMessage("",'-');
