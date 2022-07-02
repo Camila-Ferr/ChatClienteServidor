@@ -104,8 +104,7 @@
                <content>
                   <HBox prefHeight="575.0" prefWidth="761.0">
                      <children>
-                        <VBox fx:id="vbox_messages_server" prefHeight="575.0" prefWidth="373.0" />
-                        <VBox fx:id="vbox_messages" prefHeight="575.0" prefWidth="372.0" />
+                        <VBox fx:id="vbox_messages" prefHeight="575.0" prefWidth="758.0" />
                      </children>
                   </HBox>
                </content></ScrollPane>

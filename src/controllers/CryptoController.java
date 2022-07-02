@@ -72,6 +72,7 @@ public class CryptoController {
         mensagens.add("");
         mensagens.add("");
     }
+
     public void criptoFunction(){
         chavePublica.setText(String.valueOf(chatCliente.clientSocket.getPublic_key()));
         chavePublicaServidor.setText((String.valueOf(chatCliente.clientSocket.getPublic_key())));
@@ -88,7 +89,6 @@ public class CryptoController {
         }
         criptoFunction();
     }
-
 
     // Metódos que mudam a cena
     public void changeSceneToChat(ActionEvent event) throws Exception {

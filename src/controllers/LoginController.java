@@ -25,13 +25,10 @@ public class LoginController {
     private ImageView ImageConnect;
     @FXML
     private TextField ServerNumber;
-
     @FXML
     private TextField IPNumber;
-
     @FXML
     private Label NumberLabel;
-
     @FXML
     private Label Response;
     private boolean ChangeScene;

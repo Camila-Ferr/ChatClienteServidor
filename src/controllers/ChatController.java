@@ -70,9 +70,9 @@ public class ChatController implements Runnable {
 
                         Text text = new Text(messageToSend);
                         TextFlow textFlow = new TextFlow(text);
-                        text.setFont(Font.font("Roboto Slab", 20));
+                        text.setFont(Font.font("Roboto Slab", 16));
 
-                        textFlow.setStyle("-fx-color: rgba(239, 242, 255);" +
+                        textFlow.setStyle("-fx-color: #E5E5E0;" +
                                 "-fx-background-color: #12B886;" +
                                 "-fx-background-radius: 20px");
 
@@ -116,6 +116,7 @@ public class ChatController implements Runnable {
         textFlow.setPadding(new Insets(5, 10, 5, 10));
         hBox.getChildren().add(textFlow);
     }
+
     @Override
     public void run() {
         while (true) {
@@ -124,9 +125,19 @@ public class ChatController implements Runnable {
                 Platform.runLater(new Runnable() {
                     @Override
                     public void run() {
-                        //Thiago, faça um método aqui pra printar a mensagem bonitinho
+                        HBox hBox = new HBox();
+                        hBox.setAlignment(Pos.CENTER_LEFT);
+                        hBox.setPadding(new Insets(5, 5, 5, 10));
+
                         Text text = new Text(msg);
-                        vbox_messages.getChildren().add(text);
+                        TextFlow textFlow = new TextFlow(text);
+                        text.setFont(Font.font("Roboto Slab", 16));
+
+                        textFlow.setStyle("-fx-background-color: #E5E5E0;" +
+                                "-fx-background-radius: 20px");
+
+                        textFlow.setPadding(new Insets(5, 10, 5, 10));
+                        vbox_messages.getChildren().add(textFlow);
                     }
                 });
             } catch (Exception e) {
