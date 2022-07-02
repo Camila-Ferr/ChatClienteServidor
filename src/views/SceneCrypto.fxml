@@ -193,7 +193,12 @@
                               </Label>
                               <VBox alignment="CENTER" prefHeight="374.0" prefWidth="539.0" stylesheets="@../values/style.css">
                                  <children>
-                                    <Label fx:id="cryptoChat" prefHeight="28.0" prefWidth="546.0" text="ESCREVE AQUI MENOR:">
+                                    <Label fx:id="titleCripto" prefHeight="70.0" prefWidth="539.0">
+                                       <font>
+                                          <Font name="Roboto Slab Regular" size="20.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="cryptoChat" layoutX="10.0" layoutY="58.0" prefHeight="278.0" prefWidth="539.0">
                                        <font>
                                           <Font name="Roboto Slab Regular" size="20.0" />
                                        </font>

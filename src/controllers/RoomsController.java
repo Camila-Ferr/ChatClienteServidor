@@ -34,7 +34,7 @@ public class RoomsController {
     public void initialize() {
         Connect.setVisible(false);
         ImageConnect.setVisible(false);
-        
+
     }
 
     // Ao invés de passar o numero do servidor

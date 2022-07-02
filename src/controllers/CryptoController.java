@@ -24,12 +24,19 @@ public class CryptoController {
     public ScrollPane scrollPane_chat;
     public Label normalChat;
     public Label chavePublica;
+    @FXML
     public Label cryptoChat;
+    @FXML
+    public Label titleCripto;
     public TextField textField_client;
     public Button button_send;
     @FXML
     private Button chatButton;
 
+    public void cripto(){
+        titleCripto.setText("Como meus textos estão sendo criptografados ?");
+        cryptoChat.setText("");
+    }
 
 
     // Metódos que mudam a cena
