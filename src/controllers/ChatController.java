@@ -146,7 +146,6 @@ public class ChatController implements Runnable {
     }
 
     public void changeSceneToRooms(ActionEvent event) throws Exception {
-        Thread.currentThread().interrupt();
         URL rooms = getClass().getResource("/views/SceneRooms.fxml");
         if (rooms == null) return;
 
