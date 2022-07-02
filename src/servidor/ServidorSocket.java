@@ -49,6 +49,11 @@ public class ServidorSocket {
         out.println(ultimo_caracter);
         return !out.checkError();
     }
+    public boolean sendOneMessage(String msg){
+        String criptografada = keys.Encode(msg);
+        out.println(criptografada);
+        return !out.checkError();
+    }
 
     public boolean sendMessage(String msg, char ultimo_caracter, int cod) {
         out.println(msg);

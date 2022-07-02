@@ -146,6 +146,7 @@ public class Servidor {
                     }
                 }
                 else if ("*activeR".equals(message)){
+                    System.out.println("Aq");
                     activeRooms(socket,salas);
                 }
                 else if ("*help".equals(message)){

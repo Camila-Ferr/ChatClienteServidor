@@ -26,8 +26,9 @@ public class Comandos {
         clients.get(receptor-1).sendMessage(msg, '-');
     }
     public static void activeRooms(ServidorSocket socket, ArrayList<Sala> salas){
+        socket.sendOneMessage(String.valueOf(salas.size()));
         for (Sala percorre : salas){
-            socket.sendMessage(String.valueOf(salas.get(percorre.getId()).getId()),'-');
+            socket.sendOneMessage(String.valueOf(salas.get(percorre.getId()).getId()));
         }
     }
     public static void help(ServidorSocket socket){

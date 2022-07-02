@@ -1,5 +1,6 @@
 package controllers;
 
+import cliente.ChatCliente;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,6 +12,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.URL;
 
 public class RoomsController {
@@ -19,14 +21,19 @@ public class RoomsController {
     private Button Connect;
     @FXML
     private ImageView ImageConnect;
+    private ChatCliente chatCliente;
 
 
-    public void initialize() {
+    public void initialize() throws IOException {
         Connect.setVisible(false);
         ImageConnect.setVisible(false);
-        serverNumberList.getItems().add(1);
-        serverNumberList.getItems().add(2);
-        serverNumberList.getItems().add(3);
+        chatCliente = LoginController.chatCliente;
+        chatCliente.clientSocket.msgSend("*activeR");
+       int active_rooms = Integer.parseInt(chatCliente.clientSocket.getOneMessage());
+        chatCliente.clientSocket.getMessage(1);
+//        for (int i = 0; i<active_rooms; i++){
+//            serverNumberList.getItems().add(Integer.parseInt(chatCliente.clientSocket.getMessage(1)));
+//        }
     }
 
     // Ao invés de passar o numero do servidor

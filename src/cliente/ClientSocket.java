@@ -80,7 +80,7 @@ public class ClientSocket {
         String msg = "";
         while (true) {
             String s = in.readLine();
-
+            System.out.println(s);
             if (s.equals("*")) {
                 Long k = Long.parseLong(in.readLine());
                 server_key = BigInteger.valueOf(k);
@@ -94,7 +94,11 @@ public class ClientSocket {
         }
         return msg;
     }
+    public String getOneMessage () throws IOException {
+        String s = in.readLine();
 
+        return  Desencode(s);
+    }
     public String getMessage(int cod) throws IOException {
         return Desencode(getMessage());
     }
