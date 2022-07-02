@@ -75,7 +75,7 @@ public class CryptoController {
 
     public void criptoFunction(){
         chavePublica.setText(String.valueOf(chatCliente.clientSocket.getPublic_key()));
-        chavePublicaServidor.setText((String.valueOf(chatCliente.clientSocket.getPublic_key())));
+        chavePublicaServidor.setText((String.valueOf(chatCliente.clientSocket.getServer_key())));
         cryptoChat.setText(mensagens.get(cripto));
         cryptoChat1.setText(mensagens.get(cripto +1));
         cryptoChat2.setText(mensagens.get(cripto +2));

@@ -35,6 +35,10 @@ public class ClientSocket {
         this.public_key = chaves[1];
     }
 
+    public BigInteger getServer_key() {
+        return server_key;
+    }
+
     private BigInteger[] generateRandomKeys(BigInteger modulus) {
         BigInteger privateKey;
 
@@ -52,8 +56,6 @@ public class ClientSocket {
         return msgCifrada;
     }
     private String Desencode(String msgCifrada) {
-        String printa = new String(new BigInteger(msgCifrada,16).divide(this.inicio_alfabeto).toByteArray());
-        System.out.println(printa);
         return new String(new BigInteger(msgCifrada,16).divide(this.inicio_alfabeto).toByteArray());
     }
     public boolean msgSend(String msg) {
@@ -82,7 +84,6 @@ public class ClientSocket {
         String msg = "";
         while (true) {
             String s = in.readLine();
-            System.out.println(s);
             if (s.equals("*")) {
                 Long k = Long.parseLong(in.readLine());
                 server_key = BigInteger.valueOf(k);
