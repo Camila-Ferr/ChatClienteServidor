@@ -54,7 +54,7 @@ public class Servidor {
                 new Thread(() -> {
                     try {
                         if (cliente.confirma_chaves()) {
-                            cliente.sendMessage("Digite seu apelido: ", '-');
+                            cliente.sendMessage("true", '-');
                             cliente.setClient_id(cliente.keys.Desencode(cliente.getMessage()));
                             clients.add(cliente);
 
@@ -64,7 +64,7 @@ public class Servidor {
 
                         }
                         else {
-                            cliente.sendMessage("",'-');
+                            cliente.sendMessage("false",'-');
                         }
 
                         } catch (IOException e) {
