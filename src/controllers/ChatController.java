@@ -34,6 +34,9 @@ public class ChatController {
     private TextField textField_client;
     @FXML
     private VBox vbox_messages;
+
+    @FXML
+    private static VBox vbox_messages_server;
     @FXML
     private ScrollPane scrollPane_chat;
     @FXML
@@ -99,12 +102,12 @@ public class ChatController {
         return check;
     }
 
-    public static void addLabel(String messageFromClient, VBox vBox) {
+    public static void addLabel(String messageFromServer) {
         HBox hBox = new HBox();
         hBox.setAlignment(Pos.CENTER_LEFT);
         hBox.setPadding(new Insets(5, 5, 5, 10));
 
-        Text text = new Text(messageFromClient);
+        Text text = new Text(messageFromServer);
         TextFlow textFlow = new TextFlow(text);
         textFlow.setStyle("-fx-background-color: rgba(233, 233, 235);" +
                 "-fx-background-radius: 20px");
@@ -112,11 +115,10 @@ public class ChatController {
         textFlow.setPadding(new Insets(5,10, 5, 10));
         hBox.getChildren().add(textFlow);
 
-        // Youtube: 24:50
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
-                vBox.getChildren().add(hBox);
+                vbox_messages_server.getChildren().add(hBox);
             }
         });
     }

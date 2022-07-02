@@ -35,7 +35,7 @@ public class ChatCliente implements Runnable {
         try {
             while (true) {
                 String msg = clientSocket.getMessage(1);
-                ChatController.addLabel(msg,vbox);
+                ChatController.addLabel(msg);
                 System.out.println(msg);
             }
         } catch (Exception e) {
