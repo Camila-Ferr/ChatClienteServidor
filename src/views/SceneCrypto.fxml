@@ -56,14 +56,6 @@
                                 <Insets top="40.0" />
                             </VBox.margin>
                         </ImageView>
-                        <Button id="ButtonHelp" fx:id="helpButton" mnemonicParsing="false" opacity="0.0" prefHeight="30.0" prefWidth="40.0" text="Help">
-                            <VBox.margin>
-                                <Insets bottom="-75.0" top="57.0" />
-                            </VBox.margin>
-                            <cursor>
-                                <Cursor fx:constant="OPEN_HAND" />
-                            </cursor>
-                        </Button>
                         <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="24.0" layoutY="381.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
                             <image>
                                 <Image url="@../images/icon-help.png" />
@@ -127,7 +119,7 @@
                                     <String fx:value="chat-background" />
                                  </styleClass>
                               </Label>
-                              <Label fx:id="normalChat" layoutX="336.0" layoutY="46.0">
+                              <Label fx:id="normalChat" layoutX="336.0" layoutY="46.0" prefHeight="29.0" prefWidth="347.0">
                                  <font>
                                     <Font name="Roboto Slab Regular" size="20.0" />
                                  </font>
@@ -159,7 +151,7 @@
                                     <String fx:value="chat-background" />
                                  </styleClass>
                               </Label>
-                              <Label fx:id="chavePublica" layoutX="336.0" layoutY="46.0">
+                              <Label fx:id="chavePublica" layoutX="336.0" layoutY="46.0" prefHeight="42.0" prefWidth="133.0">
                                  <font>
                                     <Font name="Roboto Slab Regular" size="20.0" />
                                  </font>
@@ -171,14 +163,6 @@
                         </HBox>
                         <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="10.0" prefHeight="375.0" prefWidth="760.0" stylesheets="@../values/style.css">
                            <children>
-                              <ImageView fitHeight="58.0" fitWidth="67.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../images/icon-crypto-message.png" />
-                                 </image>
-                                 <HBox.margin>
-                                    <Insets left="5.0" right="5.0" />
-                                 </HBox.margin>
-                              </ImageView>
                               <Label stylesheets="@../values/style.css" text="Criptografia :">
                                  <font>
                                     <Font name="Roboto Slab Regular" size="20.0" />
@@ -198,11 +182,16 @@
                                           <Font name="Roboto Slab Regular" size="20.0" />
                                        </font>
                                     </Label>
-                                    <Label fx:id="cryptoChat" layoutX="10.0" layoutY="58.0" prefHeight="278.0" prefWidth="539.0">
+                                    <Label fx:id="cryptoChat" layoutX="10.0" layoutY="58.0" prefHeight="265.0" prefWidth="539.0">
                                        <font>
                                           <Font name="Roboto Slab Regular" size="20.0" />
                                        </font>
                                     </Label>
+                                          <Button id="ButtonHelp" mnemonicParsing="false" onAction="#prox" opacity="0.0" prefHeight="97.0" prefWidth="77.0" text="Help">
+                                              <cursor>
+                                                  <Cursor fx:constant="OPEN_HAND" />
+                                              </cursor>
+                                          </Button>
                                  </children>
                                  <styleClass>
                                     <String fx:value="chat-radius" />
@@ -227,7 +216,7 @@
                                 <Font name="Roboto Slab Regular" size="16.0" />
                             </font>
                         </TextField>
-                        <Button id="Button_send" fx:id="button_send" mnemonicParsing="false" prefHeight="38.0" prefWidth="91.0" text="Enviar">
+                        <Button id="Button_send" fx:id="button_send" mnemonicParsing="false" onAction="#send" prefHeight="38.0" prefWidth="91.0" text="Enviar">
                             <font>
                                 <Font name="Roboto Slab Regular" size="16.0" />
                             </font>

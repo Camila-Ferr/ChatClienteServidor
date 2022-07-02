@@ -46,7 +46,7 @@ public class ClientSocket {
         return _base.modPow(privateKey, modulus);
     }
 
-    private String Encode(String msg){
+    public String Encode(String msg){
         String msgCifrada = new BigInteger(msg.getBytes()).multiply(this.inicio_alfabeto).toString(16);
 
         return msgCifrada;
@@ -54,7 +54,6 @@ public class ClientSocket {
     private String Desencode(String msgCifrada) {
         return new String(new BigInteger(msgCifrada,16).divide(this.inicio_alfabeto).toByteArray());
     }
-
     public boolean msgSend(String msg) {
 
         String criptografada = Encode(msg);
