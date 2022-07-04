@@ -40,7 +40,7 @@ public class Servidor {
         try {
             salas.get(nova).addClientes(cliente);
             cliente.setSala(salas.get(nova));
-            salas.get(nova).sendMessageToAll(cliente, cliente.getClient_id().concat(" entrou na sala."));
+            sendMessageToAll(cliente, cliente.getClient_id().concat(" entrou na sala."), clients);
 
             salas.get(antiga).setClientes(cliente);//Diminui 1
 
@@ -63,7 +63,7 @@ public class Servidor {
 
                         salas.get(0).addClientes(cliente);
                         cliente.setSala(salas.get(0));
-                        salas.get(0).sendMessageToAll(cliente, cliente.getClient_id().concat(" entrou na sala."));
+                        sendMessageToAll(cliente, cliente.getClient_id().concat(" entrou na sala."), clients);
 
                     } else {
                         cliente.sendMessage("false", '-');
@@ -95,6 +95,7 @@ public class Servidor {
         String id = null;
         try {
             while (true) {
+                System.out.println(socket.getClient_id());
                 message = socket.keys.Desencode(socket.getMessage());
                 if ("*exit".equals(message)) {
                     socket.getSala().setClientes(socket);
@@ -134,7 +135,7 @@ public class Servidor {
                 } else if ("*help --public".equals(message)) {
                     helpPublic(socket);
                 } else {
-                    socket.getSala().sendMessageToAll(socket,message);
+                    sendMessageToAll(socket,message,clients);
                 }
                 System.out.printf("Cliente: %s\n", socket.getRemoteSocketAdress());
                 System.out.printf("Mensagem: %s\n", message);

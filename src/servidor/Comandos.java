@@ -1,8 +1,10 @@
 package servidor;
 
 import java.io.IOException;
+import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Comandos {
 
@@ -75,6 +77,29 @@ public class Comandos {
         }
         catch (Exception e){
             sender.sendMessage("Para o comando funcionar, digite somente a mensagem após o comando.",'-');
+        }
+
+    }
+
+    public void sendMessageToAll(ServidorSocket sender, String msg, ArrayList<ServidorSocket> clients){
+        for (ServidorSocket receptor: clients) {
+            if (receptor != null ) {
+                if (!(receptor.getRemoteSocketAdress().equals(sender.getRemoteSocketAdress())) && (Objects.equals(receptor.getSala().getId(), sender.getSala().getId()))) {
+                    receptor.sendMessage("from :".concat(sender.getClient_id()), '-');
+                    try {
+                        receptor.keys.Desencode(receptor.getMessage());
+                    } catch (IOException e) {
+                        receptor.sendMessage("from :".concat(sender.getClient_id()), '-');
+                    }
+
+                    receptor.sendMessage(msg, '-');
+                    try {
+                        receptor.keys.Desencode(receptor.getMessage());
+                    } catch (IOException e) {
+                        receptor.sendMessage(msg, '-');
+                    }
+                }
+            }
         }
 
     }

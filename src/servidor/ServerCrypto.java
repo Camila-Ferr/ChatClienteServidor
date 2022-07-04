@@ -35,10 +35,8 @@ public class ServerCrypto {
     }
 
     public String Encode(String msg) {
-
         String msgCifrada = new BigInteger(msg.getBytes()).multiply(this.inicio_alfabeto).toString(16);
         return msgCifrada;
-
     }
 
     public String Desencode(String msgCifrada) {

@@ -9,9 +9,7 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.math.BigInteger;
 import java.net.Socket;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Scanner;
+
 
 public class ClientSocket {
     private final Socket socket;
@@ -21,10 +19,8 @@ public class ClientSocket {
     private final BigInteger public_key;
     private BigInteger server_key;
     private BigInteger inicio_alfabeto;
-
     private final BigInteger _base = BigInteger.valueOf(5);
 
-    Scanner scanner = new Scanner(System.in);
 
     public ClientSocket(Socket socket) throws IOException {
         this.socket = socket;
@@ -56,11 +52,9 @@ public class ClientSocket {
         return msgCifrada;
     }
     private String Desencode(String msgCifrada) {
-        System.out.println(inicio_alfabeto);
-        System.out.println(msgCifrada);
         return new String(new BigInteger(msgCifrada,16).divide(this.inicio_alfabeto).toByteArray());
-
     }
+
     public boolean msgSend(String msg) {
 
         String criptografada = Encode(msg);
@@ -86,21 +80,21 @@ public class ClientSocket {
     public String getMessage() throws IOException {
         String msg = "";
         while (true) {
-            System.out.println(in);
             String s = in.readLine();
             if (s.equals("*")) {
                 Long k = Long.parseLong(in.readLine());
                 server_key = BigInteger.valueOf(k);
                 break;
             } else if (s.equals("-")) {
-//                in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+                in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
                 break;
             } else {
                 msg = msg.concat(s);
             }
         }
-        return msg;
+        return msg == null ? "" : msg;
     }
+
     public String getMessage(int cod) throws IOException {
         return Desencode(getMessage());
     }

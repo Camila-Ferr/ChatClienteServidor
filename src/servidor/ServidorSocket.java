@@ -67,7 +67,6 @@ public class ServidorSocket {
     public String getMessage() throws IOException {
         String msg = "";
         while (true) {
-            System.out.println(in);
             String s = in.readLine();
             if (s != null && s.equals("-")){
                 in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
@@ -80,7 +79,7 @@ public class ServidorSocket {
                 break;
             }
         }
-        return msg;
+        return msg == null ? "" : msg;
     }
 
     public SocketAddress getRemoteSocketAdress() {

@@ -1,22 +1,18 @@
 package cliente;
-import controllers.ChatController;
-import exceptions.ClienteErroException;
-import javafx.scene.layout.VBox;
 
 import java.io.IOException;
 import java.net.Socket;
-import java.util.Scanner;
+
 
 public class ChatCliente {
     private final String SERVER_ADRESS;
     private static final int PORT_SERVIDOR = 3334;
     public ClientSocket clientSocket;
-    private Scanner scanner;
+
     private String nickname;
 
     public ChatCliente() {
         this.SERVER_ADRESS = "127.0.0.1";
-        scanner = new Scanner(System.in);
     }
 
     public String getNickname() {
