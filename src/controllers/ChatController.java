@@ -23,9 +23,11 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.*;
 import javafx.stage.Stage;
+import servidor.Sala;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 
 public class ChatController implements Runnable {
     @FXML
@@ -43,16 +45,23 @@ public class ChatController implements Runnable {
     private Label CliNickname;
     public ChatCliente chatCliente;
     private boolean ChangeScene;
+    private ArrayList<Thread> thread = new ArrayList<>();
 
 
     public void initialize() throws IOException {
         this.chatCliente = LoginController.chatCliente;
         CliNickname.setText(chatCliente.getNickname());
-        new Thread(this).start();
+        vbox_messages.getChildren().clear();
+        if (Thread.activeCount() == 6) {
+            thread.add(new Thread(this));
+            thread.get(0).start();
+
+        }
         vbox_messages.heightProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
                 scrollPane_chat.setVvalue((Double) newValue);
+                System.out.println(newValue);
             }
         });
 
@@ -86,6 +95,7 @@ public class ChatController implements Runnable {
                 }
             }
         });
+
     }
 
     public boolean sendMsg(String messageToSend) {
@@ -107,6 +117,7 @@ public class ChatController implements Runnable {
         while (true) {
             try {
                 String msg = chatCliente.clientSocket.getMessage(1);
+                System.out.println(msg);
                 Platform.runLater(new Runnable() {
                     @Override
                     public void run() {
@@ -115,11 +126,13 @@ public class ChatController implements Runnable {
                         hBox.setPadding(new Insets(5, 5, 5, 10));
 
                         Text text = new Text(msg);
+                        System.out.println(text);
                         TextFlow textFlow = new TextFlow(text);
                         text.setFont(Font.font("Roboto Slab", 16));
 
                         textFlow.setPadding(new Insets(5, 10, 5, 10));
                         vbox_messages.getChildren().add(textFlow);
+                        System.out.println(vbox_messages.getChildren());
                     }
                 });
             } catch (Exception e) {
@@ -128,7 +141,9 @@ public class ChatController implements Runnable {
             }
         }
     }
-
+    public void help(){
+        sendMsg("*help");
+    }
     // Metódos que mudam a cena
     public void changeSceneToCrypto(ActionEvent event) throws Exception {
 

@@ -37,12 +37,16 @@ public class Servidor {
     }
 
     private void changeR(int nova, int antiga, ServidorSocket cliente) {
-        salas.get(nova).addClientes(cliente);
-        cliente.setSala(salas.get(nova));
-        salas.get(nova).sendMessageToAll(cliente, cliente.getClient_id().concat(" entrou na sala."));
+        try {
+            salas.get(nova).addClientes(cliente);
+            cliente.setSala(salas.get(nova));
+//        salas.get(nova).sendMessageToAll(cliente, cliente.getClient_id().concat(" entrou na sala."));
 
-        salas.get(antiga).setClientes(cliente);//Diminui 1
+            salas.get(antiga).setClientes(cliente);//Diminui 1
 
+        }catch (Exception e ){
+            System.out.println(e.getMessage());
+        }
     }
 
     private void clienteConnectionLoop() throws IOException {
@@ -98,10 +102,8 @@ public class Servidor {
                     clients.remove(socket);
                     return;
                 } else if ("*private".equals(message)) {
-                    mostraOnline(socket, clients);
                     try {
-                        id = socket.keys.Desencode(socket.getMessage());
-                        sendToOne(socket, Integer.parseInt(id), "*Private message from ", socket.keys.Desencode(socket.getMessage()), clients);
+                        sendToOne(socket,socket.keys.Desencode(socket.getMessage()),"Private message from :",socket.keys.Desencode(socket.getMessage()),clients);
                     } catch (Exception e) {
                         socket.sendMessage("Cliente não encontrado", '-');
                     }
@@ -110,25 +112,41 @@ public class Servidor {
                     System.out.printf("Cliente: %s\n", socket.getRemoteSocketAdress());
                     System.out.println("Comando para mudar a sala.");
                     try {
-                        int antiga = socket.getSala().getId();
-                        changeR(salas.get(Integer.parseInt(socket.keys.Desencode(socket.getMessage()))).getId(), antiga, socket);
+                        int nova = Integer.parseInt(socket.keys.Desencode(socket.getMessage()));
+                        System.out.println(nova);
+                        changeR(nova, socket.getSala().getId(), socket);
+                        socket.sendMessage("true",'-');
                     } catch (Exception e) {
-                        socket.sendMessage("Sala não encontrada", '-');
+                       // socket.sendMessage("Sala não encontrada", '-');
+                        socket.sendMessage("false",'-');
+                        System.out.println("Sala não encontrada");
+                        System.out.println(e.getMessage());
+                        for (Sala sala: salas){
+                            System.out.println(sala.getClientes());
+                        }
                     }
-                } else if ("*activeR".equals(message)) {
-                    System.out.println("Aq");
-                    activeRooms(socket, salas);
-                } else if ("*help".equals(message)) {
-                    //TODO
-                } else {
+                } else if ("*public".equals(message)){
+                    sendMessageToAll(socket,socket.keys.Desencode(socket.getMessage()),clients);
+                }
+                else if ("*help".equals(message)){
+                    help(socket);
+                }
+                else if ("*help --private".equals(message)){
+                    helpP(socket);
+                }
+                else if ("*help --public".equals(message)){
+                    helpPublic(socket);
+                }
+                else {
                     sendMessageToAll(socket, message, clients);
                 }
                 System.out.printf("Cliente: %s\n", socket.getRemoteSocketAdress());
                 System.out.printf("Mensagem: %s\n", message);
-                socket.sendMessage("RECEBA  !!", '-');
             }
         } catch (IOException e) {
             socket.sendMessage("", '-');
+            throw new RuntimeException(e);
+        } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
     }

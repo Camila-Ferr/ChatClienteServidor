@@ -14,25 +14,31 @@ public class Comandos {
         }
 
     }
-    public static void mostraOnline(ServidorSocket requisitor, List<ServidorSocket> clients){
-        int id = 1;
-        for (ServidorSocket percorre: clients){
-            requisitor.sendMessage(percorre.getClient_id().concat(" , ").concat(String.valueOf((id))), '-');
-            id +=1;
+    public static void sendToOne(ServidorSocket sender, String receptor, String motivo, String msg,List<ServidorSocket> clients){
+        for (ServidorSocket procura: clients){
+            if (procura.getClient_id().equals(receptor)){
+                procura.sendMessage(motivo.concat(sender.getClient_id()),'-');
+                procura.sendMessage(msg, '-');
+                break;
+            }
         }
     }
-    public static void sendToOne(ServidorSocket sender, int receptor, String motivo, String msg,List<ServidorSocket> clients){
-        clients.get(receptor-1).sendMessage(motivo.concat(sender.getClient_id()),'-');
-        clients.get(receptor-1).sendMessage(msg, '-');
+    public static void help(ServidorSocket sender) throws InterruptedException {
+        sender.sendMessage("Comandos :",'-');
+        sender.sendMessage("*private - envia uma mensagem privada",'-');
+        sender.sendMessage("*public - envia uma mensagem publica .",'-');
+
+
     }
-    public static void activeRooms(ServidorSocket socket, ArrayList<Sala> salas){
-        int size =salas.size();
-        socket.sendOneMessage(String.valueOf(size));
-        //for (Sala percorre : salas){
-            //socket.sendOneMessage(String.valueOf(salas.get(percorre.getId()).getId()));
-        //}
+    public static void helpP(ServidorSocket sender){
+        sender.sendMessage("Para o comando funcionar, envie 2 mensagens:",'-');
+        sender.sendMessage("Primeiro o apelido.",'-');
+        sender.sendMessage("Logo após a mensagem.",'-');
+
     }
-    public static void help(ServidorSocket socket){
-        //TODO
+    public static void helpPublic(ServidorSocket sender){
+        sender.sendMessage("Para o comando funcionar, digite somente a mensagem após o comando.",'-');
+
     }
+
 }

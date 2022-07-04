@@ -47,6 +47,7 @@ public class RoomsController {
         Connect.setVisible(false);
         ImageConnect.setVisible(false);
         chatCliente = LoginController.chatCliente;
+        chatCliente.clientSocket.msgSend("*changeR");
 
     }
 
@@ -59,16 +60,17 @@ public class RoomsController {
     public void chooseRoom() {
         try {
             Integer new_sala = Integer.parseInt(ServerNumber.getText()) - 1;
-            if ((new_sala < 0) || (new_sala > 4)) {
-                Response.setText("Erro, digite uma sala válida.");
-            } else {
-                chatCliente.clientSocket.msgSend("*changeR");
-                chatCliente.clientSocket.msgSend(new_sala.toString());
+            System.out.println(new_sala);
+            if ((new_sala >= 0) && (new_sala <= 4)) {
+                chatCliente.clientSocket.msgSend(String.valueOf(new_sala));
                 canConnect();
                 Response.setText("Conectado");
             }
+             else {
+                Response.setText("Erro, digite uma sala válida.");
+            }
         } catch (Exception e) {
-            Response.setText("Erro, digite uma sala válida.");
+            Response.setText("Deu merda.");
         }
 
     }

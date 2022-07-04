@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.net.Socket;
 import java.util.Scanner;
 
-public class ChatCliente  {
+public class ChatCliente {
     private final String SERVER_ADRESS;
     private static final int PORT_SERVIDOR = 3334;
     public ClientSocket clientSocket;
@@ -21,10 +21,6 @@ public class ChatCliente  {
 
     public String getNickname() {
         return nickname;
-    }
-
-    public void start() throws IOException {
-
     }
 
     public String geraNumero() throws IOException {
@@ -41,37 +37,9 @@ public class ChatCliente  {
                 this.nickname = apelido;
                 return true;
             }
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             return false;
         }
         return false;
     }
-
-    private void mensage_loop() throws NullPointerException{
-        String message;
-        Boolean verifica = true;
-        do{
-            message = scanner.nextLine();
-            if (message.equals("--*")){
-                message = scanner.nextLine();
-                verifica = clientSocket.msgSend("*".concat(message));
-            }
-            else {
-                verifica = clientSocket.msgSend(message);
-            }
-        } while ((verifica) || (!message.equals("*exit")));
-    }
 }
-//    public static void main (String[]args) throws ClienteErroException {
-//        ChatCliente cliente = new ChatCliente();
-//        try {
-//            cliente.start();
-//        } catch (IOException ex){
-//            cliente.clientSocket.closeC();
-//            throw new ClienteErroException();
-//
-//        }
-//
-//    }
-//}

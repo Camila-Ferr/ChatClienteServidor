@@ -55,7 +55,7 @@
                         <Insets top="40.0" />
                      </VBox.margin>
                   </ImageView>
-                  <Button id="ButtonHelp" fx:id="helpButton" mnemonicParsing="false" opacity="0.0" prefHeight="30.0" prefWidth="40.0" text="Help">
+                  <Button id="ButtonHelp" fx:id="helpButton" mnemonicParsing="false" onAction="#help" opacity="0.0" prefHeight="30.0" prefWidth="40.0" text="Help">
                      <VBox.margin>
                         <Insets bottom="-75.0" top="57.0" />
                      </VBox.margin>

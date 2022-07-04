@@ -57,6 +57,7 @@ public class ClientSocket {
     }
     private String Desencode(String msgCifrada) {
         return new String(new BigInteger(msgCifrada,16).divide(this.inicio_alfabeto).toByteArray());
+
     }
     public boolean msgSend(String msg) {
 
@@ -89,10 +90,13 @@ public class ClientSocket {
                 server_key = BigInteger.valueOf(k);
                 break;
             } else if (s.equals("-")) {
+                System.out.println("aq");
+                System.out.println(s);
                 in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
                 break;
             } else {
-                msg = s;
+                System.out.println(s);
+                msg = msg.concat(s);
             }
         }
         return msg;

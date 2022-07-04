@@ -47,6 +47,9 @@ public class ServidorSocket {
         String criptografada = keys.Encode(msg);
         out.println(criptografada);
         out.println(ultimo_caracter);
+        System.out.println("AQ:" .concat(msg));
+        System.out.println(criptografada);
+        System.out.println(!out.checkError());
         return !out.checkError();
     }
     public boolean sendOneMessage(String msg){
