@@ -32,19 +32,22 @@ public class Sala {
 
 
     public void sendMessageToAll(ServidorSocket sender, String msg){
-        for (ServidorSocket receptor: this.clients){
-            if (!(receptor.getRemoteSocketAdress().equals(sender.getRemoteSocketAdress()))){
-                receptor.sendMessage("from :".concat(sender.getClient_id()),'-');
-                try {
-                    receptor.keys.Desencode(receptor.getMessage());
-                } catch (IOException e) {
-                    receptor.sendMessage("from :".concat(sender.getClient_id()),'-');
-                }
-                receptor.sendMessage(msg,'-');
-                try {
-                    receptor.keys.Desencode(receptor.getMessage());
-                } catch (IOException e) {
-                    receptor.sendMessage(msg,'-');
+        for (ServidorSocket receptor: this.clients) {
+            if (receptor != null) {
+                if (!(receptor.getRemoteSocketAdress().equals(sender.getRemoteSocketAdress()))) {
+                    receptor.sendMessage("from :".concat(sender.getClient_id()), '-');
+                    try {
+                        receptor.keys.Desencode(receptor.getMessage());
+                    } catch (IOException e) {
+                        receptor.sendMessage("from :".concat(sender.getClient_id()), '-');
+                    }
+
+                    receptor.sendMessage(msg, '-');
+                    try {
+                        receptor.keys.Desencode(receptor.getMessage());
+                    } catch (IOException e) {
+                        receptor.sendMessage(msg, '-');
+                    }
                 }
             }
         }

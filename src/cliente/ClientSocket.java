@@ -56,6 +56,8 @@ public class ClientSocket {
         return msgCifrada;
     }
     private String Desencode(String msgCifrada) {
+        System.out.println(inicio_alfabeto);
+        System.out.println(msgCifrada);
         return new String(new BigInteger(msgCifrada,16).divide(this.inicio_alfabeto).toByteArray());
 
     }
@@ -84,13 +86,14 @@ public class ClientSocket {
     public String getMessage() throws IOException {
         String msg = "";
         while (true) {
+            System.out.println(in);
             String s = in.readLine();
             if (s.equals("*")) {
                 Long k = Long.parseLong(in.readLine());
                 server_key = BigInteger.valueOf(k);
                 break;
             } else if (s.equals("-")) {
-                in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+//                in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
                 break;
             } else {
                 msg = msg.concat(s);

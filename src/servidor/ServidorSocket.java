@@ -67,13 +67,17 @@ public class ServidorSocket {
     public String getMessage() throws IOException {
         String msg = "";
         while (true) {
+            System.out.println(in);
             String s = in.readLine();
-            if (s.equals("-")){
+            if (s != null && s.equals("-")){
                 in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
                 break;
             }
-            else {
+            else if (s != null) {
                 msg = s;
+            }
+            else {
+                break;
             }
         }
         return msg;

@@ -45,15 +45,17 @@ public class ChatController implements Runnable {
     private Label CliNickname;
     public ChatCliente chatCliente;
     private boolean ChangeScene;
-    private ArrayList<Thread> thread = new ArrayList<>();
+    private Thread thread;
+
 
 
     public void initialize() throws IOException {
         this.chatCliente = LoginController.chatCliente;
         CliNickname.setText(chatCliente.getNickname());
         vbox_messages.getChildren().clear();
-        thread.add(new Thread(this));
-        thread.get(0).start();
+
+        this.thread = new Thread(this);
+        this.thread.start();
         vbox_messages.heightProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
@@ -133,6 +135,7 @@ public class ChatController implements Runnable {
                     }
                 });
             } catch (Exception e) {
+                e.printStackTrace();
                 System.out.println("Conexão fechada.");
                 break;
             }
@@ -158,8 +161,7 @@ public class ChatController implements Runnable {
     }
 
     public void changeSceneToRooms(ActionEvent event) throws Exception {
-        thread.get(0).interrupt();
-        thread.remove(0);
+        this.thread.interrupt();
         URL rooms = getClass().getResource("/views/SceneRooms.fxml");
         if (rooms == null) return;
 

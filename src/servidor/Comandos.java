@@ -8,22 +8,12 @@ public class Comandos {
 
     public static void sendMessageToAll(ServidorSocket sender, String msg, List<ServidorSocket> clients){
         for (ServidorSocket receptor: clients){
-            if (!(receptor.getRemoteSocketAdress().equals(sender.getRemoteSocketAdress()))){
-                try {
-                    receptor.keys.Desencode(receptor.getMessage());
-                } catch (IOException e) {
-                    receptor.sendMessage("from :".concat(sender.getClient_id()),'-');
-                }
-                receptor.sendMessage(msg,'-');
-                try {
-                    receptor.keys.Desencode(receptor.getMessage());
-                } catch (IOException e) {
-                    receptor.sendMessage(msg,'-');
-                }
+            if (!(receptor.getRemoteSocketAdress().equals(sender.getRemoteSocketAdress()))) {
+                receptor.sendMessage("from :".concat(sender.getClient_id()), '-');
+                receptor.sendMessage(msg, '-');
+            }
             }
         }
-
-    }
     public static void sendToOne(ServidorSocket sender, String receptor, String motivo, String msg,List<ServidorSocket> clients){
         for (ServidorSocket procura: clients){
             if (procura.getClient_id().equals(receptor)){
