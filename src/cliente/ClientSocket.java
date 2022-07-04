@@ -90,12 +90,9 @@ public class ClientSocket {
                 server_key = BigInteger.valueOf(k);
                 break;
             } else if (s.equals("-")) {
-                System.out.println("aq");
-                System.out.println(s);
                 in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
                 break;
             } else {
-                System.out.println(s);
                 msg = msg.concat(s);
             }
         }

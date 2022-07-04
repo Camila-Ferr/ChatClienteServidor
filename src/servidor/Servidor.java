@@ -40,7 +40,7 @@ public class Servidor {
         try {
             salas.get(nova).addClientes(cliente);
             cliente.setSala(salas.get(nova));
-//        salas.get(nova).sendMessageToAll(cliente, cliente.getClient_id().concat(" entrou na sala."));
+            salas.get(nova).sendMessageToAll(cliente, cliente.getClient_id().concat(" entrou na sala."));
 
             salas.get(antiga).setClientes(cliente);//Diminui 1
 
@@ -145,9 +145,12 @@ public class Servidor {
             }
         } catch (IOException e) {
             socket.sendMessage("", '-');
-            throw new RuntimeException(e);
+
         } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            socket.closeS();
+            socket.getSala().setClientes(socket);
+            clients.remove(socket);
+
         }
     }
 
