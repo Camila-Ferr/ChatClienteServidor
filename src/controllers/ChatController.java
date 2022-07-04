@@ -114,7 +114,7 @@ public class ChatController implements Runnable {
         while (true) {
             try {
                 String msg = chatCliente.clientSocket.getMessage(1);
-                System.out.println(msg);
+                chatCliente.clientSocket.msgSend("ok");
                 Platform.runLater(new Runnable() {
                     @Override
                     public void run() {

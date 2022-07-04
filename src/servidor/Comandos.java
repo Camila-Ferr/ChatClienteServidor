@@ -1,5 +1,6 @@
 package servidor;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,8 +9,17 @@ public class Comandos {
     public static void sendMessageToAll(ServidorSocket sender, String msg, List<ServidorSocket> clients){
         for (ServidorSocket receptor: clients){
             if (!(receptor.getRemoteSocketAdress().equals(sender.getRemoteSocketAdress()))){
-                receptor.sendMessage("from :".concat(sender.getClient_id()),'-');
+                try {
+                    receptor.keys.Desencode(receptor.getMessage());
+                } catch (IOException e) {
+                    receptor.sendMessage("from :".concat(sender.getClient_id()),'-');
+                }
                 receptor.sendMessage(msg,'-');
+                try {
+                    receptor.keys.Desencode(receptor.getMessage());
+                } catch (IOException e) {
+                    receptor.sendMessage(msg,'-');
+                }
             }
         }
 
@@ -23,21 +33,59 @@ public class Comandos {
             }
         }
     }
-    public static void help(ServidorSocket sender) throws InterruptedException {
-        sender.sendMessage("Comandos :",'-');
-        sender.sendMessage("*private - envia uma mensagem privada",'-');
-        sender.sendMessage("*public - envia uma mensagem publica .",'-');
-
-
+    public static void help(ServidorSocket sender) throws InterruptedException, IOException {
+        sender.sendMessage("Comandos : ", '-');
+        try {
+            sender.keys.Desencode(sender.getMessage());
+        } catch (Exception e) {
+            sender.sendMessage("Comandos : ", '-');
+        }
+        sender.sendMessage("*private - envia uma mensagem privada", '-');
+        try {
+            sender.keys.Desencode(sender.getMessage());
+        } catch (Exception e) {
+            sender.sendMessage("*private - envia uma mensagem privada", '-');
+        }
+        sender.sendMessage("*public - envia uma mensagem publica .", '-');
+        try {
+            sender.keys.Desencode(sender.getMessage());
+        } catch (Exception e) {
+            sender.sendMessage("*public - envia uma mensagem publica .", '-');
+        }
     }
-    public static void helpP(ServidorSocket sender){
+    public static void helpP(ServidorSocket sender) throws IOException {
         sender.sendMessage("Para o comando funcionar, envie 2 mensagens:",'-');
+        try {
+            sender.keys.Desencode(sender.getMessage());
+        }
+        catch (Exception e){
+            helpP(sender);
+        }
         sender.sendMessage("Primeiro o apelido.",'-');
+        try {
+            sender.keys.Desencode(sender.getMessage());
+        }
+        catch (Exception e){
+            sender.sendMessage("Primeiro o apelido.",'-');
+        }
         sender.sendMessage("Logo após a mensagem.",'-');
+        try {
+            sender.keys.Desencode(sender.getMessage());
+        }
+        catch (Exception e){
+            sender.sendMessage("Logo após a mensagem.",'-');
+        }
+
 
     }
-    public static void helpPublic(ServidorSocket sender){
+    public static void helpPublic(ServidorSocket sender) throws IOException {
         sender.sendMessage("Para o comando funcionar, digite somente a mensagem após o comando.",'-');
+        try {
+            sender.keys.Desencode(sender.getMessage());
+        }
+        catch (Exception e){
+            sender.sendMessage("Para o comando funcionar, digite somente a mensagem após o comando.",'-');
+        }
 
     }
 

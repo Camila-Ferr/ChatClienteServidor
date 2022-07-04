@@ -134,7 +134,7 @@ public class Servidor {
                 } else if ("*help --public".equals(message)) {
                     helpPublic(socket);
                 } else {
-                    sendMessageToAll(socket, message, clients);
+                    socket.getSala().sendMessageToAll(socket,message);
                 }
                 System.out.printf("Cliente: %s\n", socket.getRemoteSocketAdress());
                 System.out.printf("Mensagem: %s\n", message);
