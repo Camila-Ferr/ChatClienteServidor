@@ -103,7 +103,7 @@ public class Servidor {
                     return;
                 } else if ("*private".equals(message)) {
                     try {
-                        sendToOne(socket,socket.keys.Desencode(socket.getMessage()),"Private message from :",socket.keys.Desencode(socket.getMessage()),clients);
+                        sendToOne(socket, socket.keys.Desencode(socket.getMessage()), "Private message from :", socket.keys.Desencode(socket.getMessage()), clients);
                     } catch (Exception e) {
                         socket.sendMessage("Cliente não encontrado", '-');
                     }
@@ -115,42 +115,35 @@ public class Servidor {
                         int nova = Integer.parseInt(socket.keys.Desencode(socket.getMessage()));
                         System.out.println(nova);
                         changeR(nova, socket.getSala().getId(), socket);
-                        socket.sendMessage("true",'-');
+                        socket.sendMessage("true", '-');
                     } catch (Exception e) {
-                       // socket.sendMessage("Sala não encontrada", '-');
-                        socket.sendMessage("false",'-');
+                        // socket.sendMessage("Sala não encontrada", '-');
+                        socket.sendMessage("false", '-');
                         System.out.println("Sala não encontrada");
                         System.out.println(e.getMessage());
-                        for (Sala sala: salas){
+                        for (Sala sala : salas) {
                             System.out.println(sala.getClientes());
                         }
                     }
-                } else if ("*public".equals(message)){
-                    sendMessageToAll(socket,socket.keys.Desencode(socket.getMessage()),clients);
-                }
-                else if ("*help".equals(message)){
+                } else if ("*public".equals(message)) {
+                    sendMessageToAll(socket, socket.keys.Desencode(socket.getMessage()), clients);
+                } else if ("*help".equals(message)) {
                     help(socket);
-                }
-                else if ("*help --private".equals(message)){
+                } else if ("*help --private".equals(message)) {
                     helpP(socket);
-                }
-                else if ("*help --public".equals(message)){
+                } else if ("*help --public".equals(message)) {
                     helpPublic(socket);
-                }
-                else {
+                } else {
                     sendMessageToAll(socket, message, clients);
                 }
                 System.out.printf("Cliente: %s\n", socket.getRemoteSocketAdress());
                 System.out.printf("Mensagem: %s\n", message);
             }
-        } catch (IOException e) {
+        } catch (IOException | InterruptedException e) {
             socket.sendMessage("", '-');
-
-        } catch (InterruptedException e) {
             socket.closeS();
             socket.getSala().setClientes(socket);
             clients.remove(socket);
-
         }
     }
 
