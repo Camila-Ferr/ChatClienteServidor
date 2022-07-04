@@ -23,11 +23,9 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.*;
 import javafx.stage.Stage;
-import servidor.Sala;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
 
 public class ChatController implements Runnable {
     @FXML

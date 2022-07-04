@@ -10,6 +10,7 @@ public class ChatCliente {
     public ClientSocket clientSocket;
 
     private String nickname;
+    public int sala;
 
     public ChatCliente() {
         this.SERVER_ADRESS = "127.0.0.1";
@@ -23,6 +24,7 @@ public class ChatCliente {
         clientSocket = new ClientSocket(new Socket(SERVER_ADRESS, PORT_SERVIDOR));
         return (clientSocket.confirma());
     }
+
 
     public boolean confirma(String numero, String apelido) throws IOException {
         clientSocket.msgSend(numero);

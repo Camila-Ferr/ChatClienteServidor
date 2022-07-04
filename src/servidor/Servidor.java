@@ -16,15 +16,14 @@ public class Servidor {
     private static final int PORT_SERVIDOR = 3334;
     private ServerSocket serverSocket;
     private final List<ServidorSocket> clients = new LinkedList<>();
-    private ArrayList<Sala> salas = new ArrayList<>();
+    private ArrayList<Integer> salas = new ArrayList<>();
 
 
     public void start() throws IOException {
         System.out.println("Servidor iniciado na porta " + PORT_SERVIDOR);
 
         for (int i = 0; i < 5; i++) {
-            Sala sala = new Sala(i);
-            salas.add(sala);
+            salas.add(i);
         }
         serverSocket = new ServerSocket(PORT_SERVIDOR);
         new Thread(() -> {
@@ -36,13 +35,11 @@ public class Servidor {
         }).start();
     }
 
-    private void changeR(int nova, int antiga, ServidorSocket cliente) {
+    private void changeR(int nova,  ServidorSocket cliente) {
         try {
-            salas.get(nova).addClientes(cliente);
-            cliente.setSala(salas.get(nova));
             sendMessageToAll(cliente, cliente.getClient_id().concat(" entrou na sala."), clients);
+            cliente.setSala(nova);
 
-            salas.get(antiga).setClientes(cliente);//Diminui 1
 
         }catch (Exception e ){
             System.out.println(e.getMessage());
@@ -61,8 +58,6 @@ public class Servidor {
                         cliente.setClient_id(cliente.keys.Desencode(cliente.getMessage()));
                         clients.add(cliente);
 
-                        salas.get(0).addClientes(cliente);
-                        cliente.setSala(salas.get(0));
                         sendMessageToAll(cliente, cliente.getClient_id().concat(" entrou na sala."), clients);
 
                     } else {
@@ -76,7 +71,6 @@ public class Servidor {
                 try {
                     clientMessageLoop(cliente);
                 } catch (ServidorErroException e) {
-                    cliente.getSala().setClientes(cliente);
 
                     try {
                         cliente.closeS();
@@ -98,7 +92,6 @@ public class Servidor {
                 System.out.println(socket.getClient_id());
                 message = socket.keys.Desencode(socket.getMessage());
                 if ("*exit".equals(message)) {
-                    socket.getSala().setClientes(socket);
                     socket.closeS();
                     clients.remove(socket);
                     return;
@@ -114,17 +107,13 @@ public class Servidor {
                     System.out.println("Comando para mudar a sala.");
                     try {
                         int nova = Integer.parseInt(socket.keys.Desencode(socket.getMessage()));
-                        System.out.println(nova);
-                        changeR(nova, socket.getSala().getId(), socket);
+                        changeR(nova, socket);
                         socket.sendMessage("true", '-');
                     } catch (Exception e) {
                         // socket.sendMessage("Sala não encontrada", '-');
                         socket.sendMessage("false", '-');
                         System.out.println("Sala não encontrada");
                         System.out.println(e.getMessage());
-                        for (Sala sala : salas) {
-                            System.out.println(sala.getClientes());
-                        }
                     }
                 } else if ("*public".equals(message)) {
                     sendMessageToAll(socket, socket.keys.Desencode(socket.getMessage()), clients);
@@ -143,7 +132,6 @@ public class Servidor {
         } catch (IOException | InterruptedException e) {
             socket.sendMessage("", '-');
             socket.closeS();
-            socket.getSala().setClientes(socket);
             clients.remove(socket);
         }
     }
