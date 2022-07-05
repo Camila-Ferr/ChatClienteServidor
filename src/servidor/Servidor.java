@@ -56,6 +56,7 @@ public class Servidor {
                     if (cliente.confirma_chaves()) {
                         cliente.sendMessage("true", '-');
                         cliente.setClient_id(cliente.keys.Desencode(cliente.getMessage()));
+                        cliente.setSala(0);
                         clients.add(cliente);
 
                         sendMessageToAll(cliente, cliente.getClient_id().concat(" entrou na sala."), clients);

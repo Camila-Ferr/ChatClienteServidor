@@ -39,6 +39,7 @@ public class RoomsController {
     @FXML
     private Label Response;
     private boolean con = false;
+    private int newSala;
 
 
     public void initialize() throws IOException {
@@ -57,17 +58,19 @@ public class RoomsController {
 
     public void chooseRoom() {
         try {
-            Integer new_sala = Integer.parseInt(ServerNumber.getText()) - 1;
-            if ((new_sala >= 0) && (new_sala <= 4)) {
-                chatCliente.clientSocket.msgSend(String.valueOf(new_sala));
+            this.newSala = Integer.parseInt(ServerNumber.getText()) - 1;
+            if ((newSala >= 0) && (newSala <= 4)) {
+                chatCliente.clientSocket.msgSend(String.valueOf(newSala));
                 canConnect();
                 Response.setText("Conectado");
+                return;
             }
              else {
                 Response.setText("Erro, digite uma sala válida.");
+                chooseRoom();
             }
         } catch (Exception e) {
-            Response.setText("Deu merda.");
+            Response.setText("Erro.");
         }
 
     }
@@ -89,7 +92,6 @@ public class RoomsController {
 
         // Pega a informção da cena
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-
         window.setScene(chatScene);
         window.show();
     }

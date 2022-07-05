@@ -11,8 +11,8 @@ public class Comandos {
                 System.out.println("aq");
                 receptor.sendMessage("from : " + sender.getClient_id() + "\n" + msg, '-');
             }
-            }
         }
+    }
     public static void sendMessageToAll(ServidorSocket sender, String msg, List<ServidorSocket> clients, int cod){
         for (ServidorSocket receptor: clients){
             if ((!receptor.getRemoteSocketAdress().equals(sender.getRemoteSocketAdress()))) {
