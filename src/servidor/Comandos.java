@@ -10,97 +10,37 @@ public class Comandos {
 
     public static void sendMessageToAll(ServidorSocket sender, String msg, List<ServidorSocket> clients){
         for (ServidorSocket receptor: clients){
-            if (!(receptor.getRemoteSocketAdress().equals(sender.getRemoteSocketAdress()))) {
-                receptor.sendMessage("from :".concat(sender.getClient_id()), '-');
-                receptor.sendMessage(msg, '-');
+            if ((!receptor.getRemoteSocketAdress().equals(sender.getRemoteSocketAdress())) && (receptor.getSala() == sender.getSala())) {
+                System.out.println("aq");
+                receptor.sendMessage("from : " + sender.getClient_id() + "\n" + msg, '-');
             }
             }
         }
+    public static void sendMessageToAll(ServidorSocket sender, String msg, List<ServidorSocket> clients, int cod){
+        for (ServidorSocket receptor: clients){
+            if ((!receptor.getRemoteSocketAdress().equals(sender.getRemoteSocketAdress()))) {
+                receptor.sendMessage("from : " + sender.getClient_id() + "\n" + msg, '-');
+            }
+        }
+    }
     public static void sendToOne(ServidorSocket sender, String receptor, String motivo, String msg,List<ServidorSocket> clients){
         for (ServidorSocket procura: clients){
             if (procura.getClient_id().equals(receptor)){
-                procura.sendMessage(motivo.concat(sender.getClient_id()),'-');
-                procura.sendMessage(msg, '-');
+                procura.sendMessage(motivo.concat(sender.getClient_id()) +"\n" +msg,'-');
                 break;
             }
         }
     }
     public static void help(ServidorSocket sender) throws InterruptedException, IOException {
-        sender.sendMessage("Comandos : ", '-');
-        try {
-            sender.keys.Desencode(sender.getMessage());
-        } catch (Exception e) {
-            sender.sendMessage("Comandos : ", '-');
-        }
-        sender.sendMessage("*private - envia uma mensagem privada", '-');
-        try {
-            sender.keys.Desencode(sender.getMessage());
-        } catch (Exception e) {
-            sender.sendMessage("*private - envia uma mensagem privada", '-');
-        }
-        sender.sendMessage("*public - envia uma mensagem publica .", '-');
-        try {
-            sender.keys.Desencode(sender.getMessage());
-        } catch (Exception e) {
-            sender.sendMessage("*public - envia uma mensagem publica .", '-');
-        }
+        sender.sendMessage("Comandos : " +"\n" +"private - envia uma mensagem privada" +"\n" +"*public - envia uma mensagem publica .", '-');
     }
     public static void helpP(ServidorSocket sender) throws IOException {
-        sender.sendMessage("Para o comando funcionar, envie 2 mensagens:",'-');
-        try {
-            sender.keys.Desencode(sender.getMessage());
-        }
-        catch (Exception e){
-            helpP(sender);
-        }
-        sender.sendMessage("Primeiro o apelido.",'-');
-        try {
-            sender.keys.Desencode(sender.getMessage());
-        }
-        catch (Exception e){
-            sender.sendMessage("Primeiro o apelido.",'-');
-        }
-        sender.sendMessage("Logo após a mensagem.",'-');
-        try {
-            sender.keys.Desencode(sender.getMessage());
-        }
-        catch (Exception e){
-            sender.sendMessage("Logo após a mensagem.",'-');
-        }
+        sender.sendMessage("Para o comando funcionar, envie 2 mensagens:" +"\n" +"Primeiro o apelido." +"\n" +"Logo após a mensagem.",'-');
 
 
     }
     public static void helpPublic(ServidorSocket sender) throws IOException {
         sender.sendMessage("Para o comando funcionar, digite somente a mensagem após o comando.",'-');
-        try {
-            sender.keys.Desencode(sender.getMessage());
-        }
-        catch (Exception e){
-            sender.sendMessage("Para o comando funcionar, digite somente a mensagem após o comando.",'-');
-        }
-
-    }
-
-    public void sendMessageToAll(ServidorSocket sender, String msg, ArrayList<ServidorSocket> clients){
-        for (ServidorSocket receptor: clients) {
-            if (receptor != null ) {
-                if ((!receptor.getRemoteSocketAdress().equals(sender.getRemoteSocketAdress())) && (Objects.equals(receptor.getSala(), sender.getSala()))) {
-                    receptor.sendMessage("from :".concat(sender.getClient_id()), '-');
-                    try {
-                        receptor.keys.Desencode(receptor.getMessage());
-                    } catch (IOException e) {
-                        receptor.sendMessage("from :".concat(sender.getClient_id()), '-');
-                    }
-
-                    receptor.sendMessage(msg, '-');
-                    try {
-                        receptor.keys.Desencode(receptor.getMessage());
-                    } catch (IOException e) {
-                        receptor.sendMessage(msg, '-');
-                    }
-                }
-            }
-        }
 
     }
 

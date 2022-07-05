@@ -1,7 +1,6 @@
 package controllers;
 
 import cliente.ChatCliente;
-import cliente.ClientSocket;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -10,7 +9,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
@@ -60,7 +58,6 @@ public class RoomsController {
     public void chooseRoom() {
         try {
             Integer new_sala = Integer.parseInt(ServerNumber.getText()) - 1;
-            System.out.println(new_sala);
             if ((new_sala >= 0) && (new_sala <= 4)) {
                 chatCliente.clientSocket.msgSend(String.valueOf(new_sala));
                 canConnect();

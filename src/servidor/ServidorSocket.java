@@ -23,7 +23,6 @@ public class ServidorSocket {
 
     public ServidorSocket(Socket socket) throws IOException {
         this.socket = socket;
-        System.out.println("Cliente " + socket.getRemoteSocketAddress());
         this.out = new PrintWriter(socket.getOutputStream(),true);
         this.in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
         keys = new ServerCrypto(BigInteger.valueOf(5), BigInteger.valueOf(23));
@@ -47,17 +46,8 @@ public class ServidorSocket {
         String criptografada = keys.Encode(msg);
         out.println(criptografada);
         out.println(ultimo_caracter);
-        System.out.println("AQ:" .concat(msg));
-        System.out.println(criptografada);
-        System.out.println(!out.checkError());
         return !out.checkError();
     }
-    public boolean sendOneMessage(String msg){
-        String criptografada = keys.Encode(msg);
-        out.println(criptografada);
-        return !out.checkError();
-    }
-
     public boolean sendMessage(String msg, char ultimo_caracter, int cod) {
         out.println(msg);
         out.println(ultimo_caracter);
@@ -65,21 +55,18 @@ public class ServidorSocket {
     }
 
     public String getMessage() throws IOException {
-        String msg = "";
+        String msg = " ";
         while (true) {
             String s = in.readLine();
-            if (s != null && s.equals("-")){
+            if (s.equals("-")){
                 in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
                 break;
             }
-            else if (s != null) {
+            else {
                 msg = s;
             }
-            else {
-                break;
-            }
         }
-        return msg == null ? "" : msg;
+        return msg;
     }
 
     public SocketAddress getRemoteSocketAdress() {

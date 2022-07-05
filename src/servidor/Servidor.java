@@ -13,7 +13,7 @@ import static servidor.Comandos.*;
 
 
 public class Servidor {
-    private static final int PORT_SERVIDOR = 3334;
+    private static final int PORT_SERVIDOR = 9000;
     private ServerSocket serverSocket;
     private final List<ServidorSocket> clients = new LinkedList<>();
     private ArrayList<Integer> salas = new ArrayList<>();
@@ -37,8 +37,8 @@ public class Servidor {
 
     private void changeR(int nova,  ServidorSocket cliente) {
         try {
-            sendMessageToAll(cliente, cliente.getClient_id().concat(" entrou na sala."), clients);
             cliente.setSala(nova);
+            sendMessageToAll(cliente, cliente.getClient_id().concat(" entrou na sala."), clients);
 
 
         }catch (Exception e ){
@@ -89,7 +89,6 @@ public class Servidor {
         String id = null;
         try {
             while (true) {
-                System.out.println(socket.getClient_id());
                 message = socket.keys.Desencode(socket.getMessage());
                 if ("*exit".equals(message)) {
                     socket.closeS();
@@ -116,7 +115,7 @@ public class Servidor {
                         System.out.println(e.getMessage());
                     }
                 } else if ("*public".equals(message)) {
-                    sendMessageToAll(socket, socket.keys.Desencode(socket.getMessage()), clients);
+                    sendMessageToAll(socket, socket.keys.Desencode(socket.getMessage()), clients,1);
                 } else if ("*help".equals(message)) {
                     help(socket);
                 } else if ("*help --private".equals(message)) {
@@ -124,7 +123,9 @@ public class Servidor {
                 } else if ("*help --public".equals(message)) {
                     helpPublic(socket);
                 } else {
-                    sendMessageToAll(socket,message,clients);
+                    if (message != null && !message.equals("")) {
+                        sendMessageToAll(socket, message, clients);
+                    }
                 }
                 System.out.printf("Cliente: %s\n", socket.getRemoteSocketAdress());
                 System.out.printf("Mensagem: %s\n", message);

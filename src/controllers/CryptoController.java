@@ -17,7 +17,6 @@ import java.util.ArrayList;
 public class CryptoController {
 
     public Button roomButton;
-    public Button helpButton;
     public Label CliNickname;
     public VBox vbox_messages;
     public ScrollPane scrollPane_chat;
@@ -53,15 +52,15 @@ public class CryptoController {
     public void setText (){
         mensagens.add("Aqui, estamos usando a criptografia Diffie Helman.");
         mensagens.add(" Nessa criptografia, você e o servidor tem 2 chaves :");
-        mensagens.add("a privada que é gerada aleatoriamente, e a pública, que é gerada");
-        mensagens.add("a partir da privada e um número constante para os dois lados.");
+        mensagens.add("a privada, que é gerada aleatoriamente, e a pública, que é gerada");
+        mensagens.add("a partir da privada.");
         mensagens.add("Por motivos de segurança, a chave privada não foi disponibilizada.");                // 1 cena
-        mensagens.add("A partir dessas 2 chaves, no início da conexão,");
-        mensagens.add("ocorre uma troca de chaves públicas.");
+        mensagens.add("A partir dessas 2 chaves, no início da conexão, antes de qualquer ");
+        mensagens.add("comunicação ocorre uma troca de chaves públicas.");
         mensagens.add("");
-        mensagens.add("Como a chave pública foi gerada com o auxílio da privada,");                        // 2 cena
-        mensagens.add("apenas com a chave pública do servidor e a sua chave privada,");
-        mensagens.add("você consegue calcular uma chave decifradora.");
+        mensagens.add("Agora que o servidor já conhece sua chave pública e você conhece a dele,");                        // 2 cena
+        mensagens.add("vocês combinarão uma chave decifradora.");
+        mensagens.add("Essa chave só precisará da sua chave privada e da chave pública do servidor. ");
         mensagens.add(" Da mesma forma, o servidor calcula a mesma chave do outro lado.");
         mensagens.add("Agora que chegamos a um denominador comum, é possível cifrar");                    // 3 cena
         mensagens.add("e descifrar as mensagens como quiser.");

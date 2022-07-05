@@ -26,8 +26,6 @@ public class LoginController {
     @FXML
     private TextField ServerNumber;
     @FXML
-    private TextField IPNumber;
-    @FXML
     private Label NumberLabel;
     @FXML
     private Label Response;

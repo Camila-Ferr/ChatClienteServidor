@@ -64,15 +64,6 @@ public class ClientSocket {
         return !out.checkError();
     }
 
-    public void closeC() throws ClienteErroException {
-        try {
-            out.close();
-            socket.close();
-        } catch (IOException e) {
-            throw new ClienteErroException(1);
-        }
-    }
-
     public BigInteger getPublic_key() {
         return public_key;
     }
@@ -92,7 +83,7 @@ public class ClientSocket {
                 msg = msg.concat(s);
             }
         }
-        return msg == null ? "" : msg;
+        return msg;
     }
 
     public String getMessage(int cod) throws IOException {

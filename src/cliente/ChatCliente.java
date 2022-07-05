@@ -6,7 +6,7 @@ import java.net.Socket;
 
 public class ChatCliente {
     private final String SERVER_ADRESS;
-    private static final int PORT_SERVIDOR = 3334;
+    private static final int PORT_SERVIDOR = 9000;
     public ClientSocket clientSocket;
 
     private String nickname;

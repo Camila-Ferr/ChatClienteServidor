@@ -58,7 +58,6 @@ public class ChatController implements Runnable {
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
                 scrollPane_chat.setVvalue((Double) newValue);
-                System.out.println(newValue);
             }
         });
 
@@ -114,7 +113,7 @@ public class ChatController implements Runnable {
         while (true) {
             try {
                 String msg = chatCliente.clientSocket.getMessage(1);
-                chatCliente.clientSocket.msgSend("ok");
+                System.out.println(msg);
                 Platform.runLater(new Runnable() {
                     @Override
                     public void run() {
@@ -123,13 +122,11 @@ public class ChatController implements Runnable {
                         hBox.setPadding(new Insets(5, 5, 5, 10));
 
                         Text text = new Text(msg);
-                        System.out.println(text);
                         TextFlow textFlow = new TextFlow(text);
                         text.setFont(Font.font("Roboto Slab", 16));
 
                         textFlow.setPadding(new Insets(5, 10, 5, 10));
                         vbox_messages.getChildren().add(textFlow);
-                        System.out.println(vbox_messages.getChildren());
                     }
                 });
             } catch (Exception e) {
