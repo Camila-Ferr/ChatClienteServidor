@@ -42,7 +42,6 @@ public class ChatController implements Runnable {
     @FXML
     private Label CliNickname;
     public ChatCliente chatCliente;
-    private boolean ChangeScene;
     private Thread thread;
 
 

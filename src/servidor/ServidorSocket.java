@@ -7,7 +7,6 @@ import java.io.*;
 import java.math.BigInteger;
 import java.net.Socket;
 import java.net.SocketAddress;
-import java.util.ArrayList;
 
 public class ServidorSocket {
     private final Socket socket;
