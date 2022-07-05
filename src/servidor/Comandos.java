@@ -8,7 +8,6 @@ public class Comandos {
     public static void sendMessageToAll(ServidorSocket sender, String msg, List<ServidorSocket> clients){
         for (ServidorSocket receptor: clients){
             if ((!receptor.getRemoteSocketAdress().equals(sender.getRemoteSocketAdress())) && (receptor.getSala() == sender.getSala())) {
-                System.out.println("aq");
                 receptor.sendMessage("from : " + sender.getClient_id() + "\n" + msg, '-');
             }
         }
