@@ -1,7 +1,6 @@
 package servidor;
 
 import java.math.BigInteger;
-import java.util.ArrayList;
 import java.util.Random;
 
 public class ServerCrypto {
@@ -34,47 +33,24 @@ public class ServerCrypto {
         return _base.modPow(privateKey, modulus);
     }
 
-    public ArrayList<Integer> Encode(String msg){
-        int codigo;
-        int inicio = Integer.parseInt(String.valueOf(this.inicio_alfabeto));
-      //  System.out.println(msg);
-        ArrayList<Integer> msgs = new ArrayList<Integer>();
-
-        for (int i=0; i<msg.length(); i++) {
-            codigo = (int)msg.charAt(i);
-            codigo = codigo + inicio;
-            msgs.add(codigo);
-        }
-        return msgs;
+    public String Encode(String msg) {
+        String msgCifrada = new BigInteger(msg.getBytes()).multiply(this.inicio_alfabeto).toString(16);
+        return msgCifrada;
     }
 
-    public String Desencode(ArrayList<Integer> msgs){
-        int codigo;
-        int inicio = Integer.parseInt(String.valueOf(this.inicio_alfabeto));
-        String msg = "";
-        char letra;
-        boolean comando = false;
-
-        for (Integer i : msgs) {
-            codigo = i - inicio;
-            letra = (char)codigo;
-            if (msg.equals("") && codigo == ((int) '*')){
-                comando = true;
-            }
-            msg = msg.concat(String.valueOf(letra));
-        }
-        return msg;
+    public String Desencode(String msgCifrada) {
+        return new String(new BigInteger(msgCifrada, 16).divide(this.inicio_alfabeto).toByteArray());
     }
 
     public BigInteger getPublic_key() {
         return public_key;
     }
 
-    public ArrayList<Integer> confirma_(BigInteger public_client){
+    public String confirma_(BigInteger public_client) {
         int numero = random.nextInt(999);
-        System.out.println("Numero enviado: " +numero);
-        this.inicio_alfabeto = public_client.modPow(this.private_key,BigInteger.valueOf(23));
-        System.out.println("inicio: " +inicio_alfabeto);
+        System.out.println("Numero enviado: " + numero);
+        this.inicio_alfabeto = public_client.modPow(this.private_key, BigInteger.valueOf(23));
+        System.out.println("inicio: " + inicio_alfabeto);
         return (Encode(String.valueOf(numero)));
 
     }

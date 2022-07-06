@@ -22,6 +22,7 @@
             <VBox prefHeight="770.0" prefWidth="76.0" styleClass="dark-gray-background" stylesheets="@../values/style.css" />
             <VBox prefHeight="770.0" prefWidth="272.0">
                <children>
+                  <HBox alignment="TOP_CENTER" layoutX="10.0" layoutY="110.0" prefHeight="34.0" prefWidth="258.0" />
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                      <children>
                         <Label prefHeight="40.0" prefWidth="160.0" text="Iniciar Login :" textFill="#fcfcfc">
@@ -29,26 +30,29 @@
                               <Font name="Roboto Slab Regular" size="23.0" />
                            </font>
                         </Label>
-                        <Button id="ButtonLoginInicializer" mnemonicParsing="false" opacity="0.0" prefHeight="35.0" prefWidth="40.0" text="Enviar">
+                        <ImageView fitHeight="61.0" fitWidth="76.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/icon-login.png" />
+                           </image>
+                           <cursor>
+                              <Cursor fx:constant="OPEN_HAND" />
+                           </cursor>
+                        </ImageView>
+                        <Button id="ButtonLoginInicializer" mnemonicParsing="false" onAction="#connect" opacity="0.0" prefHeight="35.0" prefWidth="40.0" text="Enviar">
                            <cursor>
                               <Cursor fx:constant="OPEN_HAND" />
                            </cursor>
                            <HBox.margin>
-                              <Insets right="-48.0" />
+                              <Insets left="-48.0" right="-25.0" />
                            </HBox.margin>
                         </Button>
-                        <ImageView fitHeight="61.0" fitWidth="76.0" onMouseClicked="#number" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../images/icon-login.png" />
-                           </image>
-                        </ImageView>
                      </children>
                   </HBox>
                   <HBox alignment="TOP_CENTER" prefHeight="184.0" prefWidth="261.0">
                      <children>
                         <VBox alignment="CENTER" prefHeight="184.0" prefWidth="260.0">
                            <children>
-                              <Label fx:id="NumberLabel" prefHeight="88.0" prefWidth="195.0" text="Numero do Servidor" textFill="#fcfcfc">
+                              <Label prefHeight="88.0" prefWidth="195.0" text="Numero do Servidor" textFill="#fcfcfc">
                                  <font>
                                     <Font name="Roboto Slab Regular" size="19.0" />
                                  </font>
@@ -62,7 +66,6 @@
                         </VBox>
                      </children>
                   </HBox>
-                  <HBox prefHeight="36.0" prefWidth="258.0" />
                   <HBox prefHeight="126.0" prefWidth="261.0">
                      <children>
                         <VBox alignment="CENTER" prefHeight="100.0" prefWidth="262.0">
@@ -95,6 +98,9 @@
                            </children>
                         </VBox>
                      </children>
+                     <padding>
+                        <Insets top="25.0" />
+                     </padding>
                   </HBox>
                </children>
             </VBox>
@@ -108,7 +114,7 @@
                <children>
                   <ImageView fitHeight="106.0" fitWidth="106.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../images/icon-servidor.png" />
+                        <Image url="@../images/icon-server.png" />
                      </image></ImageView>
                   <Pane prefHeight="150.0" prefWidth="58.0" />
                   <Label text="Servidor :">
@@ -121,7 +127,14 @@
             </HBox>
             <ScrollPane prefHeight="522.0" prefWidth="681.0">
               <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="519.0" prefWidth="704.0">
+                     <children>
+                        <Label fx:id="NumberLabel" layoutX="35.0" layoutY="45.0" prefHeight="47.0" prefWidth="105.0">
+                           <font>
+                              <Font name="Roboto Slab Regular" size="20.0" />
+                           </font>
+                        </Label>
+                     </children></AnchorPane>
               </content>
             </ScrollPane>
             <HBox alignment="CENTER" styleClass="white-ice-background" stylesheets="@../values/style.css" VBox.vgrow="ALWAYS">
@@ -139,7 +152,7 @@
                         <Insets right="-80.0" />
                      </HBox.margin>
                   </ImageView>
-                  <Button id="ButtonConnectServer" fx:id="Connect" mnemonicParsing="false" onAction="#changeSceneButtonPushed" opacity="0.0" prefHeight="58.0" prefWidth="67.0" text="Entrar">
+                  <Button id="ButtonConnectServer" fx:id="Connect" mnemonicParsing="false" onAction="#changeSceneToChat" opacity="0.0" prefHeight="58.0" prefWidth="67.0" text="Entrar">
                      <cursor>
                         <Cursor fx:constant="OPEN_HAND" />
                      </cursor>

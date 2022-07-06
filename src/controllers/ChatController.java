@@ -1,6 +1,6 @@
 package controllers;
 
-import Cliente.ChatCliente;
+import cliente.ChatCliente;
 
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
@@ -21,14 +21,13 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Text;
-import javafx.scene.text.TextFlow;
+import javafx.scene.text.*;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.URL;
 
-public class ChatController {
-
+public class ChatController implements Runnable {
     @FXML
     private Button button_send;
     @FXML
@@ -40,61 +39,108 @@ public class ChatController {
     @FXML
     private Label CliNickname;
     public ChatCliente chatCliente;
+    private Thread thread;
 
-    public void initialize() {
+
+
+    public void initialize() throws IOException {
         this.chatCliente = LoginController.chatCliente;
         CliNickname.setText(chatCliente.getNickname());
-
+        if (Thread.activeCount() == 5) {
+            this.thread = new Thread(this);
+            this.thread.start();
+        }
         vbox_messages.heightProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
                 scrollPane_chat.setVvalue((Double) newValue);
             }
         });
-        // Youtube 15:05
-        // Método do servidor em que recebe a mensagem do usuário
-        // e ele recebe vbox_messages como entrada (servidor.recebemensagem(vbox_messages))
 
         button_send.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 String messageToSend = textField_client.getText();
+                boolean check = sendMsg(messageToSend);
+                if (check) {
+                    if (!messageToSend.isEmpty()) {
+                        HBox hBox = new HBox();
+                        hBox.setAlignment(Pos.CENTER_RIGHT);
+                        hBox.setPadding(new Insets(5, 5, 5, 10));
 
-                if (!messageToSend.isEmpty()) {
-                    HBox hBox = new HBox();
-                    hBox.setAlignment(Pos.CENTER_RIGHT);
-                    hBox.setPadding(new Insets(5, 5, 5, 10));
+                        Text text = new Text(messageToSend);
+                        TextFlow textFlow = new TextFlow(text);
+                        text.setFont(Font.font("Roboto Slab", 16));
 
-                    Text text = new Text(messageToSend);
-                    TextFlow textFlow = new TextFlow(text);
+                        textFlow.setStyle("-fx-color: #E5E5E0;" +
+                                "-fx-background-color: #12B886;" +
+                                "-fx-background-radius: 20px");
 
-                    textFlow.setStyle("-fx-color: rgba(239, 242, 255);" +
-                                      "-fx-background-color: #12B886;"  +
-                                      "-fx-background-radius: 20px");
+                        textFlow.setPadding(new Insets(5, 10, 5, 10));
+                        text.setFill(Color.color(0.934, 0.945, 0.996));
+                        hBox.getChildren().add(textFlow);
+                        vbox_messages.getChildren().add(hBox);
+                    }
 
-                    textFlow.setPadding(new Insets(5, 10, 5, 10));
-                    text.setFill(Color.color(0.934, 0.945, 0.996));
-
-                    hBox.getChildren().add(textFlow);
-                    vbox_messages.getChildren().add(hBox);
-
-                    // Youtube: 20:20
-                    // A mesma coisa que em cima, porém passando dessa vez não
-                    // o local da mensagem mas sim a mensagem em si
-                    // servidor.recebemensagem(messageToSend)
 
                     textField_client.clear();
                 }
             }
         });
+
     }
 
-    // Metódo que muda a cena
-    public void changeSceneButtonPushed(ActionEvent event) throws Exception {
-        URL login = getClass().getResource("/views/SceneLogin.fxml");
-        if (login == null) return;
+    public boolean sendMsg(String messageToSend) {
+        boolean check;
+        if (messageToSend.equals("--*")) {
+            messageToSend = textField_client.getText();
+            check = chatCliente.clientSocket.msgSend("*".concat(messageToSend));
+        } else {
+            check = chatCliente.clientSocket.msgSend(messageToSend);
+        }
+        if (messageToSend.equals("*exit")) {
+            return false;
+        }
+        return check;
+    }
 
-        Parent chatParent = FXMLLoader.load(login);
+    @Override
+    public void run() {
+        while (true) {
+            try {
+                String msg = chatCliente.clientSocket.getMessage(1);
+                System.out.println(msg);
+                Platform.runLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        HBox hBox = new HBox();
+                        hBox.setAlignment(Pos.CENTER_LEFT);
+                        hBox.setPadding(new Insets(5, 5, 5, 10));
+
+                        Text text = new Text(msg);
+                        TextFlow textFlow = new TextFlow(text);
+                        text.setFont(Font.font("Roboto Slab", 16));
+
+                        textFlow.setPadding(new Insets(5, 10, 5, 10));
+                        vbox_messages.getChildren().add(textFlow);
+                    }
+                });
+            } catch (Exception e) {
+                System.out.println("Conexão fechada.");
+                break;
+            }
+        }
+    }
+    public void help(){
+        sendMsg("*help");
+    }
+    // Metódos que mudam a cena
+    public void changeSceneToCrypto(ActionEvent event) throws Exception {
+
+        URL crypto = getClass().getResource("/views/SceneCrypto.fxml");
+        if (crypto == null) return;
+
+        Parent chatParent = FXMLLoader.load(crypto);
         Scene chatScene = new Scene(chatParent);
 
         // Pega a informção da cena
@@ -104,20 +150,17 @@ public class ChatController {
         window.show();
     }
 
-    public static void addLabel(String messageFromClient, VBox vbox) {
-        HBox hBox = new HBox();
-        hBox.setAlignment(Pos.CENTER_LEFT);
-        hBox.setPadding(new Insets(5, 5, 5, 10));
+    public void changeSceneToRooms(ActionEvent event) throws Exception {
+        URL rooms = getClass().getResource("/views/SceneRooms.fxml");
+        if (rooms == null) return;
 
-        Text text = new Text(messageFromClient);
-        TextFlow textFlow = new TextFlow(text);
-        textFlow.setStyle("-fx-background-color: rgba(233, 233, 235);" +
-                "-fx-background-radius: 20px");
+        Parent chatParent = FXMLLoader.load(rooms);
+        Scene chatScene = new Scene(chatParent);
 
-        textFlow.setPadding(new Insets(5,10, 5, 10));
-        hBox.getChildren().add(textFlow);
+        // Pega a informção da cena
+        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
-        // Youtube: 24:50
-        // Cria um Runnable aqui
+        window.setScene(chatScene);
+        window.show();
     }
 }

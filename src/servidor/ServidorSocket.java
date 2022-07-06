@@ -1,13 +1,12 @@
 package servidor;
 
 
-import Exceptions.ServidorErroException;
+import exceptions.ServidorErroException;
 
 import java.io.*;
 import java.math.BigInteger;
 import java.net.Socket;
 import java.net.SocketAddress;
-import java.util.ArrayList;
 
 public class ServidorSocket {
     private final Socket socket;
@@ -17,13 +16,12 @@ public class ServidorSocket {
 
     final ServerCrypto keys;
 
-    private Sala sala;
+    private int sala;
 
     private String client_id = null;
 
     public ServidorSocket(Socket socket) throws IOException {
         this.socket = socket;
-        System.out.println("Cliente " + socket.getRemoteSocketAddress());
         this.out = new PrintWriter(socket.getOutputStream(),true);
         this.in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
         keys = new ServerCrypto(BigInteger.valueOf(5), BigInteger.valueOf(23));
@@ -33,8 +31,8 @@ public class ServidorSocket {
     public boolean confirma_chaves() throws IOException {
 
         Long msg = Long.parseLong(in.readLine());
-        ArrayList<Integer> msgs = keys.confirma_(BigInteger.valueOf(msg));
-        sendMessage(msgs,'*');
+        String msgs = keys.confirma_(BigInteger.valueOf(msg));
+        sendMessage(msgs,'*',1);
         out.println(keys.getPublic_key());
         String verifica = keys.Desencode(getMessage());
         String original = keys.Desencode(msgs);
@@ -42,27 +40,21 @@ public class ServidorSocket {
     }
 
 
-    public boolean sendMessage(ArrayList<Integer> msg, char ultimo_caracter) {
-
-        for (int i : msg) {
-            out.println(i);
-        }
-        out.println(ultimo_caracter);
-        return !out.checkError();
-    }
-
     public boolean sendMessage(String msg, char ultimo_caracter) {
-        ArrayList<Integer> cripto = keys.Encode(msg);
-        for (int i : cripto) {
-            out.println(i);
-        }
+
+        String criptografada = keys.Encode(msg);
+        out.println(criptografada);
+        out.println(ultimo_caracter);
+        return !out.checkError();
+    }
+    public boolean sendMessage(String msg, char ultimo_caracter, int cod) {
+        out.println(msg);
         out.println(ultimo_caracter);
         return !out.checkError();
     }
 
-    public ArrayList<Integer> getMessage() throws IOException {
-
-        ArrayList<Integer> msg = new ArrayList<>();
+    public String getMessage() throws IOException {
+        String msg = " ";
         while (true) {
             String s = in.readLine();
             if (s.equals("-")){
@@ -70,7 +62,7 @@ public class ServidorSocket {
                 break;
             }
             else {
-                msg.add(Integer.valueOf(s));
+                msg = s;
             }
         }
         return msg;
@@ -79,9 +71,14 @@ public class ServidorSocket {
     public SocketAddress getRemoteSocketAdress() {
         return socket.getRemoteSocketAddress();
     }
-    public Sala getSala(){
+    public int getSala(){
         return sala;
     }
+
+    public void setSala(int sala) {
+        this.sala = sala;
+    }
+
     public String getClient_id(){
         return client_id;
     }
@@ -89,9 +86,6 @@ public class ServidorSocket {
         this.client_id = client_id;
     }
 
-    public void setSala(Sala sala) {
-        this.sala = sala;
-    }
 
     public void closeS() throws ServidorErroException {
         try {
