@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ChatController">
+   <left>
+      <HBox prefHeight="702.0" prefWidth="262.0" styleClass="gray-background" stylesheets="@../values/style.css" BorderPane.alignment="CENTER">
+         <BorderPane.margin>
+            <Insets />
+         </BorderPane.margin>
+         <children>
+            <VBox alignment="CENTER" prefHeight="702.0" prefWidth="111.0" styleClass="dark-gray-background" stylesheets="@../values/style.css">
+               <children>
+                  <Button id="ButtonCrypto" fx:id="cryptoButton" mnemonicParsing="false" onAction="#changeSceneToCrypto" opacity="0.0" pickOnBounds="false" prefHeight="39.0" prefWidth="40.0" text="Crypto">
+                     <cursor>
+                        <Cursor fx:constant="OPEN_HAND" />
+                     </cursor>
+                     <VBox.margin>
+                        <Insets bottom="-40.0" />
+                     </VBox.margin>
+                  </Button>
+                  <ImageView fitHeight="40.0" fitWidth="40.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/icon-cyptography.png" />
+                     </image>
+                     <VBox.margin>
+                        <Insets left="15.0" />
+                     </VBox.margin>
+                  </ImageView>
+                  <Button id="ButtonRooms" fx:id="roomButton" mnemonicParsing="false" onAction="#changeSceneToRooms" opacity="0.0" prefHeight="28.0" prefWidth="40.0" text="Rooms">
+                     <VBox.margin>
+                        <Insets bottom="-70.0" top="50.0" />
+                     </VBox.margin>
+                     <cursor>
+                        <Cursor fx:constant="OPEN_HAND" />
+                     </cursor>
+                  </Button>
+                  <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="24.0" layoutY="341.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/icon-rooms.png" />
+                     </image>
+                     <VBox.margin>
+                        <Insets top="40.0" />
+                     </VBox.margin>
+                  </ImageView>
+                  <Button id="ButtonHelp" fx:id="helpButton" mnemonicParsing="false" onAction="#help" opacity="0.0" prefHeight="30.0" prefWidth="40.0" text="Help">
+                     <VBox.margin>
+                        <Insets bottom="-75.0" top="57.0" />
+                     </VBox.margin>
+                     <cursor>
+                        <Cursor fx:constant="OPEN_HAND" />
+                     </cursor>
+                  </Button>
+                  <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="24.0" layoutY="381.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/icon-help.png" />
+                     </image>
+                     <VBox.margin>
+                        <Insets top="40.0" />
+                     </VBox.margin>
+                  </ImageView>
+               </children></VBox>
+            <VBox prefHeight="702.0" prefWidth="272.0" />
+         </children>
+      </HBox>
+   </left>
+   <center>
+      <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+         <children>
+            <HBox alignment="CENTER_LEFT" prefHeight="99.0" prefWidth="709.0" styleClass="white-ice-background" stylesheets="@../values/style.css">
+               <children>
+                  <Label fx:id="CliNickname" prefHeight="33.0" prefWidth="97.0" text="Cliente" textFill="#9da7a7">
+                     <HBox.margin>
+                        <Insets left="20.0" />
+                     </HBox.margin>
+                     <font>
+                        <Font name="Roboto Slab Regular" size="24.0" />
+                     </font>
+                  </Label>
+                  <Circle fill="#50c984" radius="4.0" stroke="BLACK" strokeType="INSIDE" />
+                  <Label prefHeight="20.0" prefWidth="63.0" text="Online" textFill="#9da7a7">
+                     <font>
+                        <Font name="Roboto Slab Regular" size="16.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="5.0" />
+                     </HBox.margin>
+                  </Label>
+               </children>
+            </HBox>
+            <ScrollPane id="ScrollPane_chat" fx:id="scrollPane_chat" prefHeight="578.0" prefWidth="709.0" styleClass="transparent-background" stylesheets="@../values/style.css">
+               <content>
+                  <HBox prefHeight="575.0" prefWidth="761.0">
+                     <children>
+                        <VBox fx:id="vbox_messages" prefHeight="575.0" prefWidth="758.0" />
+                     </children>
+                  </HBox>
+               </content></ScrollPane>
+            <HBox prefHeight="100.0" prefWidth="200.0" styleClass="gray-background" stylesheets="@../values/style.css">
+               <children>
+                  <TextField id="TextField_client" fx:id="textField_client" opacity="0.81" prefHeight="48.0" prefWidth="514.0">
+                     <HBox.margin>
+                        <Insets left="20.0" top="15.0" />
+                     </HBox.margin>
+                     <font>
+                        <Font name="Roboto Slab Regular" size="16.0" />
+                     </font>
+                  </TextField>
+                  <Button id="Button_send" fx:id="button_send" mnemonicParsing="false" prefHeight="38.0" prefWidth="91.0" text="Enviar">
+                     <font>
+                        <Font name="Roboto Slab Regular" size="16.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="25.0" top="20.0" />
+                     </HBox.margin>
+                     <cursor>
+                        <Cursor fx:constant="OPEN_HAND" />
+                     </cursor>
+                  </Button>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </center>
+</BorderPane>
